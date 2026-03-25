@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import Navbar from "../components/Navbar.astro";
 ---
 
 <html lang="es">
@@ -11,13 +12,17 @@ import Header from "../components/Header.astro";
     <meta name="generator" content={Astro.generator} />
     <title>{Astro.props.title}</title>
     <style>
+      body {
+        position: relative;
+        padding-block-start: 1.5rem;
+        padding-block-end: 6rem;
+      }
+
       .main-container {
         max-width: 40rem;
         background: var(--semantic-on-surface-low);
         border-radius: var(--radii-large);
         margin: 0 auto;
-        margin-block-start: 1.5rem;
-        margin-block-end: 6rem;
         overflow: clip;
       }
 
@@ -25,6 +30,13 @@ import Header from "../components/Header.astro";
         padding: 2rem;
         padding-block-start: 1rem;
         gap: 2rem;
+      }
+
+      #navbar {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
       }
     </style>
   </head>
@@ -36,5 +48,8 @@ import Header from "../components/Header.astro";
         <slot />
       </div>
     </main>
+    <div id="navbar">
+      <Navbar />
+    </div>
   </body>
 </html>

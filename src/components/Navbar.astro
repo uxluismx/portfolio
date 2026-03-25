@@ -1,0 +1,19 @@
+---
+import NavbarLink from "./NavbarLink.astro";
+---
+
+<style>
+  .navbar {
+    width: fit-content;
+    background: var(--bw-white);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radii-full);
+  }
+</style>
+
+<nav class="flex-row navbar stroke-xsmall shadow-small">
+  <NavbarLink href="#proyectos" text="Proyectos" />
+  <NavbarLink href="#mi-profesion" text="Mi profesión" />
+  <NavbarLink href="#sobre-mi" text="Sobre mí" />
+</nav>

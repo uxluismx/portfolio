@@ -1,0 +1,12 @@
+---
+import Button from "./Button.astro";
+---
+
+<div class="navbar-container">
+  <Button
+    size="SM"
+    type="Link"
+    text={Astro.props.text}
+    href={Astro.props.href}
+  />
+</div>
