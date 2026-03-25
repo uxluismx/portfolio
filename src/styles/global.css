@@ -3,13 +3,14 @@
 
 /* Reseteo básico */
 * {
-    font-family: sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    font-family: sans-serif;
     font-synthesis: none;
+    font-size: 16px;
 }
 
 body {
@@ -26,7 +27,6 @@ h5,
 h6 {
     font-family: 'Sora', sans-serif;
 }
-
 
 :root {
     /* light - Primitive Colors */
@@ -475,49 +475,74 @@ h6 {
     font-family: var(--font-family-body);
     font-weight: var(--weight-medium);
     line-height: 150%;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
 }
 
 .body-large {
     font-size: 1.125rem;
     letter-spacing: -0.0225rem;
-
-    &.bold {
-        font-weight: var(--weight-bold);
-    }
 }
 
 .body-normal {
     font-size: 1rem;
     letter-spacing: -0.02rem;
-
-    &.bold {
-        font-weight: var(--weight-bold);
-    }
 }
 
 .body-small {
     font-size: 0.875rem;
     letter-spacing: -0.0175rem;
-
-    &.bold {
-        font-weight: var(--weight-bold);
-    }
 }
 
 .body-xsmall {
     font-size: 0.75rem;
     letter-spacing: -0.0075rem;
-
-    &.bold {
-        font-weight: var(--weight-bold);
-    }
 }
 
 .body-mini {
     font-size: 0.625rem;
     letter-spacing: -0.00625rem;
+}
 
-    &.bold {
-        font-weight: var(--weight-bold);
-    }
+/* Definición de Shadows */
+.shadow-small {
+    box-shadow:
+        2px 2px 4px 0 var(--grayOpacity-100),
+        1px 1px 2px 0 var(--grayOpacity-100);
+}
+
+.shadow-normal {
+    box-shadow:
+        2px 2px 6px 0 var(--grayOpacity-200),
+        1px 1px 2px 0 var(--grayOpacity-100);
+}
+
+.shadow-medium {
+    box-shadow:
+        3px 3px 10px -2px var(--grayOpacity-300),
+        4px 4px 12px -4px var(--grayOpacity-200),
+        2px 2px 4px 0 var(--grayOpacity-100);
+}
+
+/* Definición de Strokes */
+.stroke-xsmall {
+    border: var(--stroke-x-small) solid var(--semantic-border-low);
+}
+
+.stroke-small {
+    border: var(--stroke-small) solid var(--semantic-border-low);
+}
+
+.stroke-medium {
+    border: var(--stroke-medium) solid var(--semantic-border-low);
+}
+
+.stroke-large {
+    border: var(--stroke-large) solid var(--semantic-border-low);
+}
+
+.stroke-xlarge {
+    border: var(--stroke-x-large) solid var(--semantic-border-low);
 }
