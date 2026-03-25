@@ -1,0 +1,523 @@
+/* Importación de fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=IBM+Plex+Serif:ital,wght@1,700&family=Sora:wght@600&display=swap');
+
+/* Reseteo básico */
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-synthesis: none;
+}
+
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--semantic-surface);
+    color: var(--semantic-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Sora', sans-serif;
+}
+
+
+:root {
+    /* light - Primitive Colors */
+    --gray-surface-50: hsl(240 20% 97%);
+    --gray-surface-100: hsl(240 20% 94%);
+    --gray-surface-200: hsl(240 20% 91%);
+    --gray-surface-300: hsl(235 18% 88%);
+    --gray-surface-400: hsl(231 18% 85%);
+    --gray-surface-500: hsl(233 17% 82%);
+    --gray-surface-600: hsl(227 18% 79%);
+    --gray-surface-700: hsl(226 17% 76%);
+    --gray-surface-800: hsl(227 17% 73%);
+    --gray-surface-900: hsl(223 16% 70%);
+
+    --gray-on-surface-50: hsl(225 14% 56%);
+    --gray-on-surface-100: hsl(224 15% 51%);
+    --gray-on-surface-200: hsl(223 16% 46%);
+    --gray-on-surface-300: hsl(222 17% 42%);
+    --gray-on-surface-400: hsl(221 19% 37%);
+    --gray-on-surface-500: hsl(221 19% 33%);
+    --gray-on-surface-600: hsl(220 21% 28%);
+    --gray-on-surface-700: hsl(219 22% 23%);
+    --gray-on-surface-800: hsl(220 22% 19%);
+    --gray-on-surface-900: hsl(219 24% 14%);
+
+    --bw-alternate: hsl(0 0 100%);
+    --bw-black: hsl(0 0 0%);
+    --bw-white: hsl(0 0 100%);
+
+    --blue-50: hsl(218 79% 95%);
+    --blue-100: hsl(222 84% 85%);
+    --blue-200: hsl(221 82% 76%);
+    --blue-300: hsl(221 84% 66%);
+    --blue-400: hsl(222 85% 57%);
+    --blue-500: hsl(222 84% 47%);
+    --blue-600: hsl(222 85% 38%);
+    --blue-700: hsl(221 86% 28%);
+    --blue-800: hsl(222 88% 19%);
+    --blue-900: hsl(223 84% 10%);
+
+    --emerald-50: hsl(152 81% 94%);
+    --emerald-100: hsl(152 83% 69%);
+    --emerald-200: hsl(152 84% 47%);
+    --emerald-300: hsl(152 84% 40%);
+    --emerald-400: hsl(152 84% 34%);
+    --emerald-500: hsl(152 85% 28%);
+    --emerald-600: hsl(152 86% 22%);
+    --emerald-700: hsl(152 86% 16%);
+    --emerald-800: hsl(152 86% 11%);
+    --emerald-900: hsl(152 87% 6%);
+
+    --orange-50: hsl(23 91% 95%);
+    --orange-100: hsl(24 87% 85%);
+    --orange-200: hsl(24 88% 73%);
+    --orange-300: hsl(24 88% 61%);
+    --orange-400: hsl(24 88% 48%);
+    --orange-500: hsl(24 87% 40%);
+    --orange-600: hsl(24 87% 33%);
+    --orange-700: hsl(24 87% 25%);
+    --orange-800: hsl(24 87% 18%);
+    --orange-900: hsl(23 86% 11%);
+
+    --purple-50: hsl(258 71% 95%);
+    --purple-100: hsl(260 77% 86%);
+    --purple-200: hsl(258 80% 78%);
+    --purple-300: hsl(259 79% 70%);
+    --purple-400: hsl(259 80% 62%);
+    --purple-500: hsl(258 81% 54%);
+    --purple-600: hsl(258 80% 44%);
+    --purple-700: hsl(258 80% 32%);
+    --purple-800: hsl(258 81% 21%);
+    --purple-900: hsl(260 88% 10%);
+
+    --red-50: hsl(348 71% 96%);
+    --red-100: hsl(350 67% 88%);
+    --red-200: hsl(349 67% 80%);
+    --red-300: hsl(348 68% 72%);
+    --red-400: hsl(348 68% 62%);
+    --red-500: hsl(348 68% 50%);
+    --red-600: hsl(348 68% 40%);
+    --red-700: hsl(348 68% 31%);
+    --red-800: hsl(348 68% 22%);
+    --red-900: hsl(348 67% 13%);
+
+    --gray-blue-50: hsl(210 25% 98%);
+    --gray-blue-100: hsl(228 20% 95%);
+    --gray-blue-200: hsl(220 18% 90%);
+    --gray-blue-300: hsl(223 16% 83%);
+    --gray-blue-400: hsl(225 16% 65%);
+    --gray-blue-500: hsl(226 16% 47%);
+    --gray-blue-600: hsl(226 16% 38%);
+    --gray-blue-700: hsl(225 16% 29%);
+    --gray-blue-800: hsl(229 16% 20%);
+    --gray-blue-900: hsl(222 16% 13%);
+
+    --gray-emerald-50: hsl(160 12% 95%);
+    --gray-emerald-100: hsl(156 14% 93%);
+    --gray-emerald-200: hsl(153 12% 86%);
+    --gray-emerald-300: hsl(154 12% 74%);
+    --gray-emerald-400: hsl(155 12% 58%);
+    --gray-emerald-500: hsl(153 12% 40%);
+    --gray-emerald-600: hsl(152 12% 28%);
+    --gray-emerald-700: hsl(152 13% 19%);
+    --gray-emerald-800: hsl(156 14% 15%);
+    --gray-emerald-900: hsl(153 13% 13%);
+
+    --gray-orange-50: hsl(20 13% 95%);
+    --gray-orange-100: hsl(24 14% 93%);
+    --gray-orange-200: hsl(27 13% 86%);
+    --gray-orange-300: hsl(24 12% 75%);
+    --gray-orange-400: hsl(24 12% 61%);
+    --gray-orange-500: hsl(23 12% 44%);
+    --gray-orange-600: hsl(22 12% 30%);
+    --gray-orange-700: hsl(21 13% 22%);
+    --gray-orange-800: hsl(27 13% 16%);
+    --gray-orange-900: hsl(27 12% 15%);
+
+    --gray-purple-50: hsl(280 11% 95%);
+    --gray-purple-100: hsl(270 11% 93%);
+    --gray-purple-200: hsl(266 10% 86%);
+    --gray-purple-300: hsl(261 12% 76%);
+    --gray-purple-400: hsl(259 12% 63%);
+    --gray-purple-500: hsl(257 12% 47%);
+    --gray-purple-600: hsl(258 12% 32%);
+    --gray-purple-700: hsl(258 11% 23%);
+    --gray-purple-800: hsl(256 13% 17%);
+    --gray-purple-900: hsl(258 13% 15%);
+
+    --gray-red-50: hsl(340 11% 95%);
+    --gray-red-100: hsl(348 14% 93%);
+    --gray-red-200: hsl(347 13% 86%);
+    --gray-red-300: hsl(345 13% 76%);
+    --gray-red-400: hsl(348 13% 62%);
+    --gray-red-500: hsl(347 12% 45%);
+    --gray-red-600: hsl(350 11% 31%);
+    --gray-red-700: hsl(346 12% 22%);
+    --gray-red-800: hsl(348 12% 16%);
+    --gray-red-900: hsl(347 12% 15%);
+
+    --gray-opacity-50: hsl(240 20% 98% / 0.05);
+    --gray-opacity-100: hsl(226 27% 90% / 0.24);
+    --gray-opacity-200: hsl(227 26% 83% / 0.43);
+    --gray-opacity-300: hsl(227 25% 75% / 0.53);
+    --gray-opacity-400: hsl(227 22% 68% / 0.58);
+    --gray-opacity-500: hsl(227 21% 60% / 0.62);
+    --gray-opacity-600: hsl(227 20% 53% / 0.67);
+    --gray-opacity-700: hsl(227 22% 45% / 0.71);
+    --gray-opacity-800: hsl(228 28% 38% / 0.76);
+    --gray-opacity-900: hsl(227 27% 30% / 0.81);
+
+    /* Light - Semantic Colors */
+    --semantic-border-high: var(--gray-surface-400);
+    --semantic-border-low: var(--gray-surface-200);
+    --semantic-border-medium: var(--gray-surface-300);
+    --semantic-on-surface-high: var(--b&w-white);
+    --semantic-on-surface-low: var(--b&w-white);
+    --semantic-on-surface-medium: var(--b&w-white);
+    --semantic-primary: var(--gray-on-surface-800);
+    --semantic-quaternary: var(--gray-on-surface-200);
+    --semantic-secondary: var(--gray-on-surface-600);
+    --semantic-surface: var(--gray-surface-50);
+    --semantic-surface-alt-high: var(--gray-surface-300);
+    --semantic-surface-alt-low: var(--gray-surface-100);
+    --semantic-surface-alt-medium: var(--gray-surface-200);
+    --semantic-tertiary: var(--gray-on-surface-400);
+    --semantic-zero: var(--gray-on-surface-900);
+
+    /* Typography */
+    /* Weights */
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-bold-italic: "Bold Italic";
+
+    /* Fonts */
+    --font-family-display: "Sora";
+    --font-family-accent: "IBM Plex Serif";
+    --font-family-body: "Geist";
+
+    /* Borders */
+    /* Radii */
+    --radii-x-small: 0.5rem;
+    --radii-small: 0.75rem;
+    --radii-medium: 1rem;
+    --radii-x-medium: 1.25rem;
+    --radii-large: 1.5rem;
+    --radii-x-large: 2.5rem;
+    --radii-full: 62.4375rem;
+
+    /* Strokes */
+    --stroke-x-small: 0.0313rem;
+    --stroke-small: 0.0625rem;
+    --stroke-medium: 0.0938rem;
+    --stroke-large: 0.125rem;
+    --stroke-x-large: 0.1875rem;
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gray-surface-50: hsl(233 22% 8%);
+        --gray-surface-100: hsl(229 21% 10%);
+        --gray-surface-200: hsl(231 21% 13%);
+        --gray-surface-300: hsl(229 21% 15%);
+        --gray-surface-400: hsl(229 19% 18%);
+        --gray-surface-500: hsl(224 18% 20%);
+        --gray-surface-600: hsl(223 18% 23%);
+        --gray-surface-700: hsl(221 17% 25%);
+        --gray-surface-800: hsl(220 17% 27%);
+        --gray-surface-900: hsl(218 16% 30%);
+
+        --gray-on-surface-50: hsl(222 16% 56%);
+        --gray-on-surface-100: hsl(222 18% 60%);
+        --gray-on-surface-200: hsl(222 20% 64%);
+        --gray-on-surface-300: hsl(223 21% 68%);
+        --gray-on-surface-400: hsl(224 23% 72%);
+        --gray-on-surface-500: hsl(224 25% 76%);
+        --gray-on-surface-600: hsl(225 27% 80%);
+        --gray-on-surface-700: hsl(227 28% 84%);
+        --gray-on-surface-800: hsl(224 31% 88%);
+        --gray-on-surface-900: hsl(226 32% 92%);
+
+        --bw-alternate: hsl(0 0 0%);
+        --bw-black: hsl(0 0 0%);
+        --bw-white: hsl(0 0 100%);
+
+        --blue-50: hsl(222 68% 10%);
+        --blue-100: hsl(222 67% 19%);
+        --blue-200: hsl(221 68% 29%);
+        --blue-300: hsl(221 68% 39%);
+        --blue-400: hsl(221 68% 50%);
+        --blue-500: hsl(224 68% 60%);
+        --blue-600: hsl(224 68% 68%);
+        --blue-700: hsl(224 68% 76%);
+        --blue-800: hsl(224 68% 84%);
+        --blue-900: hsl(224 69% 92%);
+
+        --emerald-50: hsl(153 66% 10%);
+        --emerald-100: hsl(153 67% 15%);
+        --emerald-200: hsl(153 68% 21%);
+        --emerald-300: hsl(154 67% 26%);
+        --emerald-400: hsl(154 67% 32%);
+        --emerald-500: hsl(153 68% 39%);
+        --emerald-600: hsl(154 68% 45%);
+        --emerald-700: hsl(154 68% 55%);
+        --emerald-800: hsl(154 68% 75%);
+        --emerald-900: hsl(154 68% 93%);
+
+        --orange-50: hsl(25 65% 10%);
+        --orange-100: hsl(24 64% 17%);
+        --orange-200: hsl(24 65% 25%);
+        --orange-300: hsl(24 64% 33%);
+        --orange-400: hsl(24 64% 41%);
+        --orange-500: hsl(24 64% 49%);
+        --orange-600: hsl(24 64% 61%);
+        --orange-700: hsl(24 64% 72%);
+        --orange-800: hsl(24 64% 83%);
+        --orange-900: hsl(23 66% 93%);
+
+        --purple-50: hsl(259 68% 11%);
+        --purple-100: hsl(258 67% 23%);
+        --purple-200: hsl(258 67% 35%);
+        --purple-300: hsl(258 68% 47%);
+        --purple-400: hsl(258 67% 57%);
+        --purple-500: hsl(258 68% 65%);
+        --purple-600: hsl(259 67% 72%);
+        --purple-700: hsl(258 67% 79%);
+        --purple-800: hsl(259 67% 86%);
+        --purple-900: hsl(258 66% 93%);
+
+        --red-50: hsl(348 55% 10%);
+        --red-100: hsl(348 55% 19%);
+        --red-200: hsl(347 56% 28%);
+        --red-300: hsl(348 56% 38%);
+        --red-400: hsl(347 56% 48%);
+        --red-500: hsl(348 56% 59%);
+        --red-600: hsl(349 56% 68%);
+        --red-700: hsl(351 56% 77%);
+        --red-800: hsl(352 56% 85%);
+        --red-900: hsl(351 56% 93%);
+
+        --gray-blue-50: hsl(228 16% 6%);
+        --gray-blue-100: hsl(223 16% 9%);
+        --gray-blue-200: hsl(222 16% 15%);
+        --gray-blue-300: hsl(226 16% 26%);
+        --gray-blue-400: hsl(224 16% 41%);
+        --gray-blue-500: hsl(225 16% 57%);
+        --gray-blue-600: hsl(225 16% 71%);
+        --gray-blue-700: hsl(225 16% 80%);
+        --gray-blue-800: hsl(224 18% 88%);
+        --gray-blue-900: hsl(220 19% 94%);
+
+        --gray-emerald-50: hsl(150 13% 6%);
+        --gray-emerald-100: hsl(160 14% 8%);
+        --gray-emerald-200: hsl(153 13% 14%);
+        --gray-emerald-300: hsl(154 14% 23%);
+        --gray-emerald-400: hsl(153 13% 36%);
+        --gray-emerald-500: hsl(153 12% 50%);
+        --gray-emerald-600: hsl(151 12% 66%);
+        --gray-emerald-700: hsl(157 12% 79%);
+        --gray-emerald-800: hsl(154 12% 88%);
+        --gray-emerald-900: hsl(156 12% 92%);
+
+        --gray-orange-50: hsl(15 12% 7%);
+        --gray-orange-100: hsl(20 13% 9%);
+        --gray-orange-200: hsl(20 12% 15%);
+        --gray-orange-300: hsl(22 13% 25%);
+        --gray-orange-400: hsl(23 12% 38%);
+        --gray-orange-500: hsl(21 12% 54%);
+        --gray-orange-600: hsl(19 12% 68%);
+        --gray-orange-700: hsl(16 11% 81%);
+        --gray-orange-800: hsl(26 13% 89%);
+        --gray-orange-900: hsl(15 10% 92%);
+
+        --gray-purple-50: hsl(264 14% 7%);
+        --gray-purple-100: hsl(260 12% 10%);
+        --gray-purple-200: hsl(258 12% 16%);
+        --gray-purple-300: hsl(259 12% 27%);
+        --gray-purple-400: hsl(259 12% 41%);
+        --gray-purple-500: hsl(256 12% 56%);
+        --gray-purple-600: hsl(260 12% 70%);
+        --gray-purple-700: hsl(262 12% 81%);
+        --gray-purple-800: hsl(266 12% 89%);
+        --gray-purple-900: hsl(264 12% 92%);
+
+        --gray-red-50: hsl(345 11% 7%);
+        --gray-red-100: hsl(340 12% 9%);
+        --gray-red-200: hsl(347 11% 16%);
+        --gray-red-300: hsl(345 12% 26%);
+        --gray-red-400: hsl(347 11% 40%);
+        --gray-red-500: hsl(345 12% 55%);
+        --gray-red-600: hsl(348 13% 69%);
+        --gray-red-700: hsl(351 13% 81%);
+        --gray-red-800: hsl(353 14% 89%);
+        --gray-red-900: hsl(350 14% 92%);
+
+        --gray-opacity-50: hsl(216 24% 4% / 0.7);
+        --gray-opacity-100: hsl(216 24% 4% / 0.67);
+        --gray-opacity-200: hsl(216 24% 4% / 0.64);
+        --gray-opacity-300: hsl(216 24% 4% / 0.6);
+        --gray-opacity-400: hsl(216 24% 4% / 0.55);
+        --gray-opacity-500: hsl(216 24% 4% / 0.52);
+        --gray-opacity-600: hsl(216 24% 4% / 0.48);
+        --gray-opacity-700: hsl(216 24% 4% / 0.45);
+        --gray-opacity-800: hsl(216 24% 4% / 0.41);
+        --gray-opacity-900: hsl(216 24% 4% / 0.38);
+
+        --semantic-border-high: var(--gray-surface-400);
+        --semantic-border-low: var(--gray-surface-200);
+        --semantic-border-medium: var(--gray-surface-300);
+        --semantic-on-surface-high: hsl(226 100% 84% / 0.09);
+        --semantic-on-surface-low: hsl(221 90% 84% / 0.03);
+        --semantic-on-surface-medium: hsl(230 100% 84% / 0.06);
+        --semantic-primary: var(--gray-on-surface-800);
+        --semantic-quaternary: var(--gray-on-surface-200);
+        --semantic-secondary: var(--gray-on-surface-600);
+        --semantic-surface: var(--gray-surface-50);
+        --semantic-surface-alt-high: var(--gray-surface-300);
+        --semantic-surface-alt-low: var(--gray-surface-100);
+        --semantic-surface-alt-medium: var(--gray-surface-200);
+        --semantic-tertiary: var(--gray-on-surface-400);
+        --semantic-zero: var(--gray-on-surface-900);
+    }
+} */
+
+
+/* Definición de Displays */
+[class*="display"] {
+    font-family: var(--font-family-display);
+    font-weight: var(--weight-semibold);
+    line-height: 130%;
+}
+
+.display-xxlarge {
+    font-size: 3.5rem;
+    letter-spacing: -0.07rem;
+}
+
+.display-xlarge {
+    font-size: 3rem;
+    letter-spacing: -0.06rem;
+}
+
+.display-large {
+    font-size: 2.5rem;
+    letter-spacing: -0.05rem;
+}
+
+.display-xmedium {
+    font-size: 2rem;
+    letter-spacing: -0.04rem;
+}
+
+.display-medium {
+    font-size: 1.75rem;
+    letter-spacing: -0.035rem;
+}
+
+.display-small {
+    font-size: 1.5rem;
+    letter-spacing: -0.03rem;
+}
+
+.display-smallest {
+    font-size: 1.25rem;
+    letter-spacing: -0.025rem;
+}
+
+/* Definición de Accent */
+[class*="accent"] {
+    font-family: var(--font-family-accent);
+    font-weight: var(--weight-bold-italic);
+    line-height: 130%;
+}
+
+.accent-xxlarge {
+    font-size: 3.5rem;
+}
+
+.accent-xlarge {
+    font-size: 3rem;
+}
+
+.accent-large {
+    font-size: 2.5rem;
+}
+
+.accent-xmedium {
+    font-size: 2rem;
+}
+
+.accent-medium {
+    font-size: 1.75rem;
+}
+
+.accent-small {
+    font-size: 1.5rem;
+}
+
+.accent-smallest {
+    font-size: 1.25rem;
+}
+
+/* Definición de Body */
+[class*="body"] {
+    font-family: var(--font-family-body);
+    font-weight: var(--weight-medium);
+    line-height: 150%;
+}
+
+.body-large {
+    font-size: 1.125rem;
+    letter-spacing: -0.0225rem;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
+}
+
+.body-normal {
+    font-size: 1rem;
+    letter-spacing: -0.02rem;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
+}
+
+.body-small {
+    font-size: 0.875rem;
+    letter-spacing: -0.0175rem;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
+}
+
+.body-xsmall {
+    font-size: 0.75rem;
+    letter-spacing: -0.0075rem;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
+}
+
+.body-mini {
+    font-size: 0.625rem;
+    letter-spacing: -0.00625rem;
+
+    &.bold {
+        font-weight: var(--weight-bold);
+    }
+}

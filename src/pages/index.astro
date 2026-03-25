@@ -1,17 +1,14 @@
 ---
+import Template from "../layout/Template.astro";
 
+var title = "Luis Erick | UX/UI Designer";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<head>
+  <title>{title}</title>
+</head>
+
+<Template>
+  <h1 class="display-large">{title}</h1>
+  <p class="body-normal">Welcome to my portfolio!</p>
+</Template>
