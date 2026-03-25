@@ -15,6 +15,7 @@
 
 body {
     font-family: var(--font-family-body);
+    font-weight: var(--weight-medium);
     background-color: var(--semantic-surface);
     color: var(--semantic-primary);
 }
@@ -26,6 +27,18 @@ h4,
 h5,
 h6 {
     font-family: 'Sora', sans-serif;
+}
+
+p,
+span,
+ul,
+ol,
+li,
+a,
+button {
+    font-family: var(--font-family-body);
+    text-decoration: none;
+    color: inherit;
 }
 
 :root {
@@ -178,20 +191,22 @@ h6 {
     --gray-opacity-900: hsl(227 27% 30% / 0.81);
 
     /* Light - Semantic Colors */
-    --semantic-border-high: var(--gray-surface-400);
-    --semantic-border-low: var(--gray-surface-200);
-    --semantic-border-medium: var(--gray-surface-300);
-    --semantic-on-surface-high: var(--b&w-white);
-    --semantic-on-surface-low: var(--b&w-white);
-    --semantic-on-surface-medium: var(--b&w-white);
-    --semantic-primary: var(--gray-on-surface-800);
-    --semantic-quaternary: var(--gray-on-surface-200);
-    --semantic-secondary: var(--gray-on-surface-600);
     --semantic-surface: var(--gray-surface-50);
-    --semantic-surface-alt-high: var(--gray-surface-300);
     --semantic-surface-alt-low: var(--gray-surface-100);
     --semantic-surface-alt-medium: var(--gray-surface-200);
+    --semantic-surface-alt-high: var(--gray-surface-300);
+    --semantic-border-low: var(--gray-surface-200);
+    --semantic-border-medium: var(--gray-surface-300);
+    --semantic-border-high: var(--gray-surface-400);
+
+    --semantic-on-surface-low: var(--bw-white);
+    --semantic-on-surface-medium: var(--bw-white);
+    --semantic-on-surface-high: var(--bw-white);
+
+    --semantic-quaternary: var(--gray-on-surface-200);
     --semantic-tertiary: var(--gray-on-surface-400);
+    --semantic-secondary: var(--gray-on-surface-600);
+    --semantic-primary: var(--gray-on-surface-800);
     --semantic-zero: var(--gray-on-surface-900);
 
     /* Typography */
@@ -208,20 +223,20 @@ h6 {
 
     /* Borders */
     /* Radii */
-    --radii-x-small: 0.5rem;
+    --radii-xsmall: 0.5rem;
     --radii-small: 0.75rem;
     --radii-medium: 1rem;
-    --radii-x-medium: 1.25rem;
+    --radii-xmedium: 1.25rem;
     --radii-large: 1.5rem;
-    --radii-x-large: 2.5rem;
+    --radii-xlarge: 2.5rem;
     --radii-full: 62.4375rem;
 
     /* Strokes */
-    --stroke-x-small: 0.0313rem;
+    --stroke-xsmall: 0.0313rem;
     --stroke-small: 0.0625rem;
     --stroke-medium: 0.0938rem;
     --stroke-large: 0.125rem;
-    --stroke-x-large: 0.1875rem;
+    --stroke-xlarge: 0.1875rem;
 }
 
 /*
@@ -374,20 +389,22 @@ h6 {
         --gray-opacity-800: hsl(216 24% 4% / 0.41);
         --gray-opacity-900: hsl(216 24% 4% / 0.38);
 
-        --semantic-border-high: var(--gray-surface-400);
-        --semantic-border-low: var(--gray-surface-200);
-        --semantic-border-medium: var(--gray-surface-300);
-        --semantic-on-surface-high: hsl(226 100% 84% / 0.09);
-        --semantic-on-surface-low: hsl(221 90% 84% / 0.03);
-        --semantic-on-surface-medium: hsl(230 100% 84% / 0.06);
-        --semantic-primary: var(--gray-on-surface-800);
-        --semantic-quaternary: var(--gray-on-surface-200);
-        --semantic-secondary: var(--gray-on-surface-600);
         --semantic-surface: var(--gray-surface-50);
-        --semantic-surface-alt-high: var(--gray-surface-300);
         --semantic-surface-alt-low: var(--gray-surface-100);
         --semantic-surface-alt-medium: var(--gray-surface-200);
+        --semantic-surface-alt-high: var(--gray-surface-300);
+        --semantic-border-low: var(--gray-surface-200);
+        --semantic-border-medium: var(--gray-surface-300);
+        --semantic-border-high: var(--gray-surface-400);
+
+        --semantic-on-surface-low: hsl(221 90% 84% / 0.03);
+        --semantic-on-surface-medium: hsl(230 100% 84% / 0.06);
+        --semantic-on-surface-high: hsl(226 100% 84% / 0.09);
+
+        --semantic-quaternary: var(--gray-on-surface-200);
         --semantic-tertiary: var(--gray-on-surface-400);
+        --semantic-secondary: var(--gray-on-surface-600);
+        --semantic-primary: var(--gray-on-surface-800);
         --semantic-zero: var(--gray-on-surface-900);
     }
 } */
@@ -477,7 +494,7 @@ h6 {
     line-height: 150%;
 
     &.bold {
-        font-weight: var(--weight-bold);
+        font-weight: var(--weight-semibold);
     }
 }
 
@@ -509,40 +526,59 @@ h6 {
 /* Definición de Shadows */
 .shadow-small {
     box-shadow:
-        2px 2px 4px 0 var(--grayOpacity-100),
-        1px 1px 2px 0 var(--grayOpacity-100);
+        2px 2px 4px 0 var(--gray-opacity-100),
+        1px 1px 2px 0 var(--gray-opacity-100);
 }
 
 .shadow-normal {
     box-shadow:
-        2px 2px 6px 0 var(--grayOpacity-200),
-        1px 1px 2px 0 var(--grayOpacity-100);
+        2px 2px 6px 0 var(--gray-opacity-200),
+        1px 1px 2px 0 var(--gray-opacity-100);
 }
 
 .shadow-medium {
     box-shadow:
-        3px 3px 10px -2px var(--grayOpacity-300),
-        4px 4px 12px -4px var(--grayOpacity-200),
-        2px 2px 4px 0 var(--grayOpacity-100);
+        3px 3px 10px -2px var(--gray-opacity-300),
+        4px 4px 12px -4px var(--gray-opacity-200),
+        2px 2px 4px 0 var(--gray-opacity-100);
 }
 
 /* Definición de Strokes */
+[class*="stroke"] {
+    border-style: solid;
+    border-color: var(--semantic-border-low);
+}
+
 .stroke-xsmall {
-    border: var(--stroke-x-small) solid var(--semantic-border-low);
+    border-width: var(--stroke-xsmall);
 }
 
 .stroke-small {
-    border: var(--stroke-small) solid var(--semantic-border-low);
+    border-width: var(--stroke-small);
 }
 
 .stroke-medium {
-    border: var(--stroke-medium) solid var(--semantic-border-low);
+    border-width: var(--stroke-medium);
 }
 
 .stroke-large {
-    border: var(--stroke-large) solid var(--semantic-border-low);
+    border-width: var(--stroke-large);
 }
 
 .stroke-xlarge {
-    border: var(--stroke-x-large) solid var(--semantic-border-low);
+    border-width: var(--stroke-xlarge);
+}
+
+
+/* ---- Estilos custom ---- */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }

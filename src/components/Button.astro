@@ -1,0 +1,83 @@
+---
+
+---
+
+<style>
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    border-radius: var(--radii-full);
+    text-decoration: none;
+    transition: all 200ms ease;
+
+    /* Variants */
+    &.cta {
+      --background-custom: hsl(233, 22%, 8%);
+      --text-custom: hsl(226, 32%, 92%);
+
+      background: var(--background-custom);
+      color: var(--text-custom);
+    }
+
+    &.light {
+      background: var(--semantic-surface-alt-low);
+      color: var(--semantic-primary);
+
+      &:hover {
+        background: var(--semantic-surface-alt-medium);
+      }
+    }
+
+    &.ghost {
+      background: transparent;
+      color: var(--semantic-primary);
+      border: 1.5px solid var(--semantic-border-low);
+
+      &:hover {
+        background: var(--semantic-surface);
+      }
+    }
+
+    &.link {
+      background: transparent;
+      color: var(--semantic-secondary);
+
+      &:hover {
+        background: var(--semantic-surface);
+      }
+    }
+
+    /* Sizes */
+    &.md {
+      min-height: 2.5rem;
+      padding-inline: 1rem;
+      padding-block: 0.5rem;
+      font-size: 1rem;
+      letter-spacing: -0.02rem;
+      font-weight: var(--weight-semibold);
+      line-height: 150%;
+    }
+
+    &.sm {
+      min-height: 2rem;
+      padding-inline: 0.75rem;
+      padding-block: 0.34rem;
+      font-size: 0.875rem;
+      letter-spacing: -0.0175rem;
+      font-weight: var(--weight-semibold);
+      line-height: 150%;
+    }
+  }
+</style>
+
+<a
+  href={Astro.props.href}
+  class:list={[
+    Astro.props.type?.toLowerCase(),
+    Astro.props.size?.toLowerCase(),
+  ]}
+>
+  {Astro.props.text}
+</a>

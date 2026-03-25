@@ -1,14 +1,49 @@
 ---
-import Template from "../layout/Template.astro";
+import Layout from "../layout/Layout.astro";
+import Button from "../components/Button.astro";
 
-var title = "Luis Erick | UX/UI Designer";
+const title = "Luis Erick | UX/UI Designer";
 ---
 
-<head>
-  <title>{title}</title>
-</head>
+<style>
+  .hero-section {
+    gap: 1.5rem;
 
-<Template>
-  <h1 class="display-large">{title}</h1>
-  <p class="body-large">Welcome to my portfolio!</p>
-</Template>
+    .text-group {
+      gap: 0.75rem;
+      max-width: 30rem;
+
+      h1 {
+        color: var(--semantic-quaternary);
+      }
+
+      span {
+        color: var(--semantic-zero);
+      }
+    }
+
+    .button-group {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<Layout title={title}>
+  <section class="flex-column hero-section">
+    <div class="flex-column text-group">
+      <h1 class="display-large">
+        <span class="accent-large">Soy UX/UI Designer.</span><br />
+        +5 años de experiencia a tu disposición.
+      </h1>
+      <p class="body-large">
+        Me dedico a crear productos digitales para tu negocio o emprendimiento.
+        ¡Hablemos!
+      </p>
+    </div>
+    <div class="flex-row button-group">
+      <Button size="MD" type="CTA" text="¡Cotiza tu proyecto!" href="#" />
+      <Button size="MD" type="Light" text="Mis proyectos" href="#proyectos" />
+    </div>
+  </section>
+</Layout>

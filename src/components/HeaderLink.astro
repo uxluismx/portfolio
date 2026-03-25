@@ -1,0 +1,27 @@
+---
+
+---
+
+<style>
+  .headerLink {
+    background: var(--semantic-surface-alt-low);
+    color: var(--semantic-primary);
+    padding: 0.21875rem 0.625rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radii-full);
+    transition: all 200ms ease;
+
+    &:hover {
+      background: var(--semantic-surface-alt-medium);
+    }
+
+    p {
+      color: inherit;
+    }
+  }
+</style>
+
+<a class="headerLink flex-row" href={Astro.props.href}>
+  <p class="body-small bold">{Astro.props.text}</p>
+</a>

@@ -1,3 +1,60 @@
 ---
 import "../styles/global.css";
+import HeaderLink from "./HeaderLink.astro";
 ---
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background: linear-gradient(
+      180deg,
+      var(--semantic-on-surface-low) 0%,
+      transparent 100%
+    );
+  }
+
+  .header-nav {
+    gap: 0.5rem;
+  }
+
+  .header-profile {
+    gap: 1rem;
+    align-items: center;
+
+    .header-profile {
+      width: 2.5rem;
+      aspect-ratio: 1/1;
+      border-radius: var(--radii-small);
+      border-color: var(--bw-white);
+      overflow: clip;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+</style>
+
+<header class="header flex-row">
+  <div class="flex-row header-profile">
+    <div class="flex-row header-profile stroke-medium shadow-medium">
+      <img
+        src="/public/images/imageProfile.webp"
+        alt="Foto de perfil de Luis Erick"
+        width="2.5rem"
+        height="2.5rem"
+      />
+    </div>
+    <h1 class="accent-smallest">Luis Erick M.</h1>
+  </div>
+  <nav class="flex-row header-nav">
+    <HeaderLink href="https://www.instagram.com/uxluismx/" text="Instagram" />
+    <HeaderLink href="https://www.linkedin.com/in/uxluismx/" text="Linkedin" />
+    <HeaderLink href="#contact" text="CV" />
+  </nav>
+</header>

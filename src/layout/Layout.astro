@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/public/images/favicon.webp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{Astro.props.title}</title>
+    <style>
+      .main-container {
+        max-width: 40rem;
+        background: var(--semantic-on-surface-low);
+        border-radius: var(--radii-large);
+        margin: 0 auto;
+        margin-block-start: 1.5rem;
+        margin-block-end: 6rem;
+        overflow: clip;
+      }
+
+      .slot-container {
+        padding: 2rem;
+        padding-block-start: 1rem;
+        gap: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="main-container flex-column stroke-xsmall shadow-small">
+      <Header />
+      <div class="slot-container flex-column">
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>
