@@ -1,0 +1,52 @@
+---
+const { title, id, nameIcon } = Astro.props;
+---
+
+<style>
+  .grid-section {
+    background: var(--semantic-surface);
+    padding: 1.5rem;
+    gap: 1.5rem;
+    border-radius: var(--radii-large);
+  }
+
+  .grid-section-header {
+    width: 100%;
+    gap: 1rem;
+    color: var(--semantic-zero);
+
+    .icon-container {
+      width: 2.25rem;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--semantic-on-surface-low);
+      border-color: var(--semantic-border-medium);
+      border-bottom-width: var(--stroke-large);
+      border-radius: var(--radii-xsmall);
+      aspect-ratio: 1/1;
+
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: currentColor;
+      }
+    }
+
+    h1 {
+      color: inherit;
+    }
+  }
+</style>
+
+<div class="flex-column grid-section stroke-xsmall" id={id}>
+  <div class="flex-row grid-section-header">
+    <div class="icon-container flex-row stroke-small">
+      <svg class="icon" viewBox="0 0 24 24">
+        <!-- Pasar el nombre del ícono sin la extensión (.svg) -->
+        <use href={`../../public/icons/${nameIcon}.svg`}></use>
+      </svg>
+    </div>
+    <h1 class="accent-small">{title}</h1>
+  </div>
+  <slot />
+</div>

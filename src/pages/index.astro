@@ -1,7 +1,7 @@
 ---
 import Layout from "../layout/Layout.astro";
 import Button from "../components/Button.astro";
-import Navbar from "../components/Navbar.astro";
+import GridSection from "../components/GridSection.astro";
 
 const title = "Luis Erick | UX/UI Designer";
 ---
@@ -47,4 +47,11 @@ const title = "Luis Erick | UX/UI Designer";
       <Button size="MD" type="Light" text="Mis proyectos" href="#proyectos" />
     </div>
   </section>
+  <GridSection
+    title="Proyectos destacados"
+    nameIcon="medal-prize"
+    id="proyectos"
+  />
+  <GridSection title="Mi profesión" nameIcon="medal-prize" id="mi-profesion" />
+  <GridSection title="Sobre mí" nameIcon="medal-prize" id="sobre-mi" />
 </Layout>
