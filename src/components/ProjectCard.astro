@@ -1,5 +1,16 @@
 ---
-const { title, description, imageName, imageAlt, href } = Astro.props;
+import Pill from "./Pill.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  imageName: string;
+  imageAlt: string;
+  href: string;
+  pill?: string[];
+}
+
+const { title, description, imageName, imageAlt, href, pill } = Astro.props;
 ---
 
 <style>
@@ -12,7 +23,7 @@ const { title, description, imageName, imageAlt, href } = Astro.props;
         transform: translateY(4px);
       }
 
-      .footer h2 {
+      .project-card-footer h2 {
         text-decoration: underline;
       }
     }
@@ -37,14 +48,14 @@ const { title, description, imageName, imageAlt, href } = Astro.props;
     }
   }
 
-  .footer {
+  .project-card-footer {
     gap: 0.5rem;
 
-    h2 {
+    .title {
       color: var(--semantic-primary);
     }
 
-    p {
+    .description {
       color: var(--semantic-tertiary);
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -52,18 +63,29 @@ const { title, description, imageName, imageAlt, href } = Astro.props;
       overflow: hidden;
     }
   }
+
+  .group-pill {
+    margin-top: 0.25rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
 </style>
 
 <a class="flex-column project-card" href={href} target="_blank">
   <div class="mockup-area stroke-xsmall">
-    <img
-      class="stroke-xsmall"
-      src={`/images/${imageName}.webp`}
-      alt={imageAlt}
-    />
+    <img class="stroke-xsmall" src={`/images/${imageName}.webp`} alt={imageAlt} />
   </div>
-  <div class="flex-column footer">
-    <h2 class="display-smallest">{title}</h2>
-    <p class="body-normal">{description}</p>
+  <div class="flex-column project-card-footer">
+    <h2 class="title display-smallest">{title}</h2>
+    <p class="description body-normal">{description}</p>
+    {
+      pill && (
+        <div class="group-pill flex-row">
+          {pill.map((text) => (
+            <Pill text={text} />
+          ))}
+        </div>
+      )
+    }
   </div>
 </a>

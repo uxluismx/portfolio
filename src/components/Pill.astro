@@ -1,0 +1,23 @@
+---
+const { text } = Astro.props;
+---
+
+<style>
+  .pill {
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    padding: 0.21875rem 0.625rem;
+    background-color: var(--semantic-on-surface-low);
+    border-radius: var(--radii-xsmall);
+    color: var(--semantic-secondary);
+
+    p {
+      color: inherit;
+    }
+  }
+</style>
+
+<div class="pill flex-row stroke-small">
+  <p class="body-small">{text}</p>
+</div>
