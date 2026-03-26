@@ -11,9 +11,12 @@ import HeaderLink from "./HeaderLink.astro";
     padding: 2rem;
     background: linear-gradient(
       180deg,
-      var(--semantic-on-surface-low) 0%,
+      var(--semantic-on-surface-low) 50%,
       transparent 100%
     );
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .header-nav {

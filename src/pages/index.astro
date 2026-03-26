@@ -2,6 +2,7 @@
 import Layout from "../layout/Layout.astro";
 import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 
 const title = "Luis Erick | UX/UI Designer";
 ---
@@ -31,6 +32,7 @@ const title = "Luis Erick | UX/UI Designer";
 </style>
 
 <Layout title={title}>
+  <!-- Sección de HERO -->
   <section class="flex-column hero-section">
     <div class="flex-column text-group">
       <h1 class="display-large">
@@ -47,11 +49,49 @@ const title = "Luis Erick | UX/UI Designer";
       <Button size="MD" type="Light" text="Mis proyectos" href="#proyectos" />
     </div>
   </section>
+
+  <!-- Sección de proyectos destacados -->
   <GridSection
     title="Proyectos destacados"
     nameIcon="medal-prize"
     id="proyectos"
-  />
-  <GridSection title="Mi profesión" nameIcon="medal-prize" id="mi-profesion" />
-  <GridSection title="Sobre mí" nameIcon="medal-prize" id="sobre-mi" />
+  >
+    <ProjectCard
+      title="eleventa 6 - Diseño de App Nativa"
+      description="Actualmente trabajando en este proyecto con el objetivo de ayudar a dueños de negocio para administrar la operación de sus comercios."
+      imageName="project-eleventa"
+      imageAlt="Imagen del proyecto eleventa 6"
+      href="https://play.google.com/store/apps/details?id=com.eleventa.app"
+    />
+
+    <ProjectCard
+      title="LAVVA - Diseño de Web"
+      description="Marca mexicana de Gimnasios de estudio que viene a sustituir a los gyms convencionales."
+      imageName="project-lavva"
+      imageAlt="Imagen del proyecto LAVVA"
+      href="https://www.lavva.com/"
+    />
+
+    <ProjectCard
+      title="Unibetas - Diseño de Plataforma Web"
+      description="Plataforma online que prepara estudiantes de bachillerato para diferentes exámenes de admisión de universidades mexicanas."
+      imageName="project-unibetas"
+      imageAlt="Imagen del proyecto Unibetas"
+      href="https://www.unibetas.com/"
+    />
+  </GridSection>
+
+  <!-- Sección de mi profesión -->
+  <GridSection
+    title="Mi profesión"
+    nameIcon="tool-pencil-ruler-alt"
+    id="mi-profesion"
+  >
+    <div slot="content" class="flex-column"></div>
+  </GridSection>
+
+  <!-- Sección de sobre mí -->
+  <GridSection title="Sobre mí" nameIcon="user-profile" id="sobre-mi">
+    <div slot="content" class="flex-column"></div>
+  </GridSection>
 </Layout>

@@ -11,10 +11,10 @@
     font-family: sans-serif;
     font-synthesis: none;
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    height: 100vh;
     font-family: var(--font-family-body);
     font-weight: var(--weight-medium);
     background-color: var(--semantic-surface);
