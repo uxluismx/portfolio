@@ -1,0 +1,13 @@
+---
+interface Props {
+  name: string;
+  size?: "12" | "16" | "20" | "24" | "28" | "32";
+  color?: string;
+}
+
+const { name, size = "24", color = "currentColor" } = Astro.props as Props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={color}>
+  <use href={`/icons/${name}.svg`}></use>
+</svg>

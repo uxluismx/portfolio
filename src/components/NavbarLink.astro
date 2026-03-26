@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+const { text, href } = Astro.props;
 ---
 
 <style>
@@ -9,10 +10,5 @@ import Button from "./Button.astro";
 </style>
 
 <div class="flex-row navbar-link">
-  <Button
-    size="SM"
-    type="Link"
-    text={Astro.props.text}
-    href={Astro.props.href}
-  />
+  <Button size="SM" type="Link" text={text} href={href} animation={false} />
 </div>

@@ -1,4 +1,6 @@
 ---
+import IconWrapper from "./IconWrapper.astro";
+
 const { title, id, nameIcon } = Astro.props;
 ---
 
@@ -30,12 +32,6 @@ const { title, id, nameIcon } = Astro.props;
     border-bottom-width: var(--stroke-large);
     border-radius: var(--radii-xsmall);
     aspect-ratio: 1/1;
-
-    svg {
-      width: 1.25rem;
-      height: 1.25rem;
-      fill: currentColor;
-    }
   }
 
   @media screen and (max-width: 480px) {
@@ -48,10 +44,7 @@ const { title, id, nameIcon } = Astro.props;
 <div class="flex-column grid-section stroke-xsmall" id={id}>
   <div class="flex-row grid-section-header">
     <div class="icon-container flex-row stroke-small">
-      <svg class="icon" viewBox="0 0 24 24">
-        <!-- Pasar el nombre del ícono sin la extensión (.svg) -->
-        <use href={`/icons/${nameIcon}.svg`}></use>
-      </svg>
+      <IconWrapper name={nameIcon} size="20" />
     </div>
     <h1 class="accent-small">{title}</h1>
   </div>

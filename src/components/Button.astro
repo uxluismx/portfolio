@@ -1,16 +1,32 @@
 ---
+import IconWrapper from './IconWrapper.astro';
 
+interface Props {
+  type: "CTA" | "Light" | "Ghost" | "Link";
+  size: "MD" | "SM";
+  href: string;
+  text: string;
+  nameIcon?: string;
+  animation?: string | boolean;
+  newPage?: boolean; /* Hacer que el enlace se abra en una nueva pestaña por default */
+}
+const { href, text, nameIcon, type, size, animation, newPage } = Astro.props;
 ---
 
 <style>
-  a {
+  .button {
     display: flex;
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    gap: 0.5rem;
     border-radius: var(--radii-full);
     text-decoration: none;
-    transition: all 200ms ease;
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+        transform: translateY(-2px);
+      }
 
     /* Variants */
     &.cta {
@@ -69,15 +85,18 @@
       font-weight: var(--weight-semibold);
       line-height: 150%;
     }
-  }
+
+    /* Animations */
+    &.animation-false {
+      &:hover {
+        transform: none;
+      }
+    }
 </style>
 
-<a
-  href={Astro.props.href}
-  class:list={[
-    Astro.props.type?.toLowerCase(),
-    Astro.props.size?.toLowerCase(),
-  ]}
->
-  {Astro.props.text}
+<a class="flex-row button" href={href} class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]} target={newPage === true ? "_blank" : "_self"}>
+  {nameIcon && (
+    <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />
+  )}
+  {text}
 </a>

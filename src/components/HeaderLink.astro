@@ -1,5 +1,5 @@
 ---
-
+const { href, text } = Astro.props;
 ---
 
 <style>
@@ -22,6 +22,6 @@
   }
 </style>
 
-<a class="headerLink flex-row" href={Astro.props.href} target="_blank">
-  <p class="body-small bold">{Astro.props.text}</p>
+<a class="headerLink flex-row" href={href} target="_blank">
+  <p class="body-small bold">{text}</p>
 </a>

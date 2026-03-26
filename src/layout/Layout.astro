@@ -44,11 +44,14 @@ import Navbar from "../components/Navbar.astro";
       @media screen and (max-width: 640px) {
         body {
           margin-block-start: 0;
+          background: var(--semantic-on-surface-low);
+          margin-block-end: 4.5rem;
         }
 
         .main-container {
           border-radius: 0;
           border: none;
+          box-shadow: none;
         }
       }
 
@@ -73,8 +76,8 @@ import Navbar from "../components/Navbar.astro";
         <slot />
       </div>
     </main>
-    <div id="navbar" class="flex-row">
+    <!-- <div id="navbar" class="flex-row">
       <Navbar />
-    </div>
+    </div> -->
   </body>
 </html>
