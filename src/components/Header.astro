@@ -33,12 +33,32 @@ import HeaderLink from "./HeaderLink.astro";
       border-radius: var(--radii-small);
       border-color: var(--bw-white);
       overflow: clip;
+      transition: transform 150ms ease-in-out;
+
+      &:hover {
+        transform: rotate(6deg) scale(1.1);
+      }
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .header-profile {
+      h2 {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 440px) {
+    .header {
+      padding: 1rem;
+      padding-block-start: 1.5rem;
     }
   }
 </style>
@@ -53,7 +73,7 @@ import HeaderLink from "./HeaderLink.astro";
         height="2.5rem"
       />
     </div>
-    <h1 class="accent-smallest">Luis Erick M.</h1>
+    <h2 class="accent-smallest">Luis Erick M.</h2>
   </div>
   <nav class="flex-row header-nav">
     <HeaderLink href="https://www.instagram.com/uxluismx/" text="Instagram" />

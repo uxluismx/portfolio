@@ -2,7 +2,13 @@
 import Button from "./Button.astro";
 ---
 
-<div class="navbar-container">
+<style>
+  .navbar-link {
+    width: inherit;
+  }
+</style>
+
+<div class="flex-row navbar-link">
   <Button
     size="SM"
     type="Link"

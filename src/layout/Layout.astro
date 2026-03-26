@@ -33,11 +33,35 @@ import Navbar from "../components/Navbar.astro";
       }
 
       #navbar {
+        width: 100%;
         position: fixed;
-        bottom: 1.5rem;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: 0;
         z-index: 10;
+        justify-content: center;
+        padding-block-end: 1.5rem;
+      }
+
+      @media screen and (max-width: 640px) {
+        body {
+          margin-block-start: 0;
+        }
+
+        .main-container {
+          border-radius: 0;
+          border: none;
+        }
+      }
+
+      @media screen and (max-width: 440px) {
+        .main-container {
+          & > * {
+            padding: 1rem;
+          }
+        }
+
+        #navbar {
+          padding-block-end: 1rem;
+        }
       }
     </style>
   </head>
@@ -49,7 +73,7 @@ import Navbar from "../components/Navbar.astro";
         <slot />
       </div>
     </main>
-    <div id="navbar">
+    <div id="navbar" class="flex-row">
       <Navbar />
     </div>
   </body>

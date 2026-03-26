@@ -14,26 +14,33 @@ const { title, id, nameIcon } = Astro.props;
     width: 100%;
     gap: 1rem;
     color: var(--semantic-zero);
-
-    .icon-container {
-      width: 2.25rem;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--semantic-on-surface-low);
-      border-color: var(--semantic-border-medium);
-      border-bottom-width: var(--stroke-large);
-      border-radius: var(--radii-xsmall);
-      aspect-ratio: 1/1;
-
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
-        fill: currentColor;
-      }
-    }
+    align-items: center;
 
     h1 {
       color: inherit;
+    }
+  }
+
+  .icon-container {
+    width: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--semantic-on-surface-low);
+    border-color: var(--semantic-border-medium);
+    border-bottom-width: var(--stroke-large);
+    border-radius: var(--radii-xsmall);
+    aspect-ratio: 1/1;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: currentColor;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .grid-section {
+      padding: 1rem;
     }
   }
 </style>
