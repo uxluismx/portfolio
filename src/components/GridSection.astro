@@ -43,7 +43,7 @@ const { title, id, nameIcon } = Astro.props;
     <div class="icon-container flex-row stroke-small">
       <svg class="icon" viewBox="0 0 24 24">
         <!-- Pasar el nombre del ícono sin la extensión (.svg) -->
-        <use href={`../../public/icons/${nameIcon}.svg`}></use>
+        <use href={`/icons/${nameIcon}.svg`}></use>
       </svg>
     </div>
     <h1 class="accent-small">{title}</h1>
