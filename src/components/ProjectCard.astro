@@ -8,9 +8,10 @@ interface Props {
   imageAlt: string;
   href: string;
   pill?: string[];
+  newTab?: boolean;
 }
 
-const { title, description, imageName, imageAlt, href, pill } = Astro.props;
+const { title, description, imageName, imageAlt, href, pill, newTab } = Astro.props;
 ---
 
 <style>
@@ -71,7 +72,7 @@ const { title, description, imageName, imageAlt, href, pill } = Astro.props;
   }
 </style>
 
-<a class="flex-column project-card" href={href} target="_blank">
+<a class="flex-column project-card" href={href} target={newTab !== false ? "_blank" : "_self"}>
   <div class="mockup-area stroke-xsmall">
     <img class="stroke-xsmall" src={`/images/${imageName}.webp`} alt={imageAlt} />
   </div>
