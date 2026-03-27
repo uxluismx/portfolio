@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Navbar from "../components/Navbar.astro";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 ---
 
 <html lang="es">
@@ -12,6 +13,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <link rel="icon" href="/images/favicon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <Analytics />
     <title>{Astro.props.title}</title>
     <style>
       body {
