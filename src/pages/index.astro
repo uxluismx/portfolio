@@ -3,6 +3,7 @@ import Layout from "../layout/Layout.astro";
 import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import BoxImage from "../components/BoxImage.astro";
 
 const title = "Luis Erick | UX/UI Designer";
 ---
@@ -28,6 +29,15 @@ const title = "Luis Erick | UX/UI Designer";
       gap: 1rem;
       flex-wrap: wrap;
     }
+  }
+
+  .about-images-group {
+    --negative-gap: -0.5rem;
+
+    align-self: center;
+    flex-wrap: nowrap;
+    margin-top: calc(-1 * var(--negative-gap));
+    margin-left: calc(-1 * var(--negative-gap));
   }
 </style>
 
@@ -87,12 +97,50 @@ const title = "Luis Erick | UX/UI Designer";
   </GridSection>
 
   <!-- Sección de mi profesión -->
-  <!-- <GridSection title="Mi profesión" nameIcon="tool-pencil-ruler-alt" id="mi-profesion">
-    <div slot="content" class="flex-column"></div>
-  </GridSection> -->
+  <GridSection title="Mi profesión" nameIcon="tool-pencil-ruler-alt" id="mi-profesion">
+    <p class="display-smallest color-quaternary">
+      <span class="accent-smallest color-primary">🚀 Todo comenzó en 2019, </span>viendo pequeños
+      cursos de UX Research y UI.
+    </p>
+    <p class="display-smallest color-quaternary">
+      <span class="accent-smallest color-primary">2020, 2021, 2022, 2023... ⏳</span><br />
+      Actualizándome y laborando en proyectos reales. SaaS, E-learning, Fintech, Social, y otros giros.
+    </p>
+    <p class="display-smallest color-quaternary">
+      😉 Siempre he trabajado
+      <span class="accent-smallest color-primary"> Full Remoto, </span>
+      dándome la oportunidad de laborar en empresas de Perú, Chile, Colombia y México.
+    </p>
+    <p class="display-smallest color-quaternary">
+      Agradezco las experiencias que viví, las personas que conocí, y los retos que están por venir.<br
+      />
+      <span class="accent-smallest color-primary">¡Soy muy afortunado! 🎉</span>
+    </p>
+  </GridSection>
 
   <!-- Sección de sobre mí -->
-  <!-- <GridSection title="Sobre mí" nameIcon="user-profile" id="sobre-mi">
-    <div slot="content" class="flex-column"></div>
-  </GridSection> -->
+  <GridSection title="Sobre mí" nameIcon="user-profile" id="sobre-mi">
+    <div class="about-images-group flex-row">
+      <BoxImage name="imageProfile" alt="Imagen de Luis Erick" size={120} rotate={4} />
+      <BoxImage name="imageProfile2" alt="Imagen de Luis Erick" size={120} rotate={-4} />
+    </div>
+    <p class="display-smallest color-quaternary">
+      Soy el hermano mayor de mi familia,
+      <span class="accent-smallest color-primary"> el que pone el ejemplo, </span>una frase que
+      dicen mis padres, pero que me tomo muy a pecho. 🤓
+    </p>
+    <p class="display-smallest color-quaternary">
+      Me gusta ir de aventura, convivir y relajarnos con mi familia (uff, la playita).<br />
+      <span class="accent-smallest color-primary">En compañía es mejor 🙌🏼</span>
+    </p>
+    <p class="display-smallest color-quaternary">
+      🥁 Soy seguidor fiel del
+      <span class="accent-smallest color-primary"> #Hardstyle, </span>
+      me gusta ver DJ Sets y descubrir nuevas joyas musicales cada semana.
+    </p>
+    <p class="display-smallest color-quaternary">
+      ⚽ ️Practico el Futbol cómo deporte, ya sea en retas o en cancha de 11.
+      <span class="accent-smallest color-primary"> ¡Yo me adapto!</span>
+    </p>
+  </GridSection>
 </Layout>
