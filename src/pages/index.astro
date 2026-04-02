@@ -7,6 +7,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import BoxImage from "../components/BoxImage.astro";
 
 const title = "Luis Erick | UX/UI Designer";
+const isActive = "Inicio";
 ---
 
 <style>
@@ -20,7 +21,7 @@ const title = "Luis Erick | UX/UI Designer";
   }
 </style>
 
-<Layout title={title}>
+<Layout title={title} isActive={isActive}>
   <!-- Sección de HERO -->
   <Hero
     accentTitle="Soy UX/UI Designer."

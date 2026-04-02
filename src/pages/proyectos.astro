@@ -5,6 +5,7 @@ import Button from "../components/Button.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
 
 const title = "Luis Erick | Mis proyectos";
+const isActive = "Proyectos";
 ---
 
 <style>
@@ -13,7 +14,7 @@ const title = "Luis Erick | Mis proyectos";
   }
 </style>
 
-<Layout title={title}>
+<Layout title={title} isActive={isActive}>
   <Hero
     accentTitle="Conoce mis proyectos."
     title="Experiencia aplicada a problemas reales."

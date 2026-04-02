@@ -3,13 +3,10 @@ import { defineMiddleware } from "astro:middleware";
 import Button from "./Button.astro";
 
 interface Props {
-  isActive?: boolean; /* Agregar una propiedad para indicar si el enlace está activo */
+  isActive: "Inicio" | "Proyectos" | "Contacto";
 }
 
-const isActive = (href: string) => {
-  const currentPath = Astro.url.pathname;
-  return currentPath === href;
-};
+const { isActive } = Astro.props;
 ---
 
 <style>
@@ -29,21 +26,21 @@ const isActive = (href: string) => {
 <nav class="flex-row navbar stroke-xsmall shadow-small">
   <Button
     size="SM"
-    type={isActive("/") ? "CTA" : "Link"}
+    type={isActive === "Inicio" ? "CTA" : "Link"}
     text="Inicio"
     href="https://uxluismx.com"
     animation={false}
   />
   <Button
     size="SM"
-    type={isActive("/proyectos") ? "CTA" : "Link"}
+    type={isActive === "Proyectos" ? "CTA" : "Link"}
     text="Proyectos"
     href="https://uxluismx.com/proyectos"
     animation={false}
   />
   <Button
     size="SM"
-    type={isActive("/contacto") ? "CTA" : "Link"}
+    type={isActive === "Contacto" ? "CTA" : "Link"}
     text="Contacto"
     href="mailto:contacto@uxluismx.com"
     animation={false}
