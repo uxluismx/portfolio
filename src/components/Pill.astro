@@ -1,5 +1,12 @@
 ---
-const { text } = Astro.props;
+import IconWrapper from "./IconWrapper.astro";
+
+interface PillProps {
+  text: string;
+  nameIcon?: string;
+}
+
+const { text, nameIcon } = Astro.props;
 ---
 
 <style>
@@ -11,6 +18,7 @@ const { text } = Astro.props;
     background-color: var(--semantic-on-surface-low);
     border-radius: var(--radii-xsmall);
     color: var(--semantic-secondary);
+    gap: 0.375rem;
 
     p {
       color: inherit;
@@ -19,5 +27,6 @@ const { text } = Astro.props;
 </style>
 
 <div class="pill flex-row stroke-small">
+  {nameIcon && <IconWrapper name={nameIcon} size="16" />}
   <p class="body-small">{text}</p>
 </div>

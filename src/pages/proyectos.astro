@@ -1,0 +1,48 @@
+---
+import Layout from "../layout/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Button from "../components/Button.astro";
+import NewProjectCard from "../components/NewProjectCard.astro";
+
+const title = "Luis Erick | Mis proyectos";
+---
+
+<style>
+  .projects-group {
+    gap: 1.5rem;
+  }
+</style>
+
+<Layout title={title}>
+  <Hero
+    accentTitle="Mis proyectos."
+    title="Experiencia aplicada a problemas reales."
+    description="Explora la colección de proyectos en los que colaboré con ideas y entregables de alta calidad."
+  />
+  <div class="projects-group flex-column">
+    <NewProjectCard
+      platform="Desktop"
+      mockupFile="app-eleventa"
+      businessName="eleventa 6"
+      description="¡Próximamente!"
+      pillText="Flutter App"
+      pillIcon="code-square"
+    />
+    <NewProjectCard
+      platform="Desktop"
+      mockupFile="landing-lavva"
+      businessName="LAVVA"
+      description="Fitness"
+      pillText="Landing page"
+      pillIcon="pantone-color"
+    />
+    <NewProjectCard
+      platform="Mobile"
+      mockupFile="app-unibetas"
+      businessName="Unibetas"
+      description="E-learning"
+      pillText="Web App"
+      pillIcon="internet-earth"
+    />
+  </div>
+</Layout>

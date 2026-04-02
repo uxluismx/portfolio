@@ -1,5 +1,6 @@
 ---
 import Layout from "../layout/Layout.astro";
+import Hero from "../components/Hero.astro";
 import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
 import ProjectCard from "../components/ProjectCard.astro";
@@ -9,28 +10,6 @@ const title = "Luis Erick | UX/UI Designer";
 ---
 
 <style>
-  .hero-section {
-    gap: 1.5rem;
-
-    .text-group {
-      gap: 0.75rem;
-      max-width: 30rem;
-
-      h1 {
-        color: var(--semantic-quaternary);
-      }
-
-      span {
-        color: var(--semantic-zero);
-      }
-    }
-
-    .button-group {
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-  }
-
   .about-images-group {
     --negative-gap: -0.5rem;
 
@@ -43,17 +22,13 @@ const title = "Luis Erick | UX/UI Designer";
 
 <Layout title={title}>
   <!-- Sección de HERO -->
-  <section class="flex-column hero-section">
-    <div class="flex-column text-group">
-      <h1 class="display-large">
-        <span class="accent-large">Soy UX/UI Designer.</span><br />
-        +5 años de experiencia a tu disposición.
-      </h1>
-      <p class="body-large">
-        Me dedico a crear productos digitales para tu negocio o emprendimiento. ¡Hablemos!
-      </p>
-    </div>
-    <div class="flex-row button-group">
+  <Hero
+    accentTitle="Soy UX/UI Designer."
+    title="+5 años de experiencia a tu disposición."
+    description="Me dedico a crear productos digitales para tu negocio o emprendimiento. ¡Hablemos!"
+    slotVisible={true}
+  >
+    <slot>
       <Button
         size="MD"
         type="CTA"
@@ -62,8 +37,8 @@ const title = "Luis Erick | UX/UI Designer";
         nameIcon="hand-left"
       />
       <Button size="MD" type="Light" text="Mis proyectos" href="#proyectos" />
-    </div>
-  </section>
+    </slot>
+  </Hero>
 
   <!-- Sección de proyectos destacados -->
   <GridSection title="Proyectos destacados" nameIcon="medal-prize" id="proyectos">
@@ -125,7 +100,8 @@ const title = "Luis Erick | UX/UI Designer";
     </div>
     <p class="display-smallest color-quaternary">
       <span class="accent-smallest color-primary">Tengo 23 años, </span>
-      soy introvertido (INFJ) y disfruto mucho mi tiempo a solas. Crear proyectos es mi hobbie favorito. 💪🏼
+      soy introvertido (INFJ) y disfruto mucho mi tiempo a solas. Crear proyectos es mi hobbie favorito.
+      💪🏼
     </p>
     <p class="display-smallest color-quaternary">
       Me gusta ir de aventura y convivir en familia, mi viaje favorito es ir a la playita.<br />

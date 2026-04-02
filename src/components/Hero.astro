@@ -1,0 +1,53 @@
+---
+interface Props {
+  accentTitle: string;
+  title: string;
+  description: string;
+  slotVisible?: boolean;
+}
+
+const { accentTitle, title, description, slotVisible = false } = Astro.props;
+---
+
+<style>
+  .hero-section {
+    gap: 1.5rem;
+
+    .text-group {
+      gap: 0.75rem;
+      max-width: 30rem;
+
+      h1 {
+        color: var(--semantic-quaternary);
+      }
+
+      span {
+        color: var(--semantic-zero);
+      }
+    }
+
+    .button-group {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<section class="flex-column hero-section">
+  <div class="flex-column text-group">
+    <h1 class="display-large">
+      <span class="accent-large">{accentTitle}</span><br />
+      {title}
+    </h1>
+    <p class="body-large">
+      {description}
+    </p>
+  </div>
+  {
+    slotVisible && (
+      <div class="flex-row button-group">
+        <slot />
+      </div>
+    )
+  }
+</section>

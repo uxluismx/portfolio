@@ -1,0 +1,150 @@
+---
+import type { string } from "astro:schema";
+import Pill from "./Pill.astro";
+
+interface NewProjectCardProps {
+  platform: "Desktop" | "Mobile";
+  mockupFile: string;
+  businessName: string;
+  description: string;
+  pillText: string;
+  pillIcon: string;
+  href?: string;
+}
+
+const {
+  platform,
+  mockupFile,
+  businessName,
+  description,
+  pillText,
+  pillIcon,
+  href = "#",
+} = Astro.props;
+---
+
+<style>
+  .project-card {
+    --transition: all 200ms ease;
+
+    width: 100%;
+    gap: 0.25rem;
+    background-color: var(--semantic-surface);
+    border-radius: var(--radii-large);
+    padding: 0.25rem;
+    transition: var(--transition);
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .mockups-area {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 4 / 3;
+    padding: 1.5rem;
+    background: var(--semantic-on-surface-low);
+    border-radius: var(--radii-xmedium);
+  }
+
+  .mockups-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 30rem;
+    gap: 1.25rem;
+  }
+
+  .mockup-ui {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radii-xsmall);
+
+    &.desktop {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      aspect-ratio: 45 / 32;
+    }
+
+    &.mobile {
+      aspect-ratio: 115 / 249;
+    }
+  }
+
+  .project-card-footer {
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+
+    .logo {
+      width: 2rem;
+      height: fit-content;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radii-xsmall);
+    }
+
+    .text-container {
+      gap: 0.375rem;
+      color: var(--semantic-quaternary);
+
+      :nth-child(1) {
+        color: var(--semantic-primary);
+      }
+    }
+
+    .pill-container {
+      margin-left: auto;
+    }
+  }
+</style>
+
+<a href={href} class="project-card flex-column stroke-xsmall">
+  <div class="mockups-area flex-row">
+    <div class="mockups-container">
+      {
+        platform === "Desktop" ? (
+          <img
+            class="mockup-ui desktop stroke-xsmall"
+            src={`/images/projects/${mockupFile}.webp`}
+            alt={`Mockup de escritorio del proyecto ${businessName}`}
+          />
+        ) : (
+          <>
+            <img
+              class="mockup-ui mobile stroke-xsmall"
+              src={`/images/projects/${mockupFile}-01.webp`}
+              alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            />
+            <img
+              class="mockup-ui mobile stroke-xsmall"
+              src={`/images/projects/${mockupFile}-02.webp`}
+              alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            />
+            <img
+              class="mockup-ui mobile stroke-xsmall"
+              src={`/images/projects/${mockupFile}-03.webp`}
+              alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            />
+          </>
+        )
+      }
+    </div>
+  </div>
+  <div class="project-card-footer flex-row">
+    <img
+      class="logo"
+      src={`/images/projects/${mockupFile}-logo.webp`}
+      alt={`Logotipo de ${businessName}`}
+    />
+    <div class="text-container flex-row">
+      <h3 class="body-large bold">{businessName}</h3>
+      <p class="body-large">/</p>
+      <p class="body-large">{description}</p>
+    </div>
+    <div class="pill-container flex-row">
+      <Pill text={pillText} nameIcon={pillIcon} />
+    </div>
+  </div>
+</a>
