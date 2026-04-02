@@ -74,7 +74,7 @@ const { title, description, imageName, imageAlt, href, pill, newTab } = Astro.pr
 
 <a class="flex-column project-card" href={href} target={newTab !== false ? "_blank" : "_self"}>
   <div class="mockup-area stroke-xsmall">
-    <img class="stroke-xsmall" src={`/images/${imageName}.webp`} alt={imageAlt} />
+    <img class="stroke-xsmall" src={`/images/projects/${imageName}.webp`} alt={imageAlt} />
   </div>
   <div class="flex-column project-card-footer">
     <h2 class="title display-smallest">{title}</h2>
