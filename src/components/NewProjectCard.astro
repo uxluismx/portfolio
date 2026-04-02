@@ -1,5 +1,4 @@
 ---
-import type { string } from "astro:schema";
 import Pill from "./Pill.astro";
 
 interface NewProjectCardProps {
@@ -19,7 +18,7 @@ const {
   description,
   pillText,
   pillIcon,
-  href = "#",
+  href,
 } = Astro.props;
 ---
 
@@ -33,6 +32,9 @@ const {
     border-radius: var(--radii-large);
     padding: 0.25rem;
     transition: var(--transition);
+
+    container-type: inline-size;
+    container-name: project-card;
 
     &:hover {
       transform: translateY(-4px);
@@ -51,7 +53,7 @@ const {
 
   .mockups-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     max-width: 30rem;
     gap: 1.25rem;
   }
@@ -74,7 +76,9 @@ const {
   }
 
   .project-card-footer {
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.75rem;
     padding: 1.25rem;
 
@@ -98,9 +102,15 @@ const {
       margin-left: auto;
     }
   }
+
+  @container project-card (max-width: 450px) {
+    .pill-container {
+      display: none;
+    }
+  }
 </style>
 
-<a href={href} class="project-card flex-column stroke-xsmall">
+<a href={href} class="project-card flex-column stroke-xsmall" target="_blank">
   <div class="mockups-area flex-row">
     <div class="mockups-container">
       {
