@@ -1,5 +1,15 @@
 ---
-import NavbarLink from "./NavbarLink.astro";
+import { defineMiddleware } from "astro:middleware";
+import Button from "./Button.astro";
+
+interface Props {
+  isActive?: boolean; /* Agregar una propiedad para indicar si el enlace está activo */
+}
+
+const isActive = (href: string) => {
+  const currentPath = Astro.url.pathname;
+  return currentPath === href;
+};
 ---
 
 <style>
@@ -10,10 +20,32 @@ import NavbarLink from "./NavbarLink.astro";
     padding: 0.5rem;
     border-radius: var(--radii-full);
   }
+
+  & :global(.button) {
+    min-width: 6rem;
+  }
 </style>
 
 <nav class="flex-row navbar stroke-xsmall shadow-small">
-  <NavbarLink href="#proyectos" text="Proyectos" />
-  <NavbarLink href="#mi-profesion" text="Mi profesión" />
-  <NavbarLink href="#sobre-mi" text="Sobre mí" />
+  <Button
+    size="SM"
+    type={isActive("/") ? "CTA" : "Link"}
+    text="Inicio"
+    href="https://uxluismx.com"
+    animation={false}
+  />
+  <Button
+    size="SM"
+    type={isActive("/proyectos") ? "CTA" : "Link"}
+    text="Proyectos"
+    href="https://uxluismx.com/proyectos"
+    animation={false}
+  />
+  <Button
+    size="SM"
+    type={isActive("/contacto") ? "CTA" : "Link"}
+    text="Contacto"
+    href="mailto:contacto@uxluismx.com"
+    animation={false}
+  />
 </nav>
