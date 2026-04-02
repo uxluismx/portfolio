@@ -1,5 +1,4 @@
 ---
-import { defineMiddleware } from "astro:middleware";
 import Button from "./Button.astro";
 
 interface Props {
@@ -28,14 +27,14 @@ const { isActive } = Astro.props;
     size="SM"
     type={isActive === "Inicio" ? "CTA" : "Link"}
     text="Inicio"
-    href="https://uxluismx.com"
+    href="/"
     animation={false}
   />
   <Button
     size="SM"
     type={isActive === "Proyectos" ? "CTA" : "Link"}
     text="Proyectos"
-    href="https://uxluismx.com/proyectos"
+    href="/proyectos"
     animation={false}
   />
   <Button

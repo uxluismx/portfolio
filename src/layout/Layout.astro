@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Navbar from "../components/Navbar.astro";
+import { ClientRouter } from "astro:transitions";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
@@ -13,6 +14,7 @@ import Analytics from "@vercel/analytics/astro";
     <link rel="icon" href="/images/favicon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
     <Analytics />
     <title>{Astro.props.title}</title>
     <style>
@@ -23,7 +25,6 @@ import Analytics from "@vercel/analytics/astro";
         /* Agregar patrón de fondo con una imagen svg */
         background-image: url("/images/resource-bg.svg");
         background-repeat: repeat;
-        background-position: -1920px -1920px;
       }
 
       .main-container {
