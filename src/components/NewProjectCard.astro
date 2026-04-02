@@ -11,15 +11,7 @@ interface NewProjectCardProps {
   href?: string;
 }
 
-const {
-  platform,
-  mockupFile,
-  businessName,
-  description,
-  pillText,
-  pillIcon,
-  href,
-} = Astro.props;
+const { platform, mockupFile, businessName, description, pillText, pillIcon, href } = Astro.props;
 ---
 
 <style>
@@ -119,6 +111,7 @@ const {
             class="mockup-ui desktop stroke-xsmall"
             src={`/images/projects/${mockupFile}.webp`}
             alt={`Mockup de escritorio del proyecto ${businessName}`}
+            loading="lazy"
           />
         ) : (
           <>
@@ -126,16 +119,19 @@ const {
               class="mockup-ui mobile stroke-xsmall"
               src={`/images/projects/${mockupFile}-01.webp`}
               alt={`Mockup de la interfaz del proyecto ${businessName}`}
+              loading="lazy"
             />
             <img
               class="mockup-ui mobile stroke-xsmall"
               src={`/images/projects/${mockupFile}-02.webp`}
               alt={`Mockup de la interfaz del proyecto ${businessName}`}
+              loading="lazy"
             />
             <img
               class="mockup-ui mobile stroke-xsmall"
               src={`/images/projects/${mockupFile}-03.webp`}
               alt={`Mockup de la interfaz del proyecto ${businessName}`}
+              loading="lazy"
             />
           </>
         )
