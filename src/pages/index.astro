@@ -3,14 +3,18 @@ import Layout from "../layout/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import BoxImage from "../components/BoxImage.astro";
+import NewProjectCard from "../components/NewProjectCard.astro";
 
 const title = "Luis Erick | UX/UI Designer";
 const isActive = "Inicio";
 ---
 
 <style>
+  .projects-group {
+    gap: 1.5rem;
+  }
+
   .about-images-group {
     --negative-gap: -0.5rem;
 
@@ -37,40 +41,39 @@ const isActive = "Inicio";
         href="mailto:uxluismx@gmail.com"
         nameIcon="hand-left"
       />
-      <Button size="MD" type="Light" text="Mis proyectos" href="#proyectos" />
+      <Button size="MD" type="Light" text="Mis proyectos" href="/proyectos" />
     </slot>
   </Hero>
 
   <!-- Sección de proyectos destacados -->
-  <GridSection title="Proyectos destacados" nameIcon="medal-prize" id="proyectos">
-    <ProjectCard
-      title="eleventa 6 - Diseño de App (Proximamente)"
-      description="Actualmente trabajando en este proyecto con el objetivo de ayudar a dueños de negocio para administrar la operación de sus comercios."
-      imageName="app-eleventa"
-      imageAlt="Imagen del proyecto eleventa 6"
-      href="#"
-      pill={["Flutter App", "Figma", "Desktop", "Mobile"]}
-      newTab={false}
+  <div class="projects-group flex-column">
+    <NewProjectCard
+      platform="Desktop"
+      mockupFile="app-eleventa"
+      businessName="eleventa 6"
+      description="¡Próximamente!"
+      pillText="Flutter App"
+      pillIcon="code-square"
     />
-
-    <ProjectCard
-      title="LAVVA - Diseño de Web"
-      description="Marca mexicana de Gimnasios de estudio que viene a sustituir a los gyms convencionales."
-      imageName="landing-lavva"
-      imageAlt="Imagen del proyecto LAVVA"
-      href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio_web&utm_medium=astro"
-      pill={["Landing Page", "Framer", "Responsive"]}
+    <NewProjectCard
+      platform="Desktop"
+      mockupFile="landing-lavva"
+      businessName="LAVVA"
+      description="Gym & Fitness"
+      pillText="Landing page"
+      pillIcon="pantone-color"
+      href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio&utm_medium=proyectos"
     />
-
-    <ProjectCard
-      title="Unibetas - Diseño de Plataforma Web"
-      description="Plataforma online que prepara estudiantes de bachillerato para diferentes exámenes de admisión de universidades mexicanas."
-      imageName="app-unibetas"
-      imageAlt="Imagen del proyecto Unibetas"
-      href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio_web&utm_medium=astro"
-      pill={["Web App", "Figma", "Desktop", "Mobile"]}
+    <NewProjectCard
+      platform="Mobile"
+      mockupFile="app-unibetas"
+      businessName="Unibetas"
+      description="E-learning"
+      pillText="Web App"
+      pillIcon="internet-earth"
+      href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio&utm_medium=proyectos"
     />
-  </GridSection>
+  </div>
 
   <!-- Sección de mi profesión -->
   <GridSection title="Mi profesión" nameIcon="tool-pencil-ruler-alt" id="mi-profesion">
