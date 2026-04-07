@@ -14,7 +14,7 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^6.0.8"
+    "astro": "^6.1.4"
   },
   "devDependencies": {
     "prettier": "^3.8.1",
