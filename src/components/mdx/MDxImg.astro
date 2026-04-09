@@ -1,0 +1,18 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+}
+
+const { src, alt = "", ...rest } = Astro.props;
+---
+
+<style>
+  img {
+    width: 100%;
+    border-radius: var(--radii-medium);
+  }
+</style>
+
+<!-- SRC relativo a la carpeta de imágenes (/images) -->
+<img class="stroke-xsmall" src={`/images/${src}`} alt={alt} {...rest} loading="lazy" />

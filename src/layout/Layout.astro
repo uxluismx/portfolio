@@ -6,6 +6,13 @@ import { ClientRouter } from "astro:transitions";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
+
+interface Props {
+  title: string;
+  isActive: string; /* Para permitir otros valores sin romper el componente, aunque idealmente debería ser un union type de los posibles valores */
+}
+
+const { title, isActive } = Astro.props;
 ---
 
 <html lang="es">
@@ -16,7 +23,7 @@ import Analytics from "@vercel/analytics/astro";
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
     <Analytics />
-    <title>{Astro.props.title}</title>
+    <title>{title}</title>
     <style>
       body {
         position: relative;
@@ -86,7 +93,7 @@ import Analytics from "@vercel/analytics/astro";
       </div>
     </main>
     <div id="navbar" class="flex-row">
-      <Navbar isActive={Astro.props.isActive} />
+      <Navbar isActive={isActive} />
     </div>
   </body>
 </html>

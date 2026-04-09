@@ -3,17 +3,11 @@ interface Props {
   accentTitle: string;
   title: string;
   description: string;
-  beforeContent?: boolean;
-  afterContent?: boolean;
 }
 
-const {
-  accentTitle,
-  title,
-  description,
-  beforeContent = false,
-  afterContent = false,
-} = Astro.props;
+const { accentTitle, title, description } = Astro.props;
+const beforeContent = Astro.slots.has("beforeContent");
+const afterContent = Astro.slots.has("afterContent");
 ---
 
 <style>
@@ -33,9 +27,12 @@ const {
       }
     }
 
-    .button-group {
-      gap: 1rem;
-      flex-wrap: wrap;
+    .slot-after-content {
+      gap: 1.5rem;
+    }
+
+    .slot-before-content {
+      gap: 1.5rem;
     }
   }
 </style>
@@ -43,7 +40,7 @@ const {
 <section class="flex-column hero-section">
   {
     beforeContent && (
-      <div class="flex-row button-group">
+      <div class="flex-row slot-before-content">
         <slot name="beforeContent" />
       </div>
     )
@@ -59,7 +56,7 @@ const {
   </div>
   {
     afterContent && (
-      <div class="flex-row button-group">
+      <div class="flex-column slot-after-content">
         <slot name="afterContent" />
       </div>
     )

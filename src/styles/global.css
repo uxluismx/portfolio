@@ -3,6 +3,7 @@
     font-family: 'Geist';
     src: url('../assets/fonts/geist_Variable.ttf') format('truetype');
     font-weight: 100 900;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -18,6 +19,7 @@
     font-family: 'Sora';
     src: url('../assets/fonts/sora_Variable.ttf') format('truetype');
     font-weight: 100 800;
+    font-style: normal;
     font-display: swap;
 }
 

@@ -2,7 +2,7 @@
 import Button from "./Button.astro";
 
 interface Props {
-  isActive: "Inicio" | "Proyectos" | "Contacto";
+  isActive: "Inicio" | "Proyectos" | "Contacto" | string;
 }
 
 const { isActive } = Astro.props;
@@ -12,9 +12,13 @@ const { isActive } = Astro.props;
   .navbar {
     width: fit-content;
     background: var(--bw-white);
-    gap: 0.5rem;
     padding: 0.5rem;
+    gap: 0.5rem;
     border-radius: var(--radii-full);
+  }
+
+  .navbar-container {
+    gap: inherit;
   }
 
   & :global(.button) {
@@ -24,24 +28,25 @@ const { isActive } = Astro.props;
 
 <nav class="flex-row navbar stroke-xsmall shadow-small">
   <Button
-    size="SM"
-    type={isActive === "Inicio" ? "CTA" : "Link"}
-    text="Inicio"
     href="/"
+    type={isActive === "Inicio" ? "CTA" : "Link"}
+    size="SM"
+    text="Inicio"
     animation={false}
   />
   <Button
-    size="SM"
-    type={isActive === "Proyectos" ? "CTA" : "Link"}
-    text="Proyectos"
     href="/proyectos"
+    type={isActive === "Proyectos" ? "CTA" : "Link"}
+    size="SM"
+    text="Proyectos"
     animation={false}
   />
   <Button
-    size="SM"
+    href="mailto:uxluismx@gmail.com"
     type={isActive === "Contacto" ? "CTA" : "Link"}
+    size="SM"
     text="Contacto"
-    href="mailto:contacto@uxluismx.com"
     animation={false}
   />
+  <slot />
 </nav>

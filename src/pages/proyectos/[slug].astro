@@ -1,0 +1,179 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layout/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import Button from "../../components/Button.astro";
+import MockupPlayer from "../../components/MockupPlayer.astro";
+
+// Componentes MDX para aplicar clases de global.css al contenido Markdown
+import MDxH2 from "../../components/mdx/MDxH2.astro";
+import MDxH3 from "../../components/mdx/MDxH3.astro";
+import MDxP from "../../components/mdx/MDxP.astro";
+import MDxA from "../../components/mdx/MDxA.astro";
+import MDxStrong from "../../components/mdx/MDxStrong.astro";
+import MDxLi from "../../components/mdx/MDxLi.astro";
+import MDxUl from "../../components/mdx/MDxUl.astro";
+import MDxOl from "../../components/mdx/MDxOl.astro";
+import MDxImg from "../../components/mdx/MDxImg.astro";
+import MDxBlockquote from "../../components/mdx/MDxBlockquote.astro";
+import MDxHr from "../../components/mdx/MDxHr.astro";
+import MDxPre from "../../components/mdx/MDxPre.astro";
+import MDxCode from "../../components/mdx/MDxCode.astro";
+
+// getStaticPaths genera una ruta por cada entrada de la colección "proyectos"
+export async function getStaticPaths() {
+  const proyectoEntries = await getCollection("proyectos");
+  return proyectoEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+// render() convierte el contenido Markdown/MDX a HTML
+const { Content } = await render(entry);
+const title = `Conoce ${data.title} | Luis Erick`;
+
+// Mapa de dominios → texto e ícono para el botón de link externo.
+// Para agregar más plataformas, añade una nueva entrada con el dominio como key.
+const externalLinkMap: Record<string, { text: string; nameIcon: string }> = {
+  "instagram.com": { text: "Ver en Instagram", nameIcon: "logo-instagram" },
+  "behance.net": { text: "Ver en Behance", nameIcon: "logo-behance" },
+  "dribbble.com": { text: "Ver en Dribbble", nameIcon: "logo-dribbble" },
+  "figma.com": { text: "Ver en Figma", nameIcon: "logo-figma" },
+};
+
+function getExternalLinkProps(url?: string) {
+  if (!url) return null;
+  try {
+    const hostname = new URL(url).hostname.replace("www.", "");
+    return externalLinkMap[hostname] ?? { text: "Ver proyecto", nameIcon: "internet-earth" };
+  } catch {
+    return { text: "Ver proyecto", nameIcon: "internet-earth" };
+  }
+}
+
+const linkProps = getExternalLinkProps(data.externalLink);
+const isActive = "Proyecto activo";
+---
+
+<style>
+  .blog-content {
+    :global(h2, h3, pre) {
+      margin-block-start: 0;
+      margin-block-end: 1rem;
+    }
+
+    :global(p, a, ul, ol, blockquote) {
+      margin-block-start: 0;
+      margin-block-end: 1rem;
+    }
+
+    :global(hr) {
+      margin-block-start: 1rem;
+      margin-block-end: 2rem;
+    }
+
+    :global(blockquote) {
+      /* Maniobra para eliminar el margen de los párrafos dentro de blockquote */
+      p {
+        margin: 0;
+      }
+    }
+
+    :global(p) {
+      /* Maniobra para ajustar los margenes de las imágenes dentro de párrafos */
+      img {
+        margin-block-start: 1rem;
+      }
+
+      a {
+        margin: 0;
+      }
+    }
+
+    :global(:first-child) {
+      margin-block-start: 0;
+    }
+
+    :global(:last-child) {
+      margin-block-end: 0;
+    }
+  }
+
+  .hero-logo {
+    background-color: var(--semantic-surface);
+    padding: 0.25rem;
+    border-color: var(--semantic-border-high);
+    border-radius: var(--radii-large);
+
+    img {
+      width: 5.5rem;
+      object-fit: contain;
+      border-color: white;
+      border-radius: var(--radii-xmedium);
+    }
+  }
+</style>
+
+<Layout title={title} isActive={isActive}>
+  <Hero accentTitle={data.accentTitle} title={data.title} description={data.description}>
+    <div slot="beforeContent" class="hero-logo flex-row stroke-small">
+      <img
+        class="stroke-xmedium shadow-normal"
+        src={`/images/projects/${data.logo}-logo.webp`}
+        alt={`${data.title}`}
+      />
+    </div>
+    <div slot="afterContent" class="flex-row" style="gap: 1rem;">
+      {
+        linkProps && (
+          <Button
+            href={data.externalLink!}
+            type="CTA"
+            size="MD"
+            text={linkProps.text}
+            nameIcon={linkProps.nameIcon}
+            newPage={true}
+          />
+        )
+      }
+      <Button href="#blog-content" type="Light" size="MD" text="Seguir leyendo" />
+    </div>
+    <div class="flex-column" slot="afterContent">
+      <MockupPlayer
+        platform={data.platform}
+        mockupFile={data.mockupFile}
+        businessName={data.title}
+      />
+    </div>
+    <div class="flex-column" slot="afterContent">
+      <hr
+        style="width: 100%; height: 0.25rem; background-color: var(--semantic-border-low); border: none; margin-block-start: 1.5rem; margin-block-end: 1rem;"
+      />
+    </div>
+  </Hero>
+
+  <!-- CONTENIDO MARKDOWN / MDX -->
+  <article class="blog-content flex-column" id="blog-content">
+    <Content
+      components={{
+        h2: MDxH2,
+        h3: MDxH3,
+        p: MDxP,
+        a: MDxA,
+        strong: MDxStrong,
+        li: MDxLi,
+        ul: MDxUl,
+        ol: MDxOl,
+        img: MDxImg,
+        blockquote: MDxBlockquote,
+        hr: MDxHr,
+        pre: MDxPre,
+        code: MDxCode,
+      }}
+    />
+  </article>
+</Layout>

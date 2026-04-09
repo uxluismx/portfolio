@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# Template para proyectos nuevos (src/content/proyectos/template.mdx)
+src/content/proyectos/template.mdx

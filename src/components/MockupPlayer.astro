@@ -1,0 +1,81 @@
+---
+interface MockupPlayerProps {
+  platform: "Desktop" | "Mobile";
+  mockupFile: string;
+  businessName: string;
+}
+
+const { platform, mockupFile, businessName } = Astro.props;
+---
+
+<style>
+  .mockup-player {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 4 / 3;
+    padding: 1.5rem;
+    background-color: var(--semantic-surface);
+    border-radius: var(--radii-xmedium);
+  }
+
+  .mockups-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 30rem;
+    gap: 1.25rem;
+  }
+
+  .mockup-ui {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radii-xsmall);
+
+    &.desktop {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      aspect-ratio: 45 / 32;
+    }
+
+    &.mobile {
+      aspect-ratio: 115 / 249;
+    }
+  }
+</style>
+
+<div class="mockup-player flex-row stroke-xsmall">
+  <div class="mockups-container">
+    {
+      platform === "Desktop" ? (
+        <img
+          class="mockup-ui desktop stroke-xsmall"
+          src={`/images/projects/${mockupFile}.webp`}
+          alt={`Mockup de escritorio del proyecto ${businessName}`}
+          loading="lazy"
+        />
+      ) : (
+        <>
+          <img
+            class="mockup-ui mobile stroke-xsmall"
+            src={`/images/projects/${mockupFile}-01.webp`}
+            alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            loading="lazy"
+          />
+          <img
+            class="mockup-ui mobile stroke-xsmall"
+            src={`/images/projects/${mockupFile}-02.webp`}
+            alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            loading="lazy"
+          />
+          <img
+            class="mockup-ui mobile stroke-xsmall"
+            src={`/images/projects/${mockupFile}-03.webp`}
+            alt={`Mockup de la interfaz del proyecto ${businessName}`}
+            loading="lazy"
+          />
+        </>
+      )
+    }
+  </div>
+</div>

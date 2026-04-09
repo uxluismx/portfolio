@@ -1,5 +1,6 @@
 ---
 import Pill from "./Pill.astro";
+import MockupPlayer from "./MockupPlayer.astro";
 
 interface NewProjectCardProps {
   platform: "Desktop" | "Mobile";
@@ -8,10 +9,10 @@ interface NewProjectCardProps {
   description: string;
   pillText: string;
   pillIcon: string;
-  href?: string;
+  slug: string;
 }
 
-const { platform, mockupFile, businessName, description, pillText, pillIcon, href } = Astro.props;
+const { platform, mockupFile, businessName, description, pillText, pillIcon, slug } = Astro.props;
 ---
 
 <style>
@@ -33,38 +34,9 @@ const { platform, mockupFile, businessName, description, pillText, pillIcon, hre
     }
   }
 
-  .mockups-area {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 4 / 3;
-    padding: 1.5rem;
-    background: var(--semantic-on-surface-low);
-    border-radius: var(--radii-xmedium);
-  }
-
-  .mockups-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 30rem;
-    gap: 1.25rem;
-  }
-
-  .mockup-ui {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: var(--radii-xsmall);
-
-    &.desktop {
-      grid-column-start: 1;
-      grid-column-end: 4;
-      aspect-ratio: 45 / 32;
-    }
-
-    &.mobile {
-      aspect-ratio: 115 / 249;
-    }
+  :global(.mockup-player) {
+    border: none;
+    background-color: var(--semantic-on-surface-low) !important;
   }
 
   .project-card-footer {
@@ -102,42 +74,8 @@ const { platform, mockupFile, businessName, description, pillText, pillIcon, hre
   }
 </style>
 
-<a href={href} class="project-card flex-column stroke-xsmall" target="_blank">
-  <div class="mockups-area flex-row">
-    <div class="mockups-container">
-      {
-        platform === "Desktop" ? (
-          <img
-            class="mockup-ui desktop stroke-xsmall"
-            src={`/images/projects/${mockupFile}.webp`}
-            alt={`Mockup de escritorio del proyecto ${businessName}`}
-            loading="lazy"
-          />
-        ) : (
-          <>
-            <img
-              class="mockup-ui mobile stroke-xsmall"
-              src={`/images/projects/${mockupFile}-01.webp`}
-              alt={`Mockup de la interfaz del proyecto ${businessName}`}
-              loading="lazy"
-            />
-            <img
-              class="mockup-ui mobile stroke-xsmall"
-              src={`/images/projects/${mockupFile}-02.webp`}
-              alt={`Mockup de la interfaz del proyecto ${businessName}`}
-              loading="lazy"
-            />
-            <img
-              class="mockup-ui mobile stroke-xsmall"
-              src={`/images/projects/${mockupFile}-03.webp`}
-              alt={`Mockup de la interfaz del proyecto ${businessName}`}
-              loading="lazy"
-            />
-          </>
-        )
-      }
-    </div>
-  </div>
+<a href={`/proyectos/${slug}`} class="project-card flex-column stroke-xsmall">
+  <MockupPlayer platform={platform} mockupFile={mockupFile} businessName={businessName} />
   <div class="project-card-footer flex-row">
     <img
       class="logo"

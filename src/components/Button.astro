@@ -2,15 +2,15 @@
 import IconWrapper from './IconWrapper.astro';
 
 interface Props {
-  type: "CTA" | "Light" | "Ghost" | "Link";
-  size: "MD" | "SM";
   href: string;
   text: string;
+  type?: "CTA" | "Light" | "Ghost" | "Link";
+  size?: "MD" | "SM";
   nameIcon?: string;
   animation?: string | boolean;
   newPage?: boolean; /* Hacer que el enlace se abra en una nueva pestaña por default */
 }
-const { href, text, nameIcon, type, size, animation, newPage } = Astro.props;
+const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = Astro.props;
 ---
 
 <style>

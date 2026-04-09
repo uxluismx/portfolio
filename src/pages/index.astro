@@ -6,7 +6,7 @@ import GridSection from "../components/GridSection.astro";
 import BoxImage from "../components/BoxImage.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
 
-const title = "Luis Erick | UX/UI Designer";
+const title = "UX/UI Designer | Luis Erick";
 const isActive = "Inicio";
 ---
 
@@ -31,18 +31,11 @@ const isActive = "Inicio";
     accentTitle="Soy UX/UI Designer."
     title="+5 años de experiencia a tu disposición."
     description="Me dedico a crear productos digitales para tu negocio o emprendimiento. ¡Hablemos!"
-    slotVisible={true}
   >
-    <slot>
-      <Button
-        size="MD"
-        type="CTA"
-        text="Cotiza tu proyecto"
-        href="mailto:uxluismx@gmail.com"
-        nameIcon="hand-left"
-      />
-      <Button size="MD" type="Light" text="Mis proyectos" href="/proyectos" />
-    </slot>
+    <div slot="afterContent" class="flex-row" style="gap: 1rem;">
+      <Button text="Cotiza tu proyecto" href="mailto:uxluismx@gmail.com" nameIcon="hand-left" />
+      <Button type="Light" text="Mis proyectos" href="/proyectos" />
+    </div>
   </Hero>
 
   <!-- Sección de proyectos destacados -->
@@ -54,6 +47,7 @@ const isActive = "Inicio";
       description="¡Próximamente!"
       pillText="Flutter App"
       pillIcon="code-square"
+      slug="eleventa-6"
     />
     <NewProjectCard
       platform="Desktop"
@@ -62,7 +56,7 @@ const isActive = "Inicio";
       description="Gym & Fitness"
       pillText="Landing page"
       pillIcon="pantone-color"
-      href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio&utm_medium=proyectos"
+      slug="lavva"
     />
     <NewProjectCard
       platform="Mobile"
@@ -71,7 +65,7 @@ const isActive = "Inicio";
       description="E-learning"
       pillText="Web App"
       pillIcon="internet-earth"
-      href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio&utm_medium=proyectos"
+      slug="unibetas"
     />
   </div>
 
