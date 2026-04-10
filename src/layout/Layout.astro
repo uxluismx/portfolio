@@ -10,9 +10,10 @@ import Analytics from "@vercel/analytics/astro";
 interface Props {
   title: string;
   isActive: string; /* Para permitir otros valores sin romper el componente, aunque idealmente debería ser un union type de los posibles valores */
+  navbar?: boolean;
 }
 
-const { title, isActive } = Astro.props;
+const { title, isActive, navbar } = Astro.props;
 ---
 
 <html lang="es">
@@ -92,9 +93,13 @@ const { title, isActive } = Astro.props;
         <slot />
       </div>
     </main>
-    <div id="navbar" class="flex-row">
-      <Navbar isActive={isActive} />
-    </div>
+    {
+      navbar !== false && (
+        <div id="navbar" class="flex-row">
+          <Navbar isActive={isActive} />
+        </div>
+      )
+    }
   </body>
 </html>
 <SpeedInsights />

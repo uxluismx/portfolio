@@ -1,0 +1,20 @@
+---
+import BoxImage from "./BoxImage.astro";
+---
+
+<style>
+  .combo-BoxImage {
+    --negative-gap: -0.5rem;
+
+    align-self: center;
+    flex-wrap: nowrap;
+    margin-top: calc(-1 * var(--negative-gap));
+    margin-left: calc(-1 * var(--negative-gap));
+    margin-block-end: 0.5rem;
+  }
+</style>
+
+<div class="combo-BoxImage flex-row">
+  <BoxImage name="imageProfile" alt="Imagen de Luis Erick" size={120} rotate={4} />
+  <BoxImage name="imageProfile2" alt="Imagen de Luis Erick" size={120} rotate={-4} />
+</div>

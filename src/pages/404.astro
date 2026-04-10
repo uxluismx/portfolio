@@ -1,0 +1,45 @@
+---
+import Layout from "../layout/Layout.astro";
+
+import Hero from "../components/Hero.astro";
+import BoxImageCombo from "../components/BoxImageCombo.astro";
+import Button from "../components/Button.astro";
+---
+
+<style>
+  :global(section) {
+    padding-block-start: 8rem;
+    padding-block-end: 10rem;
+    align-items: center;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  @media screen and (max-width: 450px) {
+    :global(section) {
+      padding-block-start: 2rem;
+      padding-block-end: 0;
+    }
+  }
+</style>
+
+<Layout title="¡Ay dios! | Luis Erick" isActive="404" navbar={false}>
+  <Hero
+    accentTitle="¡Ay dios!"
+    title="Parece que nos perdimos un poco."
+    description="Podemos regresar o quizá te guste ver algo interesante."
+  >
+    <div slot="beforeContent" class="flex-row">
+      <BoxImageCombo />
+    </div>
+    <div slot="afterContent" class="flex-row" style="gap: 1rem;">
+      <Button text="Regresar al Inicio" href="/" />
+      <Button
+        type="Light"
+        text="¡Sorpréndeme!"
+        href="https://open.spotify.com/playlist/1lpAziic4O8D0ayIgkf42c?si=7df917f61f67432f"
+        newPage={true}
+      />
+    </div>
+  </Hero>
+</Layout>

@@ -3,7 +3,7 @@ import Layout from "../layout/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
-import BoxImage from "../components/BoxImage.astro";
+import BoxImageCombo from "../components/BoxImageCombo.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
 
 const title = "UX/UI Designer | Luis Erick";
@@ -13,15 +13,6 @@ const isActive = "Inicio";
 <style>
   .projects-group {
     gap: 1.5rem;
-  }
-
-  .about-images-group {
-    --negative-gap: -0.5rem;
-
-    align-self: center;
-    flex-wrap: nowrap;
-    margin-top: calc(-1 * var(--negative-gap));
-    margin-left: calc(-1 * var(--negative-gap));
   }
 </style>
 
@@ -92,10 +83,7 @@ const isActive = "Inicio";
 
   <!-- Sección de sobre mí -->
   <GridSection title="Sobre mí" nameIcon="user-profile" id="sobre-mi">
-    <div class="about-images-group flex-row">
-      <BoxImage name="imageProfile" alt="Imagen de Luis Erick" size={120} rotate={4} />
-      <BoxImage name="imageProfile2" alt="Imagen de Luis Erick" size={120} rotate={-4} />
-    </div>
+    <BoxImageCombo />
     <p class="display-smallest color-quaternary">
       <span class="accent-smallest color-primary">Tengo 23 años, </span>
       soy introvertido (INFJ) y disfruto mucho mi tiempo a solas. Crear proyectos es mi hobbie favorito.
