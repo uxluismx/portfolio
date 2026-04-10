@@ -8,16 +8,21 @@ const { href } = Astro.props;
 
 <style>
   a {
+    --transition: all 100ms ease;
+
     display: inline-block;
     text-decoration: underline;
-    transition: all 100ms ease;
+    text-decoration-color: var(--semantic-border-high);
+    text-underline-offset: 0.25em;
+    transition: var(--transition);
 
     &:hover {
-      color: var(--semantic-primary);
+      text-decoration-color: var(--semantic-zero);
+      transition: var(--transition);
     }
   }
 </style>
 
-<a href={href} class="body-large color-tertiary" target="_blank">
+<a href={href} class="body-large color-zero" target="_blank">
   <slot />
 </a>

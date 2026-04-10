@@ -5,9 +5,13 @@
 <style>
   strong {
     display: inline-block;
+    text-decoration: underline dotted;
+    text-decoration-color: var(--semantic-border-high);
+    text-decoration-thickness: 0.125em;
+    text-underline-offset: 0.25em;
   }
 </style>
 
-<strong class="body-large bold color-tertiary">
+<strong class="body-large color-zero">
   <slot />
 </strong>

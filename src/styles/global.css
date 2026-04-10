@@ -446,6 +446,10 @@ button {
 } */
 
 /* Definición de Colores */
+.color-zero {
+    color: var(--semantic-zero);
+}
+
 .color-primary {
     color: var(--semantic-primary);
 }
