@@ -6,14 +6,14 @@ interface NewProjectCardProps {
   platform: "Desktop" | "Mobile";
   mockupFile: string;
   businessName: string;
-  description: string;
+  shortText: string;
   pillText: string;
   pillIcon: string;
   slug?: string;
   href?: string;
 }
 
-const { platform, mockupFile, businessName, description, pillText, pillIcon, slug, href } =
+const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug, href } =
   Astro.props;
 ---
 
@@ -90,7 +90,7 @@ const { platform, mockupFile, businessName, description, pillText, pillIcon, slu
     <div class="text-container flex-row">
       <h3 class="body-large bold">{businessName}</h3>
       <p class="body-large">/</p>
-      <p class="body-large">{description}</p>
+      <p class="body-large">{shortText}</p>
     </div>
     <div class="pill-container flex-row">
       <Pill text={pillText} nameIcon={pillIcon} />

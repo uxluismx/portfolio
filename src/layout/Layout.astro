@@ -89,9 +89,9 @@ const { title, isActive, navbar } = Astro.props;
   <body>
     <main class="main-container flex-column stroke-xsmall shadow-small">
       <Header />
-      <div class="slot-container flex-column">
+      <article class="slot-container flex-column">
         <slot />
-      </div>
+      </article>
     </main>
     {
       navbar !== false && (

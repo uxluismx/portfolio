@@ -22,7 +22,10 @@ const { isActive } = Astro.props;
   }
 </style>
 
-<nav class="flex-row navbar stroke-xsmall shadow-small">
+<nav
+  class="flex-row navbar stroke-xsmall shadow-small"
+  aria-label="Navegación secundaria: Paginas del portafolio"
+>
   <Button
     href="/"
     type={isActive === "Inicio" ? "CTA" : "Link"}

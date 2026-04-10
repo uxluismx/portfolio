@@ -6,8 +6,8 @@ import GridSection from "../components/GridSection.astro";
 import BoxImageCombo from "../components/BoxImageCombo.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
 
-const title = "UX/UI Designer | Luis Erick";
 const isActive = "Inicio";
+const title = `${isActive} | Luis Erick`;
 ---
 
 <style>
@@ -19,13 +19,13 @@ const isActive = "Inicio";
 <Layout title={title} isActive={isActive}>
   <!-- Sección de HERO -->
   <Hero
-    accentTitle="Soy UX/UI Designer."
-    title="+5 años de experiencia a tu disposición."
-    description="Me dedico a crear productos digitales para tu negocio o emprendimiento. ¡Hablemos!"
+    accentTitle="Soy Product Designer."
+    title="Productos digitales para tu negocio."
+    description="Diseño las webs y el software del futuro. +5 años de experiencia a tu disposición."
   >
     <div slot="afterContent" class="flex-row" style="gap: 1rem;">
-      <Button text="Cotiza tu proyecto" href="mailto:uxluismx@gmail.com" nameIcon="hand-left" />
-      <Button type="Light" text="Mis proyectos" href="/proyectos" />
+      <Button text="Checa mis proyectos" href="/proyectos" nameIcon="medal-prize" />
+      <Button type="Light" text="¡Contáctame!" href="mailto:uxluismx@gmail.com" />
     </div>
   </Hero>
 

@@ -3,8 +3,8 @@ import Layout from "../../layout/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import NewProjectCard from "../../components/NewProjectCard.astro";
 
-const title = "Proyectos | Luis Erick";
 const isActive = "Proyectos";
+const title = `${isActive} | Luis Erick`;
 ---
 
 <style>
@@ -15,25 +15,34 @@ const isActive = "Proyectos";
 
 <Layout title={title} isActive={isActive}>
   <Hero
-    accentTitle="Conoce mis proyectos."
-    title="Experiencia aplicada a problemas reales."
-    description="Explora la colección de proyectos en los que participé con ideas y entregables de alta calidad."
+    accentTitle="Mis proyectos."
+    title="Dolores reales, soluciones viables."
+    description="Explora los proyectos en los que colaboré con ideas y entregables de alta calidad."
   />
   <div class="projects-group flex-column">
     <NewProjectCard
       platform="Desktop"
       mockupFile="app-eleventa"
       businessName="eleventa 6"
-      description="¡Próximamente!"
+      shortText="¡Próximamente!"
       pillText="Flutter App"
       pillIcon="code-square"
       slug="eleventa-6"
     />
     <NewProjectCard
+      platform="Mobile"
+      mockupFile="app-retorna"
+      businessName="Retorna"
+      shortText="¡Próximamente!"
+      pillText="Flutter App"
+      pillIcon="code-square"
+      slug="retorna"
+    />
+    <NewProjectCard
       platform="Desktop"
       mockupFile="landing-lavva"
       businessName="LAVVA"
-      description="Gym & Fitness"
+      shortText="Gym & Fitness"
       pillText="Landing page"
       pillIcon="pantone-color"
       href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio&utm_medium=proyectos"
@@ -43,7 +52,7 @@ const isActive = "Proyectos";
       platform="Mobile"
       mockupFile="app-unibetas"
       businessName="Unibetas"
-      description="E-learning"
+      shortText="E-learning"
       pillText="Web App"
       pillIcon="internet-earth"
       href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio&utm_medium=proyectos"
@@ -53,26 +62,17 @@ const isActive = "Proyectos";
       platform="Desktop"
       mockupFile="landing-hemisferio"
       businessName="Hemisferio"
-      description="Agencia"
+      shortText="Agencia"
       pillText="Landing page"
       pillIcon="pantone-color"
       href="https://www.behance.net/gallery/222837805/Landing-Page-for-Hemisferiopro?platform=direct&utm_source=portfolio&utm_medium=proyectos"
       slug="hemisferio"
     />
     <NewProjectCard
-      platform="Mobile"
-      mockupFile="app-retorna"
-      businessName="Retorna"
-      description="Fintech"
-      pillText="Flutter App"
-      pillIcon="code-square"
-      slug="retorna"
-    />
-    <NewProjectCard
       platform="Desktop"
       mockupFile="landing-naut"
       businessName="NAUT"
-      description="Salud visual"
+      shortText="Salud visual"
       pillText="Landing page"
       pillIcon="pantone-color"
       href="https://www.instagram.com/p/DEa6NFpSWVR/?utm_source=portfolio&utm_medium=proyectos"
@@ -82,7 +82,7 @@ const isActive = "Proyectos";
       platform="Desktop"
       mockupFile="landing-mastermind"
       businessName="Mastermind"
-      description="E-learning"
+      shortText="E-learning"
       pillText="Landing page"
       pillIcon="pantone-color"
       href="https://www.instagram.com/p/C3uSgaIurYC/?utm_source=portfolio&utm_medium=proyectos"
