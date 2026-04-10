@@ -9,10 +9,12 @@ interface NewProjectCardProps {
   description: string;
   pillText: string;
   pillIcon: string;
-  slug: string;
+  slug?: string;
+  href?: string;
 }
 
-const { platform, mockupFile, businessName, description, pillText, pillIcon, slug } = Astro.props;
+const { platform, mockupFile, businessName, description, pillText, pillIcon, slug, href } =
+  Astro.props;
 ---
 
 <style>
@@ -74,7 +76,10 @@ const { platform, mockupFile, businessName, description, pillText, pillIcon, slu
   }
 </style>
 
-<a href={`/proyectos/${slug}`} class="project-card flex-column stroke-xsmall">
+<!-- <a href={`/proyectos/${slug}`} class="project-card flex-column stroke-xsmall"> -->
+
+<!-- Enlace provisional externo para proyectos -->
+<a href={href} class="project-card flex-column stroke-xsmall" target="_blank">
   <MockupPlayer platform={platform} mockupFile={mockupFile} businessName={businessName} />
   <div class="project-card-footer flex-row">
     <img
