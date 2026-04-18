@@ -1,4 +1,6 @@
 ---
+import { CldImage } from "astro-cloudinary";
+
 interface Props {
   src: string;
   alt?: string;
@@ -8,11 +10,13 @@ const { src, alt = "", ...rest } = Astro.props;
 ---
 
 <style>
-  img {
+  :global(.astro-cloudinary-cldimage) {
     width: 100%;
+    height: auto;
+    border: 0.5px solid var(--semantic-border-low);
     border-radius: var(--radii-medium);
   }
 </style>
 
 <!-- SRC relativo a la carpeta de imágenes (/images) -->
-<img class="stroke-xsmall" src={`/images/${src}`} alt={alt} {...rest} loading="lazy" />
+<CldImage src={src} alt={alt} width={1200} {...rest} loading={"lazy"} />
