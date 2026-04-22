@@ -86,7 +86,7 @@ const isActive = "Detalle de proyecto";
     :global(p) {
       /* Maniobra para ajustar los margenes de las imágenes dentro de párrafos */
       img {
-        margin-block-start: 1rem;
+        margin-block: 1rem;
       }
 
       a {
@@ -94,11 +94,11 @@ const isActive = "Detalle de proyecto";
       }
     }
 
-    :global(:first-child) {
+    #blog-content :global(:first-child) {
       margin-block-start: 0;
     }
 
-    :global(:last-child) {
+    #blog-content :global(:last-child) {
       margin-block-end: 0;
     }
   }
