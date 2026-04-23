@@ -4,14 +4,9 @@
 
 <style>
   strong {
-    display: inline-block;
-    text-decoration: underline dotted;
-    text-decoration-color: var(--semantic-border-high);
-    text-decoration-thickness: 0.125em;
-    text-underline-offset: 0.25em;
+    display: inline;
   }
 </style>
 
-<strong class="body-large color-zero">
-  <slot />
-</strong>
+<!-- Componente escrito en una sola línea para evitar saltos de línea renderizados en el HTML final -->
+<strong class="body-large bold color-zero"><slot /></strong>

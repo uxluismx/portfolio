@@ -12,17 +12,16 @@ const { href } = Astro.props;
 
     display: inline-block;
     text-decoration: underline;
-    text-decoration-color: var(--semantic-border-high);
+    text-decoration-color: var(--blue-200);
     text-underline-offset: 0.25em;
     transition: var(--transition);
+    color: var(--blue-600);
 
     &:hover {
-      text-decoration-color: var(--semantic-zero);
+      text-decoration-color: var(--blue-400);
       transition: var(--transition);
     }
   }
 </style>
 
-<a href={href} class="body-large color-zero" target="_blank">
-  <slot />
-</a>
+<a href={href} class="body-large bold" target="_blank"><slot /></a>

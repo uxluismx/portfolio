@@ -4,12 +4,34 @@
 
 <style>
   blockquote {
-    border-left: 4px solid var(--semantic-border-high);
-    padding-left: calc(4px + 1rem);
-    padding-block: 0.5rem;
+    text-align: center;
+    padding-block: 2rem 0;
+    gap: 0.5rem;
+  }
+
+  .blockquote-container {
+    width: 100%;
+    min-height: 6rem;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    background-color: var(--semantic-surface);
+    background-image: url(/images/resource-bg.svg);
+    background-repeat: repeat;
+    background-position: center;
+    color: inherit;
+    padding: 2rem;
+    border-radius: var(--radii-large);
+
+    :global(p) {
+      font: inherit;
+      color: inherit;
+      max-width: 25rem;
+      text-wrap: balance;
+    }
   }
 </style>
 
-<blockquote class="body-large color-secondary">
-  <slot />
+<blockquote class="flex-column accent-small color-zero">
+  <div class="flex-column blockquote-container stroke-xsmall"><slot /></div>
 </blockquote>

@@ -19,6 +19,7 @@ import MDxBlockquote from "../../components/mdx/MDxBlockquote.astro";
 import MDxHr from "../../components/mdx/MDxHr.astro";
 import MDxPre from "../../components/mdx/MDxPre.astro";
 import MDxCode from "../../components/mdx/MDxCode.astro";
+import MDxEm from "../../components/mdx/MDxEm.astro";
 
 // getStaticPaths genera una ruta por cada entrada de la colección "proyectos"
 export async function getStaticPaths() {
@@ -61,6 +62,14 @@ const isActive = "Detalle de proyecto";
 
 <style>
   .blog-content {
+    /* Declaración de variables CSS */
+    --line-height: 160%;
+
+    /* Ajustes custom para el contenido Markdown */
+    :global([class*="body"]) {
+      line-height: var(--line-height);
+    }
+
     :global(h2, h3, pre) {
       margin-block-start: 0;
       margin-block-end: 1rem;
@@ -72,8 +81,8 @@ const isActive = "Detalle de proyecto";
     }
 
     :global(hr) {
-      margin-block-start: 1rem;
-      margin-block-end: 2rem;
+      margin-block-start: 2rem;
+      margin-block-end: 3rem;
     }
 
     :global(blockquote) {
@@ -173,6 +182,7 @@ const isActive = "Detalle de proyecto";
         hr: MDxHr,
         pre: MDxPre,
         code: MDxCode,
+        em: MDxEm,
       }}
     />
   </article>
