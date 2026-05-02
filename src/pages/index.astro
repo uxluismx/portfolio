@@ -21,13 +21,9 @@ const title = `${isActive} | Luis Erick`;
   <Hero
     accentTitle="Soy Product Designer."
     title="Productos digitales para tu negocio."
-    description="Diseño las webs y el software del futuro. +5 años de experiencia a tu disposición."
+    description="Diseño las webs y el software del futuro. +5 años de experiencia en proyectos SaaS, E-learning y Fintech."
   >
-    <div
-      slot="afterContent"
-      class="flex-row"
-      style="gap: 1rem; flex-wrap: inherit;"
-    >
+    <div slot="afterContent" class="flex-row" style="gap: 1rem; flex-wrap: inherit;">
       <Button text="Checa mis proyectos" href="/proyectos" nameIcon="medal-prize" />
       <Button type="Light" text="¡Contáctame!" href="mailto:uxluismx@gmail.com" />
     </div>
@@ -105,11 +101,14 @@ const title = `${isActive} | Luis Erick`;
     </p>
     <p class="display-smallest color-quaternary">
       🥁 Soy fanático del Hardstyle, me gusta ver DJ Sets, descubrir nueva música y mantener mi
-      playlist personal al día, <a
+      playlist personal al día,
+      <a
         href="https://open.spotify.com/playlist/1lpAziic4O8D0ayIgkf42c?si=7df917f61f67432f"
         class="accent-smallest color-primary"
-        style="text-decoration: underline;">disponible en Spotify.</a
-      >
+        style="text-decoration: underline;"
+        target="_blank"
+        >disponible en Spotify.
+      </a>
     </p>
   </GridSection>
 </Layout>
