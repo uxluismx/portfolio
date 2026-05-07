@@ -1,0 +1,219 @@
+---
+import { CldImage } from "astro-cloudinary";
+import IconWrapper from "./IconWrapper.astro";
+
+interface Props {
+  src: string;
+  alt?: string;
+  width?: number; // ancho para la imagen maximizada
+  thumbWidth?: number; // ancho para la miniatura
+}
+
+const { src, alt = "", width = 2000, thumbWidth = 1200 } = Astro.props;
+const id = `max-img-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<style>
+  @keyframes fadeInOverlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes CloseButton {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .maximize-image {
+    --transition-custom: all 150ms ease;
+    display: block;
+  }
+
+  .img-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    transition: var(--transition-custom);
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: scale(1.01);
+    }
+  }
+
+  .thumb {
+    width: 100%;
+    height: auto;
+    border: 0.5px solid var(--semantic-border-low);
+    border-radius: var(--radii-medium);
+    display: block;
+    transition: var(--transition-custom);
+  }
+
+  .max-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.88);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999;
+    padding: 1rem;
+    backdrop-filter: blur(2px);
+    border: 1px solid red;
+  
+    &.open {
+      animation: fadeInOverlay 200ms ease forwards;
+      visibility: visible;
+
+      .overlay-container {
+        animation: zoomIn 200ms ease forwards;
+      }
+
+      .close-button {
+        animation: CloseButton 300ms ease forwards;
+      }
+  }
+
+  .overlay-container {
+    width: auto !important;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    outline: 1px solid blue;
+    border-radius: var(--radii-medium);
+
+    :global(img) {
+      width: auto !important;
+      height: 100%;
+      border: 0.5px solid var(--semantic-border-low);
+      border-radius: var(--radii-medium);
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: white;
+    font-size: 1.25rem;
+    border-radius: 999px;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: var(--transition-custom);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.24);
+      transform: scale(1.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 100ms !important;
+      transition-duration: 100ms !important;
+    }
+  }
+</style>
+
+<div class="maximize-image" id={id}>
+  <button class="img-btn" type="button" aria-label={`Maximizar imagen: ${alt}`}>
+    <CldImage src={src} alt={alt} width={thumbWidth} loading="lazy" class="thumb" />
+  </button>
+
+  <div class="max-overlay" aria-hidden="true">
+    <button class="close-button" aria-label="Cerrar imagen">
+        <IconWrapper name="cross" size={24} />
+      </button>
+    <div class="overlay-container" role="dialog" aria-modal="true">
+      <CldImage src={src} alt={alt} width={width} loading="eager" class="full-image" />
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ id }}>
+  function initMaximizeImage() {
+    const container = document.getElementById(id);
+    if (!container) {
+      console.error("MaximizeImage: container not found");
+      return;
+    }
+
+    const btn = container.querySelector(".img-btn");
+    const overlay = container.querySelector(".max-overlay");
+    const close = container.querySelector(".close-button");
+
+    if (!btn || !overlay || !close) {
+      console.error("MaximizeImage: elements not found", { btn, overlay, close });
+      return;
+    }
+
+    function open() {
+      overlay.setAttribute("aria-hidden", "false");
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeFn() {
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    btn.addEventListener("click", open);
+    close.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeFn();
+    });
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeFn();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("open")) {
+        closeFn();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMaximizeImage);
+  } else {
+    initMaximizeImage();
+  }
+</script>

@@ -1,5 +1,5 @@
 ---
-import { CldImage } from "astro-cloudinary";
+import MaximizeImage from "../MaximizeImage.astro";
 
 interface Props {
   src: string;
@@ -9,14 +9,4 @@ interface Props {
 const { src, alt = "", ...rest } = Astro.props;
 ---
 
-<style>
-  :global(.astro-cloudinary-cldimage) {
-    width: 100%;
-    height: auto;
-    border: 0.5px solid var(--semantic-border-low);
-    border-radius: var(--radii-medium);
-  }
-</style>
-
-<!-- SRC relativo a la carpeta de imágenes (/images) -->
-<CldImage src={src} alt={alt} width={1200} {...rest} loading={"lazy"} />
+<MaximizeImage src={src} alt={alt} {...rest} />
