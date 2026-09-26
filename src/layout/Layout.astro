@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
+import { fadeUp, CONTENT_DELAY } from "../utils/pageTransitions";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
@@ -15,18 +16,8 @@ interface Props {
 
 const { title, isActive, navbar } = Astro.props;
 
-// Transición del contenido: el anterior sube y se desenfoca, el nuevo entra desde abajo.
-// Al regresar (botón atrás) la dirección se invierte. Keyframes en global.css.
-const contentTransition = {
-  forwards: {
-    old: { name: "contentOutUp", duration: "180ms", easing: "cubic-bezier(0.4, 0, 1, 1)", fillMode: "both" },
-    new: { name: "contentInUp", duration: "360ms", delay: "80ms", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fillMode: "both" },
-  },
-  backwards: {
-    old: { name: "contentOutDown", duration: "180ms", easing: "cubic-bezier(0.4, 0, 1, 1)", fillMode: "both" },
-    new: { name: "contentInDown", duration: "360ms", delay: "80ms", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fillMode: "both" },
-  },
-};
+// El contenido entra 200ms después del Hero (ver utils/pageTransitions.ts)
+const contentTransition = fadeUp(CONTENT_DELAY);
 ---
 
 <html lang="es">
@@ -117,7 +108,7 @@ const contentTransition = {
     </main>
     {
       navbar !== false && (
-        <div id="navbar" class="flex-row">
+        <div id="navbar" class="flex-row" transition:name="site-navbar" transition:animate="none">
           <Navbar isActive={isActive} />
         </div>
       )

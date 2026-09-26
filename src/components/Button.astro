@@ -9,9 +9,8 @@ interface Props {
   nameIcon?: string;
   animation?: string | boolean;
   newPage?: boolean; /* Hacer que el enlace se abra en una nueva pestaña por default */
-  transitionName?: string; /* view-transition-name para animar el botón entre páginas */
 }
-const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage, transitionName } = Astro.props;
+const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = Astro.props;
 ---
 
 <style>
@@ -95,7 +94,7 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage, tra
   }
 </style>
 
-<a class="flex-row button" href={href} class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]} target={newPage === true ? "_blank" : "_self"} rel={newPage === true ? "noopener noreferrer" : undefined} style={transitionName ? `view-transition-name: ${transitionName}` : undefined}>
+<a class="flex-row button" href={href} class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]} target={newPage === true ? "_blank" : "_self"} rel={newPage === true ? "noopener noreferrer" : undefined}>
   {nameIcon && (
     <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />
   )}

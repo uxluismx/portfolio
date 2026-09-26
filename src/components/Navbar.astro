@@ -22,7 +22,6 @@ const { isActive } = Astro.props;
   }
 </style>
 
-<!-- El botón activo lleva view-transition-name "nav-active": se desliza entre páginas -->
 <nav
   class="flex-row navbar stroke-xsmall shadow-small"
   aria-label="Navegación secundaria: Paginas del portafolio"
@@ -30,7 +29,6 @@ const { isActive } = Astro.props;
   <Button
     href="/"
     type={isActive === "Inicio" ? "CTA" : "Link"}
-    transitionName={isActive === "Inicio" ? "nav-active" : undefined}
     size="SM"
     text="Inicio"
     animation={false}
@@ -38,7 +36,6 @@ const { isActive } = Astro.props;
   <Button
     href="/proyectos"
     type={isActive === "Proyectos" ? "CTA" : "Link"}
-    transitionName={isActive === "Proyectos" ? "nav-active" : undefined}
     size="SM"
     text="Proyectos"
     animation={false}
@@ -46,7 +43,6 @@ const { isActive } = Astro.props;
   <Button
     href="mailto:uxluismx@gmail.com"
     type={isActive === "Contacto" ? "CTA" : "Link"}
-    transitionName={isActive === "Contacto" ? "nav-active" : undefined}
     size="SM"
     text="Contacto"
     animation={false}

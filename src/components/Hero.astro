@@ -1,4 +1,6 @@
 ---
+import { fadeUp, HERO_DELAY } from "../utils/pageTransitions";
+
 interface Props {
   accentTitle: string;
   title: string;
@@ -8,6 +10,9 @@ interface Props {
 const { accentTitle, title, description } = Astro.props;
 const beforeContent = Astro.slots.has("beforeContent");
 const afterContent = Astro.slots.has("afterContent");
+
+// El Hero es lo primero que aparece al cambiar de página
+const heroTransition = fadeUp(HERO_DELAY);
 ---
 
 <style>
@@ -39,7 +44,7 @@ const afterContent = Astro.slots.has("afterContent");
   }
 </style>
 
-<section class="flex-column hero-section">
+<section class="flex-column hero-section" transition:name="page-hero" transition:animate={heroTransition}>
   {
     beforeContent && (
       <div class="flex-row slot-before-content">
