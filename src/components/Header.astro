@@ -59,7 +59,8 @@ import HeaderLink from "./HeaderLink.astro";
   }
 </style>
 
-<header class="header flex-row">
+<!-- Fijo durante las transiciones de página (ver Layout.astro) -->
+<header class="header flex-row" transition:name="site-header" transition:animate="none">
   <div class="flex-row header-profile">
     <a href="/#" class="flex-row header-profile stroke-medium shadow-medium">
       <img

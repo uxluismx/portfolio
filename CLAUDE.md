@@ -84,6 +84,13 @@ El contenido y los comentarios del código están en español.
 - **Scripts**: un `<script define:vars>` se vuelve `is:inline` y se ejecuta una vez por cada instancia.
   Con `ClientRouter`, los scripts procesados (sin `is:inline`) corren solo una vez por sesión, así que
   la inicialización debe ir en el evento `astro:page-load`.
+- **Transiciones de página**: `ClientRouter` con 4 nombres.
+  - `page-card` (`main`) y `page-content` (`article`) están en `Layout.astro`. La animación del
+    contenido es un objeto `contentTransition`, con keyframes en `global.css`.
+  - `site-header` está en `Header.astro`.
+  - `nav-active` (el botón activo, vía el prop `transitionName` de `Button`) está en `Navbar.astro`.
+  - Cada nombre debe aparecer una sola vez por página.
+  - No envolver el `<header>` en otro elemento: pierde su `position: sticky`.
 - **Imágenes ocultas**: un `<img>` con `visibility: hidden` sí se descarga, pero con `display: none` y
   `loading="lazy"` no. Por eso `MaximizeImage` oculta el overlay con `display: none`.
 - `.npmrc` tiene `legacy-peer-deps=true`. Hay que mantenerlo para que `npm install` funcione.

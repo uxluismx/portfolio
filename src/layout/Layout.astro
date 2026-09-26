@@ -14,6 +14,19 @@ interface Props {
 }
 
 const { title, isActive, navbar } = Astro.props;
+
+// Transición del contenido: el anterior sube y se desenfoca, el nuevo entra desde abajo.
+// Al regresar (botón atrás) la dirección se invierte. Keyframes en global.css.
+const contentTransition = {
+  forwards: {
+    old: { name: "contentOutUp", duration: "180ms", easing: "cubic-bezier(0.4, 0, 1, 1)", fillMode: "both" },
+    new: { name: "contentInUp", duration: "360ms", delay: "80ms", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fillMode: "both" },
+  },
+  backwards: {
+    old: { name: "contentOutDown", duration: "180ms", easing: "cubic-bezier(0.4, 0, 1, 1)", fillMode: "both" },
+    new: { name: "contentInDown", duration: "360ms", delay: "80ms", easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fillMode: "both" },
+  },
+};
 ---
 
 <html lang="es">
@@ -87,9 +100,18 @@ const { title, isActive, navbar } = Astro.props;
   </head>
 
   <body>
-    <main class="main-container flex-column stroke-xsmall">
+    <!-- La tarjeta y el header se mantienen fijos; solo el contenido se anima -->
+    <main
+      class="main-container flex-column stroke-xsmall"
+      transition:name="page-card"
+      transition:animate="initial"
+    >
       <Header />
-      <article class="slot-container flex-column">
+      <article
+        class="slot-container flex-column"
+        transition:name="page-content"
+        transition:animate={contentTransition}
+      >
         <slot />
       </article>
     </main>
