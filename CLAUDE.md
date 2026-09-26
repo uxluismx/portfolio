@@ -17,6 +17,19 @@ El contenido y los comentarios del código están en español.
 - Cuando el usuario diga **"sube los cambios"**, significa: agrupar los cambios en commits
   organizados por tema (formato `tipo: descripción` en español, por ejemplo `fix:`, `feat:`, `docs:`)
   y hacer push a `origin/master`. El push publica en producción (Vercel).
+- **Ramas de prueba**: para cambios que el usuario quiera validar antes de producción, crear una
+  rama desde `master` (`feat/...`, `fix/...`) y hacer push de la rama. Vercel genera un preview.
+  La URL se obtiene con `gh api repos/uxluismx/portfolio/deployments` y luego `.../deployments/{id}/statuses`.
+- **Al hacer merge de una rama**, completar todo el ciclo sin que el usuario lo pida por partes:
+  1. Confirmar que la rama no tiene cambios pendientes y que `npm run build` pasa.
+  2. `git fetch --prune`, cambiar a `master` y ejecutar `git pull --ff-only`.
+  3. `git merge --ff-only <rama>`. Si no se puede por fast-forward, usar `git merge --no-ff`
+     (nunca rebase ni force-push sobre `master`).
+  4. Hacer push de `master`, lo que publica en producción.
+  5. Borrar la rama local (`git branch -d`) y la remota (`git push origin --delete <rama>`), y
+     luego `git fetch --prune`.
+  6. Verificar que el deploy de producción en Vercel terminó bien (`gh api .../commits/<sha>/statuses`)
+     e informar el resultado.
 - **Borradores sin publicar**: no hacer commit de estos archivos hasta que el usuario lo pida.
   Están en `.gitignore` para que `git add -A` no los incluya. Para publicar uno, quitarlo del
   `.gitignore` y de esta lista en el mismo commit.
