@@ -2,9 +2,18 @@
 import Layout from "../../layout/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import NewProjectCard from "../../components/NewProjectCard.astro";
+import { proyectos } from "../../data/proyectos";
+import { paginaProyectos, migas } from "../../utils/schema";
 
 const isActive = "Proyectos";
 const title = `${isActive} | Luis Erick`;
+const schema = [
+  paginaProyectos("/proyectos/", proyectos),
+  migas([
+    ["Inicio", "/"],
+    ["Proyectos", "/proyectos/"],
+  ]),
+];
 ---
 
 <style>
@@ -17,80 +26,15 @@ const title = `${isActive} | Luis Erick`;
   title={title}
   isActive={isActive}
   description="Proyectos de Luis Erick: landing pages, web apps y apps móviles para negocios de E-learning, fitness, salud y más."
+  schema={schema}
 >
   <Hero
     accentTitle="Mis proyectos."
     title="Dolores reales, soluciones viables."
     description="Explora los proyectos en los que colaboré con ideas y entregables de alta calidad."
   />
+  <!-- Las tarjetas se editan en src/data/proyectos.ts -->
   <div class="projects-group flex-column">
-    <!-- <NewProjectCard
-      platform="Desktop"
-      mockupFile="app-eleventa"
-      businessName="eleventa 6"
-      shortText="¡Próximamente!"
-      pillText="Flutter App"
-      pillIcon="code-square"
-      slug="eleventa-6"
-    /> -->
-    <NewProjectCard
-      platform="Mobile"
-      mockupFile="app-retorna"
-      businessName="Retorna"
-      shortText="¡Próximamente!"
-      pillText="Flutter App"
-      pillIcon="code-square"
-      slug="retorna"
-    />
-    <NewProjectCard
-      platform="Desktop"
-      mockupFile="landing-lavva"
-      businessName="LAVVA"
-      shortText="Gym & Fitness"
-      pillText="Landing page"
-      pillIcon="pantone-color"
-      href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio&utm_medium=proyectos"
-      slug="lavva"
-    />
-    <NewProjectCard
-      platform="Mobile"
-      mockupFile="app-unibetas"
-      businessName="Unibetas"
-      shortText="E-learning"
-      pillText="Web App"
-      pillIcon="internet-earth"
-      href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio&utm_medium=proyectos"
-      slug="unibetas"
-    />
-    <NewProjectCard
-      platform="Desktop"
-      mockupFile="landing-hemisferio"
-      businessName="Hemisferio"
-      shortText="Agencia"
-      pillText="Landing page"
-      pillIcon="pantone-color"
-      href="https://www.behance.net/gallery/222837805/Landing-Page-for-Hemisferiopro?platform=direct&utm_source=portfolio&utm_medium=proyectos"
-      slug="hemisferio"
-    />
-    <NewProjectCard
-      platform="Desktop"
-      mockupFile="landing-naut"
-      businessName="NAUT"
-      shortText="Salud visual"
-      pillText="Landing page"
-      pillIcon="pantone-color"
-      href="https://www.instagram.com/p/DEa6NFpSWVR/?utm_source=portfolio&utm_medium=proyectos"
-      slug="naut"
-    />
-    <NewProjectCard
-      platform="Desktop"
-      mockupFile="landing-mastermind"
-      businessName="Mastermind"
-      shortText="E-learning"
-      pillText="Landing page"
-      pillIcon="pantone-color"
-      href="https://www.instagram.com/p/C3uSgaIurYC/?utm_source=portfolio&utm_medium=proyectos"
-      slug="mastermind"
-    />
+    {proyectos.map((proyecto) => <NewProjectCard {...proyecto} />)}
   </div>
 </Layout>

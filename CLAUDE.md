@@ -60,15 +60,18 @@ El contenido y los comentarios del código están en español.
 
 ## Mapa del proyecto
 
-- `src/pages/index.astro`: home. Todas sus secciones están escritas a mano.
-- `src/pages/proyectos/index.astro`: listado de proyectos. Las tarjetas (`NewProjectCard`) están
-  escritas a mano y enlazan a Instagram o Behance, no a las páginas MDX. La tarjeta de eleventa
-  que apunta al slug interno está comentada. El home repite algunas de estas tarjetas a mano.
+- `src/pages/index.astro`: home. Sus secciones están escritas a mano, salvo los proyectos destacados.
+- `src/pages/proyectos/index.astro`: listado de proyectos. Las tarjetas (`NewProjectCard`) enlazan a
+  Instagram o Behance, no a las páginas MDX.
+- `src/data/proyectos.ts`: datos de las tarjetas. Es la fuente única del listado, del home
+  (`destacado: true`) y del JSON-LD de `/proyectos/`. `sector` es el giro que va al JSON-LD (`shortText`
+  puede ser "¡Próximamente!"). La tarjeta de eleventa está comentada hasta publicar su MDX.
+- `src/data/perfil.ts`: nombre, cargo, ubicación, redes y CV. Lo usan el Header (redes con `header: true`)
+  y el JSON-LD. Las redes son perfiles verificados con el usuario `uxluismx`. Sin email a propósito (spam).
 - `NewProjectCard.astro`: usa `href` (externo, `target="_blank"`) e ignora `slug`; el enlace interno
   `/proyectos/{slug}` está comentado dentro del componente. Su logo es `{mockupFile}-logo.webp`
   (distinto al MDX, que usa el campo `logo`). Sin `href` la tarjeta no enlaza a nada (caso "Próximamente", como Retorna).
-  - Al activar el enlace interno, el `slug` debe coincidir con el nombre del archivo MDX: la tarjeta
-    comentada usa `eleventa-6`, pero el archivo es `eleventa-6-app.mdx`.
+  - Al activar el enlace interno, el `slug` debe coincidir con el nombre del archivo MDX (`eleventa-6-app`).
 - `src/pages/proyectos/[slug].astro`: página de cada caso de estudio MDX (Hero, MockupPlayer y contenido).
 - `src/content.config.ts`: schema de la colección `proyectos`.
 - `src/content/proyectos/*.mdx`: casos de estudio. `template.mdx` está en `.gitignore` a propósito
@@ -80,7 +83,13 @@ El contenido y los comentarios del código están en español.
   Incluye `<ClientRouter />`, que activa las view transitions.
   - SEO: props opcionales `description`, `image` (ruta en `/public`), `imageAlt`, `largeImage`
     (tarjeta grande en X para imágenes horizontales) y `noindex` (lo usa la 404, que además no lleva canonical).
-    Sin props se usan la descripción general y `public/images/og-default.jpg` (foto de perfil 256×256).
+    Sin props se usan la descripción general y `public/images/og-default.jpg` (foto de perfil 1200×1200).
+  - Datos estructurados: prop `schema` con los nodos JSON-LD de la página. El Layout siempre agrega
+    `Person` y `WebSite` en un solo `@graph` (excepto con `noindex`). Los nodos se construyen en
+    `src/utils/schema.ts` y se enlazan por `@id` (`https://uxluismx.com/#person`):
+    home → `ProfilePage`; `/proyectos/` → `CollectionPage` + `BreadcrumbList`; casos MDX → `Article` + `BreadcrumbList`.
+    Al cambiar el contenido del perfil, actualizar `actualizado` en `perfil.ts` (es el `dateModified` del ProfilePage).
+    El JSON-LD debe coincidir con lo visible en la página (regla de Google).
   - Canonical, `og:url` y `og:image` se arman con `site` de `astro.config.mjs` (`https://uxluismx.com`).
     `www.uxluismx.com` redirige al dominio sin `www`.
 - `@astrojs/sitemap` genera `sitemap-index.xml` en el build (excluye la 404); `public/robots.txt` lo referencia.
@@ -150,6 +159,8 @@ Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva
 
 - **Imagen para compartir**: `og-default.jpg` es la foto de perfil cuadrada (tarjeta pequeña). Lo ideal
   es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
+- **Validar el JSON-LD en producción** después del merge con el
+  [Rich Results Test](https://search.google.com/test/rich-results) (los previews de Vercel piden inicio de sesión).
 - **Semántica**: `GridSection` usa `<h1>` para el título de cada sección, así que el home tiene
   varios `<h1>` (deberían ser `<h2>`).
 - `Header.astro`: `width="2.5rem"` en el `<img>` no es válido (los atributos `width`/`height` van en píxeles).

@@ -4,6 +4,7 @@ import Layout from "../../layout/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import Button from "../../components/Button.astro";
 import MockupPlayer from "../../components/MockupPlayer.astro";
+import { articuloProyecto, migas } from "../../utils/schema";
 
 // Componentes MDX para aplicar clases de global.css al contenido Markdown
 import MDxH2 from "../../components/mdx/MDxH2.astro";
@@ -62,6 +63,16 @@ const isActive = "Detalle de proyecto";
 // Al compartir se usa el mockup si es horizontal (Desktop); en Mobile, la imagen por defecto del Layout
 const shareImage =
   data.platform === "Desktop" ? `/images/projects/${data.mockupFile}.webp` : undefined;
+
+const path = `/proyectos/${entry.id}/`;
+const schema = [
+  articuloProyecto(path, data),
+  migas([
+    ["Inicio", "/"],
+    ["Proyectos", "/proyectos/"],
+    [data.title, path],
+  ]),
+];
 ---
 
 <style>
@@ -139,6 +150,7 @@ const shareImage =
   image={shareImage}
   imageAlt={shareImage && `Mockup del proyecto ${data.title}`}
   largeImage={Boolean(shareImage)}
+  schema={schema}
 >
   <Hero accentTitle={data.accentTitle} title={data.title} description={data.description}>
     <div slot="beforeContent" class="hero-logo flex-row stroke-small">

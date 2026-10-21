@@ -1,6 +1,11 @@
 ---
 import "../styles/global.css";
 import HeaderLink from "./HeaderLink.astro";
+import { redes, CV_URL } from "../data/perfil";
+
+// UTM para medir las visitas que salen del header
+const utm = "utm_source=portfolio&utm_medium=header";
+const redesHeader = redes.filter((red) => red.header);
 ---
 
 <style>
@@ -73,17 +78,7 @@ import HeaderLink from "./HeaderLink.astro";
     <span class="accent-smallest name">Luis Erick M.</span>
   </div>
   <nav class="flex-row header-nav" aria-label="Navegación principal: Redes sociales y CV">
-    <HeaderLink
-      href="https://www.instagram.com/uxluismx/?utm_source=portfolio&utm_medium=header"
-      text="Instagram"
-    />
-    <HeaderLink
-      href="https://www.linkedin.com/in/uxluismx/?utm_source=portfolio&utm_medium=header"
-      text="Linkedin"
-    />
-    <HeaderLink
-      href="https://mega.nz/file/zcJSUB6L#1voGSUdgXyxlbZwZePugbFI6ZADZnfls8AEKFT4TWeY"
-      text="CV"
-    />
+    {redesHeader.map((red) => <HeaderLink href={`${red.url}?${utm}`} text={red.name} />)}
+    <HeaderLink href={CV_URL} text="CV" />
   </nav>
 </header>

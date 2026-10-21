@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
 import { fadeUp, CONTENT_DELAY } from "../utils/pageTransitions";
+import { persona, sitio, type SchemaNode } from "../utils/schema";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
@@ -17,6 +18,7 @@ interface Props {
   imageAlt?: string;
   largeImage?: boolean; // true para imágenes horizontales (tarjeta grande en X/Twitter)
   noindex?: boolean; // excluye la página de buscadores (por ejemplo, 404)
+  schema?: SchemaNode[]; // nodos JSON-LD propios de la página (ver utils/schema.ts)
 }
 
 const {
@@ -28,7 +30,17 @@ const {
   imageAlt = "Foto de perfil de Luis Erick",
   largeImage = false,
   noindex = false,
+  schema = [],
 } = Astro.props;
+
+// JSON-LD: Person y WebSite en todas las páginas indexables, más los nodos de cada página.
+// `<` se escapa para que el contenido no pueda cerrar el <script>.
+const jsonLd = noindex
+  ? null
+  : JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [persona, sitio, ...schema],
+    }).replace(/</g, "\\u003c");
 
 // URLs absolutas a partir de `site` (astro.config.mjs)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -69,6 +81,9 @@ const contentTransition = fadeUp(CONTENT_DELAY);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageURL} />
     <meta name="twitter:image:alt" content={imageAlt} />
+
+    <!-- Datos estructurados -->
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
 
     <style>
       body {

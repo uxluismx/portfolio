@@ -5,9 +5,12 @@ import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
 import BoxImageCombo from "../components/BoxImageCombo.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
+import { proyectos } from "../data/proyectos";
+import { paginaPerfil } from "../utils/schema";
 
 const isActive = "Inicio";
 const title = `${isActive} | Luis Erick`;
+const destacados = proyectos.filter((proyecto) => proyecto.destacado);
 ---
 
 <style>
@@ -16,7 +19,7 @@ const title = `${isActive} | Luis Erick`;
   }
 </style>
 
-<Layout title={title} isActive={isActive}>
+<Layout title={title} isActive={isActive} schema={[paginaPerfil("/")]}>
   <!-- Sección de HERO -->
   <Hero
     accentTitle="Soy Product Designer."
@@ -30,36 +33,9 @@ const title = `${isActive} | Luis Erick`;
   </Hero>
 
   <!-- Sección de proyectos destacados -->
+  <!-- Proyectos con `destacado: true` en src/data/proyectos.ts -->
   <div class="projects-group flex-column">
-    <!-- <NewProjectCard
-      platform="Desktop"
-      mockupFile="app-eleventa"
-      businessName="eleventa 6"
-      shortText="¡Próximamente!"
-      pillText="Flutter App"
-      pillIcon="code-square"
-      slug="eleventa-6"
-    /> -->
-    <NewProjectCard
-      platform="Desktop"
-      mockupFile="landing-lavva"
-      businessName="LAVVA"
-      shortText="Gym & Fitness"
-      pillText="Landing page"
-      pillIcon="pantone-color"
-      href="https://www.instagram.com/p/DVtZ0lOgO_J/?utm_source=portfolio&utm_medium=proyectos"
-      slug="lavva"
-    />
-    <NewProjectCard
-      platform="Mobile"
-      mockupFile="app-unibetas"
-      businessName="Unibetas"
-      shortText="E-learning"
-      pillText="Web App"
-      pillIcon="internet-earth"
-      href="https://www.instagram.com/p/DTJO7clkmUn/?utm_source=portfolio&utm_medium=proyectos"
-      slug="unibetas"
-    />
+    {destacados.map((proyecto) => <NewProjectCard {...proyecto} />)}
   </div>
 
   <!-- Sección de mi profesión -->
