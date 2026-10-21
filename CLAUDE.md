@@ -78,7 +78,8 @@ El contenido y los comentarios del código están en español.
   (los borradores también, ver "Git y deploy").
 - `src/components/mdx/MDx*.astro`: sustituyen los elementos HTML del MDX para aplicarles las
   clases de `global.css`. Se conectan en el prop `components` de `<Content />` en `[slug].astro`.
-- `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX.
+- `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX. Se registra en
+  `mdx({ remarkPlugins })` de `astro.config.mjs` (no en `markdown.remarkPlugins`, que está deprecado).
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
   una página nueva, agregarla ahí) y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.
@@ -157,8 +158,7 @@ Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva
   es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
 - Bloques de código del MDX (`MDxPre`, `MDxCode`) sin diseño final.
 - Modo oscuro comentado en `global.css`.
-- Dependencias: hay parches menores disponibles (`astro` 6.x, `@astrojs/mdx` 5.x, `astro-cloudinary`)
-  y versiones mayores (Astro 7, `@astrojs/mdx` 8). La actualización mayor debe ir en su propia rama.
+- Dependencias: Astro 7 y `@astrojs/mdx` 8 son versiones mayores pendientes. Deben ir en su propia rama.
 
 ## Mantenimiento de este archivo
 
