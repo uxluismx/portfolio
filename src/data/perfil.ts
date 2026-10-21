@@ -12,9 +12,10 @@ export const perfil = {
   image: "/images/profile-luis-erick.webp", // 1200×1200
   region: "Jalisco",
   country: "MX",
-  // Fechas del ProfilePage (home). Actualizar `actualizado` al cambiar el contenido del perfil.
-  creado: "2026-03-24",
-  actualizado: "2026-10-21",
+  // Fechas del ProfilePage (home), ISO 8601 con hora y zona (Google rechaza solo la fecha).
+  // Actualizar `actualizado` al cambiar el contenido del perfil.
+  creado: "2026-03-24T00:00:00-06:00",
+  actualizado: "2026-10-21T00:00:00-06:00",
   knowsAbout: [
     "Diseño de producto",
     "Diseño UX",
