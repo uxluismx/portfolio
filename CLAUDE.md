@@ -78,6 +78,13 @@ El contenido y los comentarios del código están en español.
 - `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX.
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.
+  - SEO: props opcionales `description`, `image` (ruta en `/public`), `imageAlt`, `largeImage`
+    (tarjeta grande en X para imágenes horizontales) y `noindex` (lo usa la 404, que además no lleva canonical).
+    Sin props se usan la descripción general y `public/images/og-default.jpg` (foto de perfil 256×256).
+  - Canonical, `og:url` y `og:image` se arman con `site` de `astro.config.mjs` (`https://uxluismx.com`).
+    `www.uxluismx.com` redirige al dominio sin `www`.
+- `@astrojs/sitemap` genera `sitemap-index.xml` en el build (excluye la 404); `public/robots.txt` lo referencia.
+  Las URLs del sitemap y del canonical terminan en `/`; deben coincidir.
 - `src/styles/global.css`: fuentes, reset, tokens y clases utilitarias.
 - `public/icons/*.svg`: íconos que se usan con `<IconWrapper name="archivo-sin-extension" />`.
 - `public/images/projects/`: logos y mockups locales de cada proyecto.
@@ -141,11 +148,10 @@ El contenido y los comentarios del código están en español.
 
 Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva.
 
-- **SEO**: no hay `<meta name="description">`, Open Graph/Twitter cards, `canonical`, `sitemap` ni
-  `site` en `astro.config.mjs`. Al compartir un enlace no aparece vista previa.
+- **Imagen para compartir**: `og-default.jpg` es la foto de perfil cuadrada (tarjeta pequeña). Lo ideal
+  es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
 - **Semántica**: `GridSection` usa `<h1>` para el título de cada sección, así que el home tiene
   varios `<h1>` (deberían ser `<h2>`).
-- `Layout.astro`: `<SpeedInsights />` está después de `</html>`; debería ir dentro de `<body>`.
 - `Header.astro`: `width="2.5rem"` en el `<img>` no es válido (los atributos `width`/`height` van en píxeles).
 - `HeaderLink.astro`, `MDxA.astro` y `NewProjectCard.astro` abren en pestaña nueva sin `rel="noopener noreferrer"`.
 - `Layout.astro`: el prop `isActive` es `string`; podría ser un union type de las páginas reales.

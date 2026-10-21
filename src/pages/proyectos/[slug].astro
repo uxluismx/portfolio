@@ -58,6 +58,10 @@ function getExternalLinkProps(url?: string) {
 
 const linkProps = getExternalLinkProps(data.externalLink);
 const isActive = "Detalle de proyecto";
+
+// Al compartir se usa el mockup si es horizontal (Desktop); en Mobile, la imagen por defecto del Layout
+const shareImage =
+  data.platform === "Desktop" ? `/images/projects/${data.mockupFile}.webp` : undefined;
 ---
 
 <style>
@@ -127,7 +131,15 @@ const isActive = "Detalle de proyecto";
   }
 </style>
 
-<Layout title={title} isActive={isActive} navbar={false}>
+<Layout
+  title={title}
+  isActive={isActive}
+  navbar={false}
+  description={data.description}
+  image={shareImage}
+  imageAlt={shareImage && `Mockup del proyecto ${data.title}`}
+  largeImage={Boolean(shareImage)}
+>
   <Hero accentTitle={data.accentTitle} title={data.title} description={data.description}>
     <div slot="beforeContent" class="hero-logo flex-row stroke-small">
       <img
