@@ -4,6 +4,10 @@ interface Props {
 }
 
 const { href } = Astro.props;
+
+// Solo los enlaces externos abren en pestaña nueva; los internos (/proyectos, #ancla) no
+const isExternal = /^https?:\/\//.test(href);
+const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
 ---
 
 <style>
@@ -24,4 +28,4 @@ const { href } = Astro.props;
   }
 </style>
 
-<a href={href} class="body-large bold" target="_blank"><slot /></a>
+<a href={href} class="body-large bold" {...linkProps}><slot /></a>
