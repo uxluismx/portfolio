@@ -5,13 +5,14 @@ import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
 import { fadeUp, CONTENT_DELAY } from "../utils/pageTransitions";
 import { persona, sitio, type SchemaNode } from "../utils/schema";
+import type { PaginaActiva } from "../types";
 
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   title: string;
-  isActive: string; /* Para permitir otros valores sin romper el componente, aunque idealmente debería ser un union type de los posibles valores */
+  isActive: PaginaActiva;
   navbar?: boolean;
   description?: string; // meta description y descripción al compartir
   image?: string; // ruta en /public de la imagen al compartir

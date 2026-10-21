@@ -1,8 +1,9 @@
 ---
 import Button from "./Button.astro";
+import type { PaginaActiva } from "../types";
 
 interface Props {
-  isActive: "Inicio" | "Proyectos" | "Contacto" | string;
+  isActive: PaginaActiva;
 }
 
 const { isActive } = Astro.props;
@@ -40,9 +41,10 @@ const { isActive } = Astro.props;
     text="Proyectos"
     animation={false}
   />
+  {/* Contacto abre el correo, nunca es la página activa */}
   <Button
     href="mailto:uxluismx@gmail.com"
-    type={isActive === "Contacto" ? "CTA" : "Link"}
+    type="Link"
     size="SM"
     text="Contacto"
     animation={false}
