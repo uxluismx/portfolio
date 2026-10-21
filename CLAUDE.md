@@ -5,6 +5,18 @@ Astro 6 con salida estática, MDX (`@astrojs/mdx`), imágenes en Cloudinary (`as
 Vercel Analytics y Speed Insights. El deploy a Vercel es automático al hacer push a `master`.
 El contenido y los comentarios del código están en español.
 
+## Reglas de colaboración (Erick)
+
+- **Al empezar cada hilo**: `git fetch --prune` y `git pull --ff-only` en la rama actual antes de
+  revisar o tocar nada. Si hay cambios locales sin commit o ramas abiertas, avisar antes de seguir.
+- Erick lleva la batuta. Ante dudas puntuales o decisiones importantes, preguntarle (responde rápido).
+- **Funcionalidades y mejoras, aunque sean pequeñas o medianas: proponer siempre una rama nueva**
+  (`feat/...`, `fix/...`, `refactor/...`, `docs/...`, `chore/...`) antes de empezar. Nada llega a
+  `master` a medias: cada cambio debe estar completo y validado (build + preview de Vercel) antes de producción.
+- **Mejoras proactivas**: si algo es claramente mejorable y no rompe nada importante, aplicarlo sin
+  pedir permiso (dentro de la rama de trabajo) y mencionarlo en el resumen.
+- Comunicación, commits y comentarios del código en español.
+
 ## Seguridad
 
 - **Nunca leer, imprimir ni copiar `.env` ni otros archivos de credenciales.** Ahí están las
@@ -16,7 +28,8 @@ El contenido y los comentarios del código están en español.
 
 - Cuando el usuario diga **"sube los cambios"**, significa: agrupar los cambios en commits
   organizados por tema (formato `tipo: descripción` en español, por ejemplo `fix:`, `feat:`, `docs:`)
-  y hacer push a `origin/master`. El push publica en producción (Vercel).
+  y hacer push a `origin/master`. El push publica en producción (Vercel). Si se está trabajando en
+  una rama, "sube los cambios" significa push de esa rama (preview), no de `master`.
 - **Ramas de prueba**: para cambios que el usuario quiera validar antes de producción, crear una
   rama desde `master` (`feat/...`, `fix/...`) y hacer push de la rama. Vercel genera un preview.
   La URL se obtiene con `gh api repos/uxluismx/portfolio/deployments` y luego `.../deployments/{id}/statuses`.
@@ -40,6 +53,9 @@ El contenido y los comentarios del código están en español.
 
 - `npm run dev`: servidor local en http://localhost:4321
 - `npm run build`: build estático a `dist/`. Es la forma rápida de validar un cambio.
+  Localmente también genera las páginas de los borradores ignorados (por ejemplo `/proyectos/eleventa-6-app`);
+  en Vercel no existen porque el archivo no está en el repo.
+- Node `>=22.12` (`engines` en `package.json`).
 - No hay tests ni linter. El formato lo da Prettier (`.prettierrc`: 2 espacios, comillas dobles, 100 columnas).
 
 ## Mapa del proyecto
@@ -47,7 +63,12 @@ El contenido y los comentarios del código están en español.
 - `src/pages/index.astro`: home. Todas sus secciones están escritas a mano.
 - `src/pages/proyectos/index.astro`: listado de proyectos. Las tarjetas (`NewProjectCard`) están
   escritas a mano y enlazan a Instagram o Behance, no a las páginas MDX. La tarjeta de eleventa
-  que apunta al slug interno está comentada.
+  que apunta al slug interno está comentada. El home repite algunas de estas tarjetas a mano.
+- `NewProjectCard.astro`: usa `href` (externo, `target="_blank"`) e ignora `slug`; el enlace interno
+  `/proyectos/{slug}` está comentado dentro del componente. Su logo es `{mockupFile}-logo.webp`
+  (distinto al MDX, que usa el campo `logo`). Sin `href` la tarjeta no enlaza a nada (caso "Próximamente", como Retorna).
+  - Al activar el enlace interno, el `slug` debe coincidir con el nombre del archivo MDX: la tarjeta
+    comentada usa `eleventa-6`, pero el archivo es `eleventa-6-app.mdx`.
 - `src/pages/proyectos/[slug].astro`: página de cada caso de estudio MDX (Hero, MockupPlayer y contenido).
 - `src/content.config.ts`: schema de la colección `proyectos`.
 - `src/content/proyectos/*.mdx`: casos de estudio. `template.mdx` está en `.gitignore` a propósito
@@ -108,6 +129,31 @@ El contenido y los comentarios del código están en español.
 - **Imágenes ocultas**: un `<img>` con `visibility: hidden` sí se descarga, pero con `display: none` y
   `loading="lazy"` no. Por eso `MaximizeImage` oculta el overlay con `display: none`.
 - `.npmrc` tiene `legacy-peer-deps=true`. Hay que mantenerlo para que `npm install` funcione.
+- **Tamaños tipográficos en móvil (`global.css`, media query de 440px)**: usa selectores
+  `[class*="large"]`, `[class*="small"]`, etc., que también coinciden con `xlarge`, `body-small`,
+  `stroke-large` o `shadow-medium`. Hoy no se nota porque `display/accent-xxlarge`, `-xlarge`,
+  `-xmedium` y `-medium` no se usan, y las clases `body-*` se declaran después y ganan. Si se empieza
+  a usar alguna de esas clases, revisar su tamaño en móvil.
+- **El reset fija `font-size: 16px` en `*`**: cada elemento parte de 16px (no hereda el tamaño del
+  padre) y se ignora el tamaño de letra que el usuario configure en el navegador. Cada texto necesita su clase tipográfica.
+
+## Pendientes y deuda técnica conocida
+
+Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva.
+
+- **SEO**: no hay `<meta name="description">`, Open Graph/Twitter cards, `canonical`, `sitemap` ni
+  `site` en `astro.config.mjs`. Al compartir un enlace no aparece vista previa.
+- **Semántica**: `GridSection` usa `<h1>` para el título de cada sección, así que el home tiene
+  varios `<h1>` (deberían ser `<h2>`).
+- `Layout.astro`: `<SpeedInsights />` está después de `</html>`; debería ir dentro de `<body>`.
+- `Header.astro`: `width="2.5rem"` en el `<img>` no es válido (los atributos `width`/`height` van en píxeles).
+- `HeaderLink.astro`, `MDxA.astro` y `NewProjectCard.astro` abren en pestaña nueva sin `rel="noopener noreferrer"`.
+- `Layout.astro`: el prop `isActive` es `string`; podría ser un union type de las páginas reales.
+- Bloques de código del MDX (`MDxPre`, `MDxCode`) sin diseño final.
+- Modo oscuro comentado en `global.css`.
+- `name` vacío en `package.json`.
+- Dependencias: hay parches menores disponibles (`astro` 6.x, `@astrojs/mdx` 5.x, `astro-cloudinary`)
+  y versiones mayores (Astro 7, `@astrojs/mdx` 8). La actualización mayor debe ir en su propia rama.
 
 ## Mantenimiento de este archivo
 
