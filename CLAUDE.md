@@ -70,7 +70,7 @@ El contenido y los comentarios del código están en español.
   y el JSON-LD. Las redes son perfiles verificados con el usuario `uxluismx`. Sin email a propósito (spam).
 - `NewProjectCard.astro`: usa `href` (externo, `target="_blank"`) e ignora `slug`; el enlace interno
   `/proyectos/{slug}` está comentado dentro del componente. Su logo es `{mockupFile}-logo.webp`
-  (distinto al MDX, que usa el campo `logo`). Sin `href` la tarjeta no enlaza a nada (caso "Próximamente", como Retorna).
+  (distinto al MDX, que usa el campo `logo`). Sin `href` se renderiza como `<div>` sin animación al pasar el mouse (caso "Próximamente", como Retorna).
   - Al activar el enlace interno, el `slug` debe coincidir con el nombre del archivo MDX (`eleventa-6-app`).
 - `src/pages/proyectos/[slug].astro`: página de cada caso de estudio MDX (Hero, MockupPlayer y contenido).
 - `src/content.config.ts`: schema de la colección `proyectos`.
@@ -79,7 +79,8 @@ El contenido y los comentarios del código están en español.
 - `src/components/mdx/MDx*.astro`: sustituyen los elementos HTML del MDX para aplicarles las
   clases de `global.css`. Se conectan en el prop `components` de `<Content />` en `[slug].astro`.
 - `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX.
-- `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` y `navbar` (con `false` se oculta el navbar).
+- `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
+  una página nueva, agregarla ahí) y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.
   - SEO: props opcionales `description`, `image` (ruta en `/public`), `imageAlt`, `largeImage`
     (tarjeta grande en X para imágenes horizontales) y `noindex` (lo usa la 404, que además no lleva canonical).
@@ -145,11 +146,6 @@ El contenido y los comentarios del código están en español.
 - **Imágenes ocultas**: un `<img>` con `visibility: hidden` sí se descarga, pero con `display: none` y
   `loading="lazy"` no. Por eso `MaximizeImage` oculta el overlay con `display: none`.
 - `.npmrc` tiene `legacy-peer-deps=true`. Hay que mantenerlo para que `npm install` funcione.
-- **Tamaños tipográficos en móvil (`global.css`, media query de 440px)**: usa selectores
-  `[class*="large"]`, `[class*="small"]`, etc., que también coinciden con `xlarge`, `body-small`,
-  `stroke-large` o `shadow-medium`. Hoy no se nota porque `display/accent-xxlarge`, `-xlarge`,
-  `-xmedium` y `-medium` no se usan, y las clases `body-*` se declaran después y ganan. Si se empieza
-  a usar alguna de esas clases, revisar su tamaño en móvil.
 - **El reset fija `font-size: 16px` en `*`**: cada elemento parte de 16px (no hereda el tamaño del
   padre) y se ignora el tamaño de letra que el usuario configure en el navegador. Cada texto necesita su clase tipográfica.
 
@@ -159,16 +155,8 @@ Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva
 
 - **Imagen para compartir**: `og-default.jpg` es la foto de perfil cuadrada (tarjeta pequeña). Lo ideal
   es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
-- **Validar el JSON-LD en producción** después del merge con el
-  [Rich Results Test](https://search.google.com/test/rich-results) (los previews de Vercel piden inicio de sesión).
-- **Semántica**: `GridSection` usa `<h1>` para el título de cada sección, así que el home tiene
-  varios `<h1>` (deberían ser `<h2>`).
-- `Header.astro`: `width="2.5rem"` en el `<img>` no es válido (los atributos `width`/`height` van en píxeles).
-- `HeaderLink.astro`, `MDxA.astro` y `NewProjectCard.astro` abren en pestaña nueva sin `rel="noopener noreferrer"`.
-- `Layout.astro`: el prop `isActive` es `string`; podría ser un union type de las páginas reales.
 - Bloques de código del MDX (`MDxPre`, `MDxCode`) sin diseño final.
 - Modo oscuro comentado en `global.css`.
-- `name` vacío en `package.json`.
 - Dependencias: hay parches menores disponibles (`astro` 6.x, `@astrojs/mdx` 5.x, `astro-cloudinary`)
   y versiones mayores (Astro 7, `@astrojs/mdx` 8). La actualización mayor debe ir en su propia rama.
 
