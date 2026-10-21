@@ -9,8 +9,7 @@ import { remarkCloudinaryImages } from './src/plugins/remark-cloudinary-images.m
 export default defineConfig({
   // Dominio de producción: base para canonical, Open Graph y sitemap
   site: 'https://uxluismx.com',
-  integrations: [mdx(), sitemap()],
-  markdown: {
-    remarkPlugins: [remarkCloudinaryImages],
-  },
+  // El plugin de Cloudinary genera nodos JSX, así que solo aplica a MDX
+  // (`markdown.remarkPlugins` está deprecado desde Astro 6.4)
+  integrations: [mdx({ remarkPlugins: [remarkCloudinaryImages] }), sitemap()],
 });
