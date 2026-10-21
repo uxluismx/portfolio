@@ -15,6 +15,10 @@ interface NewProjectCardProps {
 
 const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug, href } =
   Astro.props;
+
+// Sin href ("¡Próximamente!") la tarjeta no es un enlace ni se anima al pasar el mouse
+const Card = href ? "a" : "div";
+const linkProps = href ? { href, target: "_blank", rel: "noopener noreferrer" } : {};
 ---
 
 <style>
@@ -31,7 +35,7 @@ const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug,
     container-type: inline-size;
     container-name: project-card;
 
-    &:hover {
+    &:is(a):hover {
       transform: translateY(-4px);
     }
   }
@@ -79,7 +83,7 @@ const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug,
 <!-- <a href={`/proyectos/${slug}`} class="project-card flex-column stroke-xsmall"> -->
 
 <!-- Enlace provisional externo para proyectos -->
-<a href={href} class="project-card flex-column stroke-xsmall" target="_blank">
+<Card class="project-card flex-column stroke-xsmall" {...linkProps}>
   <MockupPlayer platform={platform} mockupFile={mockupFile} businessName={businessName} />
   <div class="project-card-footer flex-row">
     <img
@@ -88,7 +92,7 @@ const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug,
       alt={`Logotipo de ${businessName}`}
     />
     <div class="text-container flex-row">
-      <h3 class="body-large bold">{businessName}</h3>
+      <h2 class="body-large bold">{businessName}</h2>
       <p class="body-large">/</p>
       <p class="body-large">{shortText}</p>
     </div>
@@ -96,4 +100,4 @@ const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug,
       <Pill text={pillText} nameIcon={pillIcon} />
     </div>
   </div>
-</a>
+</Card>

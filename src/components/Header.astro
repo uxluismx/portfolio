@@ -67,13 +67,12 @@ const redesHeader = redes.filter((red) => red.header);
 <!-- Fijo durante las transiciones de página (ver Layout.astro) -->
 <header class="header flex-row" transition:name="site-header" transition:animate="none">
   <div class="flex-row header-profile">
-    <a href="/#" class="flex-row header-profile stroke-medium shadow-medium">
-      <img
-        src="/images/imageProfile.webp"
-        alt="Foto de perfil de Luis Erick"
-        width="2.5rem"
-        height="2.5rem"
-      />
+    <a
+      href="/"
+      class="flex-row header-profile stroke-medium shadow-medium"
+      aria-label="Ir al inicio"
+    >
+      <img src="/images/imageProfile.webp" alt="Foto de perfil de Luis Erick" width="40" height="40" />
     </a>
     <span class="accent-smallest name">Luis Erick M.</span>
   </div>

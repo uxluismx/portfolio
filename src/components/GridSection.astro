@@ -22,7 +22,7 @@ const { title, id, nameIcon } = Astro.props;
     color: var(--semantic-zero);
     align-items: center;
 
-    h1 {
+    h2 {
       color: inherit;
     }
   }
@@ -50,7 +50,7 @@ const { title, id, nameIcon } = Astro.props;
     <div class="icon-container flex-row stroke-small">
       <IconWrapper name={nameIcon} size="20" />
     </div>
-    <h1 class="accent-small">{title}</h1>
+    <h2 class="accent-small">{title}</h2>
   </div>
   <slot />
 </div>
