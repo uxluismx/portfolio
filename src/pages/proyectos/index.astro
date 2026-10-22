@@ -2,11 +2,12 @@
 import Layout from "../../layout/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import NewProjectCard from "../../components/NewProjectCard.astro";
-import { proyectos } from "../../data/proyectos";
+import { getProyectos } from "../../utils/proyectos";
 import { paginaProyectos, migas } from "../../utils/schema";
 
 const isActive = "Proyectos";
 const title = `${isActive} | Luis Erick`;
+const proyectos = await getProyectos();
 const schema = [
   paginaProyectos("/proyectos/", proyectos),
   migas([
@@ -33,7 +34,7 @@ const schema = [
     title="Dolores reales, soluciones viables."
     description="Explora los proyectos en los que colaboré con ideas y entregables de alta calidad."
   />
-  <!-- Las tarjetas se editan en src/data/proyectos.ts -->
+  <!-- Un archivo por proyecto en src/content/proyectos/ (ordenados por `date`) -->
   <div class="projects-group flex-column">
     {proyectos.map((proyecto) => <NewProjectCard {...proyecto} />)}
   </div>

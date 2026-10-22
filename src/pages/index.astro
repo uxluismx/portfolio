@@ -5,12 +5,12 @@ import Button from "../components/Button.astro";
 import GridSection from "../components/GridSection.astro";
 import BoxImageCombo from "../components/BoxImageCombo.astro";
 import NewProjectCard from "../components/NewProjectCard.astro";
-import { proyectos } from "../data/proyectos";
+import { getProyectos } from "../utils/proyectos";
 import { paginaPerfil } from "../utils/schema";
 
 const isActive = "Inicio";
 const title = `${isActive} | Luis Erick`;
-const destacados = proyectos.filter((proyecto) => proyecto.destacado);
+const destacados = (await getProyectos()).filter((proyecto) => proyecto.starred);
 ---
 
 <style>
@@ -33,7 +33,7 @@ const destacados = proyectos.filter((proyecto) => proyecto.destacado);
   </Hero>
 
   <!-- Sección de proyectos destacados -->
-  <!-- Proyectos con `destacado: true` en src/data/proyectos.ts -->
+  <!-- Proyectos con `starred: true` en src/content/proyectos/ -->
   <div class="projects-group flex-column">
     {destacados.map((proyecto) => <NewProjectCard {...proyecto} />)}
   </div>

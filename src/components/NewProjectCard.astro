@@ -1,24 +1,21 @@
 ---
 import Pill from "./Pill.astro";
 import MockupPlayer from "./MockupPlayer.astro";
+import type { Proyecto } from "../utils/proyectos";
 
-interface NewProjectCardProps {
-  platform: "Desktop" | "Mobile";
-  mockupFile: string;
-  businessName: string;
-  shortText: string;
-  pillText: string;
-  pillIcon: string;
-  slug?: string;
-  href?: string;
-}
+type Props = Pick<
+  Proyecto,
+  "platform" | "mockupFile" | "title" | "shortText" | "pillText" | "pillIcon" | "enlace"
+>;
 
-const { platform, mockupFile, businessName, shortText, pillText, pillIcon, slug, href } =
-  Astro.props;
+const { platform, mockupFile, title, shortText, pillText, pillIcon, enlace } = Astro.props;
 
-// Sin href ("¡Próximamente!") la tarjeta no es un enlace ni se anima al pasar el mouse
-const Card = href ? "a" : "div";
-const linkProps = href ? { href, target: "_blank", rel: "noopener noreferrer" } : {};
+// El enlace lo calcula getProyectos(): interno (caso de estudio), externo (nueva pestaña) o ninguno.
+// Sin enlace ("¡Próximamente!") la tarjeta no es un enlace ni se anima al pasar el mouse
+const Card = enlace ? "a" : "div";
+const linkProps = enlace
+  ? { href: enlace.href, ...(enlace.externo && { target: "_blank", rel: "noopener noreferrer" }) }
+  : {};
 ---
 
 <style>
@@ -80,19 +77,16 @@ const linkProps = href ? { href, target: "_blank", rel: "noopener noreferrer" } 
   }
 </style>
 
-<!-- <a href={`/proyectos/${slug}`} class="project-card flex-column stroke-xsmall"> -->
-
-<!-- Enlace provisional externo para proyectos -->
 <Card class="project-card flex-column stroke-xsmall" {...linkProps}>
-  <MockupPlayer platform={platform} mockupFile={mockupFile} businessName={businessName} />
+  <MockupPlayer platform={platform} mockupFile={mockupFile} businessName={title} />
   <div class="project-card-footer flex-row">
     <img
       class="logo"
       src={`/images/projects/${mockupFile}-logo.webp`}
-      alt={`Logotipo de ${businessName}`}
+      alt={`Logotipo de ${title}`}
     />
     <div class="text-container flex-row">
-      <h2 class="body-large bold">{businessName}</h2>
+      <h2 class="body-large bold">{title}</h2>
       <p class="body-large">/</p>
       <p class="body-large">{shortText}</p>
     </div>

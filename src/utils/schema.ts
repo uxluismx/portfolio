@@ -1,5 +1,5 @@
 import { SITE_URL, perfil, redes } from "../data/perfil";
-import type { Proyecto } from "../data/proyectos";
+import type { DatosProyecto, Proyecto } from "./proyectos";
 
 /**
  * Datos estructurados (schema.org en JSON-LD).
@@ -55,7 +55,7 @@ export function paginaPerfil(path: string): SchemaNode {
 }
 
 // Imagen representativa de un proyecto (Desktop: mockup horizontal; Mobile: primera pantalla)
-function imagenProyecto(p: Pick<Proyecto, "platform" | "mockupFile">) {
+function imagenProyecto(p: Pick<DatosProyecto, "platform" | "mockupFile">) {
   return url(`/images/projects/${p.mockupFile}${p.platform === "Mobile" ? "-01" : ""}.webp`);
 }
 
@@ -74,11 +74,11 @@ export function paginaProyectos(path: string, lista: Proyecto[]): SchemaNode {
         position: i + 1,
         item: {
           "@type": "CreativeWork",
-          name: p.businessName,
+          name: p.title,
           genre: p.pillText,
           ...(p.sector && { keywords: p.sector }),
           image: imagenProyecto(p),
-          ...(p.href && { url: p.href }),
+          ...(p.enlace && { url: url(p.enlace.href) }),
           creator: { "@id": PERSON_ID },
         },
       })),
@@ -93,7 +93,7 @@ export function articuloProyecto(
     title: string;
     description: string;
     date: Date;
-    platform: Proyecto["platform"];
+    platform: DatosProyecto["platform"];
     mockupFile: string;
   }
 ): SchemaNode {
