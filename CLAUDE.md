@@ -47,7 +47,8 @@ El contenido y los comentarios del código están en español.
   Están en `.gitignore` para que `git add -A` no los incluya. Para publicar uno, quitarlo del
   `.gitignore` y de esta lista en el mismo commit.
   - `src/content/proyectos/eleventa-6-app.mdx`
-- Mientras no haya ningún MDX publicado, la colección está vacía en producción y no existe ninguna página `/proyectos/[slug]`.
+  - Al publicar un borrador su tarjeta aparece sola en `/proyectos/` (y en el home si tiene `starred: true`).
+- Mientras ningún proyecto publicado tenga contenido, no existe ninguna página `/proyectos/[slug]` en producción.
 
 ## Comandos
 
@@ -61,20 +62,17 @@ El contenido y los comentarios del código están en español.
 ## Mapa del proyecto
 
 - `src/pages/index.astro`: home. Sus secciones están escritas a mano, salvo los proyectos destacados.
-- `src/pages/proyectos/index.astro`: listado de proyectos. Las tarjetas (`NewProjectCard`) enlazan a
-  Instagram o Behance, no a las páginas MDX.
-- `src/data/proyectos.ts`: datos de las tarjetas. Es la fuente única del listado, del home
-  (`destacado: true`) y del JSON-LD de `/proyectos/`. `sector` es el giro que va al JSON-LD (`shortText`
-  puede ser "¡Próximamente!"). La tarjeta de eleventa está comentada hasta publicar su MDX.
+- `src/pages/proyectos/index.astro`: listado de proyectos con `NewProjectCard`.
+- `src/utils/proyectos.ts`: `getProyectos()` lee la colección, la ordena por `date` (más reciente primero)
+  y calcula `slug`, `tienePagina` y `enlace`. Es la fuente única del listado, del home (`starred: true`),
+  de las páginas `/proyectos/[slug]` y del JSON-LD. Ver "Proyectos" más abajo.
 - `src/data/perfil.ts`: nombre, cargo, ubicación, redes y CV. Lo usan el Header (redes con `header: true`)
   y el JSON-LD. Las redes son perfiles verificados con el usuario `uxluismx`. Sin email a propósito (spam).
-- `NewProjectCard.astro`: usa `href` (externo, `target="_blank"`) e ignora `slug`; el enlace interno
-  `/proyectos/{slug}` está comentado dentro del componente. Su logo es `{mockupFile}-logo.webp`
-  (distinto al MDX, que usa el campo `logo`). Sin `href` se renderiza como `<div>` sin animación al pasar el mouse (caso "Próximamente", como Retorna).
-  - Al activar el enlace interno, el `slug` debe coincidir con el nombre del archivo MDX (`eleventa-6-app`).
-- `src/pages/proyectos/[slug].astro`: página de cada caso de estudio MDX (Hero, MockupPlayer y contenido).
-- `src/content.config.ts`: schema de la colección `proyectos`.
-- `src/content/proyectos/*.mdx`: casos de estudio. `template.mdx` está en `.gitignore` a propósito
+- `NewProjectCard.astro`: recibe el `enlace` ya calculado. Interno sin `target`, externo con `_blank`; sin
+  enlace se renderiza como `<div>` sin animación al pasar el mouse (caso "Próximamente", como Retorna).
+- `src/pages/proyectos/[slug].astro`: página de cada proyecto con contenido (Hero, MockupPlayer y contenido).
+- `src/content.config.ts`: schema de la colección `proyectos`, con un comentario por campo.
+- `src/content/proyectos/*.{md,mdx}`: un archivo por proyecto. `template.mdx` está en `.gitignore` a propósito
   (los borradores también, ver "Git y deploy").
 - `src/components/mdx/MDx*.astro`: sustituyen los elementos HTML del MDX para aplicarles las
   clases de `global.css`. Se conectan en el prop `components` de `<Content />` en `[slug].astro`.
@@ -100,20 +98,29 @@ El contenido y los comentarios del código están en español.
 - `public/icons/*.svg`: íconos que se usan con `<IconWrapper name="archivo-sin-extension" />`.
 - `public/images/projects/`: logos y mockups locales de cada proyecto.
 
-## Flujo de un caso de estudio MDX
+## Proyectos
 
-1. El frontmatter se valida contra `content.config.ts`. Campos: `title`, `accentTitle`,
-   `description`, `logo`, `platform` (`Desktop` o `Mobile`), `mockupFile`, `externalLink?` y `date`.
-2. `logo` corresponde a `public/images/projects/{logo}-logo.webp`.
-3. `mockupFile` corresponde a `{mockupFile}.webp` en Desktop, o a `{mockupFile}-01/02/03.webp` en
-   Mobile (lo maneja `MockupPlayer.astro`).
-4. El dominio de `externalLink` define el texto y el ícono del botón (`externalLinkMap` en `[slug].astro`).
-5. En el cuerpo, `![alt](publicId)` pasa por el plugin remark, luego por `MDxImg` y luego por
+1. Un archivo por proyecto en `src/content/proyectos/`. El nombre del archivo es el slug (`lavva.md` → `/proyectos/lavva/`).
+2. El frontmatter se valida contra `content.config.ts`. Campos: `title`, `shortText`, `sector?`, `pillText`,
+   `pillIcon`, `platform` (`Desktop` o `Mobile`), `mockupFile`, `externalLink?`, `starred?`, `date`,
+   `accentTitle?` y `description?`.
+3. El destino de la tarjeta sale solo:
+   - Con contenido debajo del frontmatter (`.mdx`): se genera `/proyectos/{slug}/` y la tarjeta enlaza ahí.
+     `accentTitle` y `description` pasan a ser obligatorios (`getProyectos()` falla si faltan).
+   - Solo frontmatter (`.md`) con `externalLink`: la tarjeta abre el link en otra pestaña y no hay página.
+   - Solo frontmatter sin `externalLink`: tarjeta "Próximamente" sin enlace.
+4. `mockupFile` define el mockup (`{mockupFile}.webp` en Desktop, `{mockupFile}-01/02/03.webp` en Mobile,
+   lo maneja `MockupPlayer.astro`) y el logo (`{mockupFile}-logo.webp`), todo en `public/images/projects/`.
+   El schema hace fallar el build si falta alguna de esas imágenes.
+5. `starred: true` muestra el proyecto en el home. `sector` es el giro que va al JSON-LD (`shortText` puede ser "¡Próximamente!").
+6. En una página de proyecto, el dominio de `externalLink` define el texto y el ícono del botón del Hero
+   (`externalLinkMap` en `[slug].astro`).
+7. En el cuerpo, `![alt](publicId)` pasa por el plugin remark, luego por `MDxImg` y luego por
    `MaximizeImage`, que muestra una miniatura y abre un overlay a pantalla completa con `CldImage`.
    - El `publicId` de Cloudinary va sin extensión.
    - Los `src` que empiezan con `http`, `/` o `.` no pasan por el plugin.
    - Las imágenes deben ir solas en su línea. Así el plugin reemplaza el párrafo completo y no queda un `<div>` dentro de un `<p>`.
-6. Los bloques de código (```) todavía no tienen el diseño terminado.
+8. Los bloques de código (```) todavía no tienen el diseño terminado.
 
 ## Convenciones de estilo
 
@@ -146,6 +153,9 @@ El contenido y los comentarios del código están en español.
   - No envolver el `<header>` en otro elemento: pierde su `position: sticky`.
 - **Imágenes ocultas**: un `<img>` con `visibility: hidden` sí se descarga, pero con `display: none` y
   `loading="lazy"` no. Por eso `MaximizeImage` oculta el overlay con `display: none`.
+- **Caché de contenido**: Astro guarda la colección en `node_modules/.astro/data-store.json` y solo vuelve a validar
+  un archivo cuando ese archivo cambia. Si el build falla con `UnknownContentCollectionError` después de mover
+  un borrador, o si borras una imagen de un proyecto que no cambió, ejecuta `rm -rf node_modules/.astro` y vuelve a compilar.
 - `.npmrc` tiene `legacy-peer-deps=true`. Hay que mantenerlo para que `npm install` funcione.
 - **El reset fija `font-size: 16px` en `*`**: cada elemento parte de 16px (no hereda el tamaño del
   padre) y se ignora el tamaño de letra que el usuario configure en el navegador. Cada texto necesita su clase tipográfica.
