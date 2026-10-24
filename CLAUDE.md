@@ -75,7 +75,11 @@ El contenido y los comentarios del código están en español.
 - `src/content/proyectos/*.{md,mdx}`: un archivo por proyecto. `template.mdx` está en `.gitignore` a propósito
   (los borradores también, ver "Git y deploy").
 - `src/components/mdx/MDx*.astro`: sustituyen los elementos HTML del MDX para aplicarles las
-  clases de `global.css`. Se conectan en el prop `components` de `<Content />` en `[slug].astro`.
+  clases de `global.css`. `MDxContenido.astro` los conecta en el prop `components` de `<Content />` y lleva
+  los márgenes del contenido; lo usan `[slug].astro` y el laboratorio.
+- `src/pages/lab-k7q2m/`: laboratorio de componentes, página oculta (`noindex`, fuera del sitemap y sin enlaces)
+  para revisar cómo se ve cada elemento del MDX. El contenido está en `_componentes.mdx` (el `_` evita que se
+  publique como página propia). URL: `/lab-k7q2m/`.
 - `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX. Se registra en
   `mdx({ remarkPlugins })` de `astro.config.mjs` (no en `markdown.remarkPlugins`, que está deprecado).
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
@@ -120,7 +124,10 @@ El contenido y los comentarios del código están en español.
    - El `publicId` de Cloudinary va sin extensión.
    - Los `src` que empiezan con `http`, `/` o `.` no pasan por el plugin.
    - Las imágenes deben ir solas en su línea. Así el plugin reemplaza el párrafo completo y no queda un `<div>` dentro de un `<p>`.
-8. Los bloques de código (```) todavía no tienen el diseño terminado.
+8. Bloques de código (```): se declara el lenguaje tras las comillas (no se autodetecta; sin lenguaje queda en texto plano).
+   Opcionales en la misma línea: `title="archivo.ts"` y líneas resaltadas `{3-4}`.
+   Shiki (tema `css-variables`, colores en `--astro-code-*` de `global.css`) + `src/plugins/shiki-bloques-codigo.mjs`
+   (barra con archivo, lenguaje y botón de copiar). Los estilos y el script de copiar están en `MDxPre.astro`.
 
 ## Convenciones de estilo
 
@@ -166,7 +173,7 @@ Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva
 
 - **Imagen para compartir**: `og-default.jpg` es la foto de perfil cuadrada (tarjeta pequeña). Lo ideal
   es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
-- Bloques de código del MDX (`MDxPre`, `MDxCode`) sin diseño final.
+- Bloques de código: fuente mono del sistema; falta decidir si se agrega Geist Mono (requiere el archivo de la fuente).
 - Modo oscuro comentado en `global.css`.
 - Dependencias: Astro 7 y `@astrojs/mdx` 8 son versiones mayores pendientes. Deben ir en su propia rama.
 
