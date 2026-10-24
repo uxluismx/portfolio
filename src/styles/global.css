@@ -247,6 +247,7 @@ button {
     --font-family-display: "Sora";
     --font-family-accent: "IBM Plex Serif";
     --font-family-body: "Geist";
+    --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 
     /* Borders */
     /* Radii */
@@ -267,6 +268,19 @@ button {
 
     /* Custom variables*/
     --header-height: 5.25rem;
+
+    /* Código: variables que lee el tema "css-variables" de Shiki (ver astro.config.mjs) */
+    --astro-code-foreground: var(--semantic-primary);
+    --astro-code-background: transparent;
+    --astro-code-token-keyword: var(--purple-500);
+    --astro-code-token-string: var(--emerald-500);
+    --astro-code-token-string-expression: var(--emerald-500);
+    --astro-code-token-constant: var(--orange-500);
+    --astro-code-token-function: var(--blue-500);
+    --astro-code-token-parameter: var(--semantic-primary);
+    --astro-code-token-punctuation: var(--semantic-quaternary);
+    --astro-code-token-comment: var(--gray-on-surface-100);
+    --astro-code-token-link: var(--blue-500);
 }
 
 @media screen and (max-width: 440px) {
