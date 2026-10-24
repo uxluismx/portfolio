@@ -1,0 +1,77 @@
+## Encabezado H2
+
+Párrafo normal con **texto en negritas**, *texto en cursiva* y un [enlace a mi sitio](https://uxluismx.com). También lleva `código en línea` dentro del texto, como `--radii-large` o `getToken()`.
+
+Segundo párrafo, un poco más largo, para revisar el interlineado y el espacio entre párrafos. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+### Encabezado H3
+
+Lista sin orden:
+
+- Primer elemento de la lista
+- Segundo elemento con **negritas** y `código`
+- Tercer elemento, más largo, para ver cómo se acomoda el texto cuando ocupa más de una línea en pantallas angostas
+
+Lista ordenada:
+
+1. Investigación
+2. Ideación
+3. Prototipado y pruebas
+
+> Una cita destacada para revisar el diseño del blockquote.
+
+---
+
+## Imagen de Cloudinary
+
+![Ejemplo de documentación de un componente](documentation-example_sxoucy)
+
+## Bloques de código
+
+Con nombre de archivo y líneas resaltadas:
+
+```ts title="useTokens.ts" {3-4}
+// Lee un token de diseño del :root
+export function getToken(name: string) {
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(`--semantic-${name}`);
+  return value.trim() || "transparent";
+}
+
+const radius = 16; // radii-medium
+```
+
+Solo con lenguaje:
+
+```css
+.card {
+  border-radius: var(--radii-large);
+  padding: 2rem;
+}
+```
+
+Componente de Astro:
+
+```astro title="Card.astro"
+---
+const { title, href } = Astro.props;
+---
+
+<a href={href} class="card">
+  <h3>{title}</h3>
+</a>
+```
+
+Línea larga, para revisar el scroll horizontal:
+
+```json title="package.json"
+{ "name": "portfolio", "scripts": { "dev": "astro dev", "build": "astro build", "preview": "astro preview" } }
+```
+
+Sin lenguaje (texto plano):
+
+```
+Texto plano sin resaltado de sintaxis.
+```
+
+Párrafo final para revisar el margen después del último elemento.

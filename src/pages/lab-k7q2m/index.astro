@@ -1,0 +1,18 @@
+---
+// Laboratorio de componentes: página oculta para revisar cómo se ve cada elemento del MDX.
+// No aparece en el home, en /proyectos/ ni en el sitemap, y lleva noindex.
+import Layout from "../../layout/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import MDxContenido from "../../components/mdx/MDxContenido.astro";
+// El "_" evita que Astro publique el MDX como página propia
+import { Content } from "./_componentes.mdx";
+---
+
+<Layout title="Laboratorio | Luis Erick" isActive="Laboratorio" navbar={false} noindex>
+  <Hero
+    accentTitle="Laboratorio de componentes."
+    title="Contenido MDX"
+    description="Página oculta para revisar cada elemento de los casos de estudio. Edita src/pages/lab-k7q2m/_componentes.mdx para probar otros casos."
+  />
+  <MDxContenido Content={Content} />
+</Layout>

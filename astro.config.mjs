@@ -16,5 +16,6 @@ export default defineConfig({
   markdown: {
     shikiConfig: { theme: 'css-variables', transformers: [shikiBloquesCodigo()] },
   },
-  integrations: [mdx({ remarkPlugins: [remarkCloudinaryImages] }), sitemap()],
+  // El sitemap excluye el laboratorio de componentes (página oculta, ver src/pages/lab-k7q2m/)
+  integrations: [mdx({ remarkPlugins: [remarkCloudinaryImages] }), sitemap({ filter: (url) => !url.includes('/lab-k7q2m/') })],
 });
