@@ -8,18 +8,23 @@
     font-family: var(--font-family-mono);
     font-size: 0.875rem;
     line-height: 1.5;
-    padding: 0.875rem 0;
+    /* Sale 0.5rem hacia el padding del bloque: el texto queda alineado con la barra
+       y el fondo de las líneas resaltadas tiene aire a los lados */
+    margin-inline: -0.5rem;
     overflow-x: auto;
     tab-size: 2;
   }
 
   /* Los elementos de abajo los genera Shiki, por eso van con :global */
   :global(.code-block) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
     width: 100%;
+    padding: 1rem;
     border: var(--stroke-small) solid var(--semantic-border-medium);
     border-radius: var(--radii-medium);
     background: var(--semantic-surface-alt-low);
-    overflow: hidden;
   }
 
   :global(.code-head) {
@@ -27,9 +32,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.625rem 0.75rem 0.625rem 1rem;
-    border-bottom: var(--stroke-small) solid var(--semantic-border-medium);
-    background: var(--semantic-surface-alt-medium);
   }
 
   :global(.code-meta) {
@@ -105,7 +107,7 @@
     min-width: max-content;
     margin: 0;
     font: inherit;
-    color: var(--semantic-primary);
+    color: var(--semantic-secondary);
     counter-reset: linea;
 
     /* Anula el diseño de código en línea de MDxCode */
@@ -119,22 +121,50 @@
     }
 
     :global(.line) {
-      padding: 0 1rem;
+      padding-inline: 0.5rem;
       counter-increment: linea;
 
       &::before {
         content: counter(linea);
         display: inline-block;
-        width: 1.75rem;
+        width: 1.5rem;
         margin-right: 1rem;
         text-align: right;
-        color: var(--gray-on-surface-50);
+        color: var(--semantic-quaternary);
         user-select: none;
       }
 
+      /* Resaltado invertido: un "modo oscuro" hecho con la misma escala de grises.
+         Shiki pinta cada token con var(--astro-code-*), así que basta con redefinirlas aquí */
       &.hl {
-        background: color-mix(in srgb, var(--blue-400) 12%, transparent);
-        box-shadow: inset 2px 0 0 var(--blue-400);
+        --astro-code-foreground: var(--gray-surface-400);
+        --astro-code-token-keyword: var(--bw-white);
+        --astro-code-token-function: var(--bw-white);
+        --astro-code-token-parameter: var(--gray-surface-400);
+        --astro-code-token-string: var(--blue-200);
+        --astro-code-token-string-expression: var(--blue-200);
+        --astro-code-token-constant: var(--blue-200);
+        --astro-code-token-punctuation: var(--gray-surface-900);
+        --astro-code-token-comment: var(--gray-on-surface-50);
+        background: var(--semantic-primary);
+
+        &::before {
+          color: var(--gray-on-surface-50);
+        }
+      }
+
+      /* Las esquinas se redondean solo en los extremos de cada grupo de líneas resaltadas */
+      &.hl:first-child,
+      /* :global evita que Astro agregue su atributo de scope a .hl */
+      &:not(.hl) + :global(.hl) {
+        border-top-left-radius: var(--radii-xsmall);
+        border-top-right-radius: var(--radii-xsmall);
+      }
+
+      &.hl:last-child,
+      &.hl:has(+ :not(.hl)) {
+        border-bottom-left-radius: var(--radii-xsmall);
+        border-bottom-right-radius: var(--radii-xsmall);
       }
     }
   }
