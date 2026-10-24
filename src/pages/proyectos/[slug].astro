@@ -7,21 +7,7 @@ import MockupPlayer from "../../components/MockupPlayer.astro";
 import { articuloProyecto, migas } from "../../utils/schema";
 import { getProyectos } from "../../utils/proyectos";
 
-// Componentes MDX para aplicar clases de global.css al contenido Markdown
-import MDxH2 from "../../components/mdx/MDxH2.astro";
-import MDxH3 from "../../components/mdx/MDxH3.astro";
-import MDxP from "../../components/mdx/MDxP.astro";
-import MDxA from "../../components/mdx/MDxA.astro";
-import MDxStrong from "../../components/mdx/MDxStrong.astro";
-import MDxLi from "../../components/mdx/MDxLi.astro";
-import MDxUl from "../../components/mdx/MDxUl.astro";
-import MDxOl from "../../components/mdx/MDxOl.astro";
-import MDxImg from "../../components/mdx/MDxImg.astro";
-import MDxBlockquote from "../../components/mdx/MDxBlockquote.astro";
-import MDxHr from "../../components/mdx/MDxHr.astro";
-import MDxPre from "../../components/mdx/MDxPre.astro";
-import MDxCode from "../../components/mdx/MDxCode.astro";
-import MDxEm from "../../components/mdx/MDxEm.astro";
+import MDxContenido from "../../components/mdx/MDxContenido.astro";
 
 // getStaticPaths genera una ruta solo para los proyectos con contenido (casos de estudio)
 export async function getStaticPaths() {
@@ -85,57 +71,6 @@ const schema = [
 ---
 
 <style>
-  .blog-content {
-    /* Declaración de variables CSS */
-    --line-height: 160%;
-
-    /* Ajustes custom para el contenido Markdown */
-    :global([class*="body"]) {
-      line-height: var(--line-height);
-    }
-
-    :global(h2, h3, .code-block) {
-      margin-block-start: 0;
-      margin-block-end: 1rem;
-    }
-
-    :global(p, a, ul, ol, blockquote) {
-      margin-block-start: 0;
-      margin-block-end: 1rem;
-    }
-
-    :global(hr) {
-      margin-block-start: 2rem;
-      margin-block-end: 3rem;
-    }
-
-    :global(blockquote) {
-      /* Maniobra para eliminar el margen de los párrafos dentro de blockquote */
-      p {
-        margin: 0;
-      }
-    }
-
-    :global(p) {
-      /* Maniobra para ajustar los margenes de las imágenes dentro de párrafos */
-      img {
-        margin-block: 1rem;
-      }
-
-      a {
-        margin: 0;
-      }
-    }
-
-    #blog-content :global(:first-child) {
-      margin-block-start: 0;
-    }
-
-    #blog-content :global(:last-child) {
-      margin-block-end: 0;
-    }
-  }
-
   .hero-logo {
     background-color: var(--semantic-surface);
     padding: 0.25rem;
@@ -199,24 +134,5 @@ const schema = [
   </Hero>
 
   <!-- CONTENIDO MARKDOWN / MDX -->
-  <article class="blog-content flex-column" id="blog-content">
-    <Content
-      components={{
-        h2: MDxH2,
-        h3: MDxH3,
-        p: MDxP,
-        a: MDxA,
-        strong: MDxStrong,
-        li: MDxLi,
-        ul: MDxUl,
-        ol: MDxOl,
-        img: MDxImg,
-        blockquote: MDxBlockquote,
-        hr: MDxHr,
-        pre: MDxPre,
-        code: MDxCode,
-        em: MDxEm,
-      }}
-    />
-  </article>
+  <MDxContenido Content={Content} />
 </Layout>
