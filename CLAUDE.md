@@ -127,7 +127,7 @@ El contenido y los comentarios del código están en español.
 8. Bloques de código (```): se declara el lenguaje tras las comillas (no se autodetecta; sin lenguaje queda en texto plano).
    Opcionales en la misma línea: `title="archivo.ts"` y líneas resaltadas `{3-4}`.
    Shiki (tema `css-variables`, colores en `--astro-code-*` de `global.css`) + `src/plugins/shiki-bloques-codigo.mjs`
-   (barra con archivo, lenguaje y botón de copiar). Los estilos y el script de copiar están en `MDxPre.astro`.
+   (barra con archivo, lenguaje y botones "Ajustar" y "Copiar"). Los estilos y el script de los botones están en `MDxPre.astro`.
 
 ## Convenciones de estilo
 

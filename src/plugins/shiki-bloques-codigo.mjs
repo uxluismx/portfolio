@@ -52,6 +52,26 @@ const iconoCopiar = el(
   ]
 );
 
+// Flecha de retorno: ajustar líneas largas al ancho del bloque
+const iconoAjustar = el(
+  "svg",
+  {
+    viewBox: "0 0 16 16",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    ariaHidden: "true",
+  },
+  [
+    el("path", { d: "M2.5 4h11" }),
+    el("path", { d: "M2.5 8h9a2 2 0 0 1 0 4H8" }),
+    el("path", { d: "M9.5 10.5 8 12l1.5 1.5" }),
+    el("path", { d: "M2.5 12h3" }),
+  ]
+);
+
 // Líneas a resaltar: {3-4,7} → Set {3, 4, 7}
 function leerLineas(meta) {
   const bloque = meta.match(/\{([\d,\-\s]+)\}/);
@@ -66,8 +86,8 @@ function leerLineas(meta) {
 
 /**
  * Transformer de Shiki: envuelve cada bloque ```lang title="archivo.ts" {3-4}``` en
- * `.code-block` con barra superior (archivo, lenguaje y botón de copiar) y marca
- * las líneas resaltadas. Los estilos y el script de copiar viven en MDxPre.astro.
+ * `.code-block` con barra superior (archivo, lenguaje y botones de ajustar y copiar) y marca
+ * las líneas resaltadas. Los estilos y el script de los botones viven en MDxPre.astro.
  */
 export function shikiBloquesCodigo() {
   return {
@@ -89,9 +109,16 @@ export function shikiBloquesCodigo() {
 
       const barra = el("div", { class: "code-head" }, [
         el("div", { class: "code-meta" }, info),
-        el("button", { class: "code-copy", type: "button", "data-copy": "" }, [
-          iconoCopiar,
-          el("span", {}, [texto("Copiar")]),
+        el("div", { class: "code-actions" }, [
+          el(
+            "button",
+            { class: "code-btn", type: "button", "data-wrap": "", ariaPressed: "false" },
+            [iconoAjustar, el("span", {}, [texto("Ajustar")])]
+          ),
+          el("button", { class: "code-btn", type: "button", "data-copy": "" }, [
+            iconoCopiar,
+            el("span", {}, [texto("Copiar")]),
+          ]),
         ]),
       ]);
 

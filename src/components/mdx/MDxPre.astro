@@ -63,31 +63,40 @@
     padding: 0.125rem 0.5rem;
   }
 
-  :global(.code-copy) {
+  :global(.code-actions) {
+    display: flex;
+    gap: 0.375rem;
+    flex-shrink: 0;
+  }
+
+  /* Mismo estilo que los enlaces del header (HeaderLink): píldora con radio completo */
+  :global(.code-btn) {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
     font-family: var(--font-family-body);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: var(--weight-semibold);
-    color: var(--semantic-secondary);
-    background: var(--semantic-surface);
-    border: var(--stroke-small) solid var(--semantic-border-high);
-    border-radius: var(--radii-xsmall);
-    padding: 0.25rem 0.625rem;
+    color: var(--semantic-primary);
+    background: var(--semantic-surface-alt-medium);
+    border: none;
+    border-radius: var(--radii-full);
+    padding: 0.21875rem 0.625rem;
     cursor: pointer;
-    transition:
-      background 0.15s,
-      color 0.15s;
+    transition: all 200ms ease;
 
     &:hover {
       background: var(--semantic-surface-alt-high);
-      color: var(--semantic-zero);
+    }
+
+    &[aria-pressed="true"] {
+      background: var(--semantic-primary);
+      color: var(--bw-white);
     }
 
     &.copiado {
+      background: var(--emerald-50);
       color: var(--emerald-500);
-      border-color: var(--emerald-300);
     }
 
     :global(svg) {
@@ -121,11 +130,15 @@
     }
 
     :global(.line) {
-      padding-inline: 0.5rem;
+      /* Sangría colgante (número de 1.5rem + 1rem de separación): si la línea se ajusta,
+         la continuación queda debajo del código y no debajo del número */
+      padding-inline: 3rem 0.5rem;
+      text-indent: -2.5rem;
       counter-increment: linea;
 
       &::before {
         content: counter(linea);
+        text-indent: 0;
         display: inline-block;
         width: 1.5rem;
         margin-right: 1rem;
@@ -169,6 +182,19 @@
     }
   }
 
+  /* Botón "Ajustar": las líneas largas bajan de renglón en vez de usar scroll horizontal */
+  :global(.code-block.ajustado) {
+    pre {
+      overflow-x: visible;
+    }
+
+    :global(code[class]) {
+      min-width: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+
   @media (max-width: 440px) {
     :global(.code-file) {
       display: none;
@@ -181,7 +207,16 @@
 <script>
   // Delegado en document: sirve con ClientRouter sin reinicializar en cada navegación
   document.addEventListener("click", async (evento) => {
-    const boton = (evento.target as HTMLElement).closest<HTMLButtonElement>("[data-copy]");
+    const objetivo = evento.target as HTMLElement;
+
+    const ajustar = objetivo.closest<HTMLButtonElement>("[data-wrap]");
+    if (ajustar) {
+      const activo = ajustar.closest(".code-block")?.classList.toggle("ajustado") ?? false;
+      ajustar.setAttribute("aria-pressed", String(activo));
+      return;
+    }
+
+    const boton = objetivo.closest<HTMLButtonElement>("[data-copy]");
     if (!boton) return;
 
     const codigo = boton.closest(".code-block")?.querySelector("code")?.textContent ?? "";
