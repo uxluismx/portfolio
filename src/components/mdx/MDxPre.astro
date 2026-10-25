@@ -65,29 +65,15 @@
 
   :global(.code-actions) {
     display: flex;
-    gap: 0.375rem;
+    align-items: center;
+    gap: 0.5rem;
     flex-shrink: 0;
   }
 
-  /* Mismo estilo que los enlaces del header (HeaderLink): píldora con radio completo */
+  /* La base viene de Button.astro (clases button white sm); aquí solo lo propio del bloque */
   :global(.code-btn) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-family: var(--font-family-body);
-    font-size: 0.875rem;
-    font-weight: var(--weight-semibold);
-    color: var(--semantic-primary);
-    background: var(--semantic-surface-alt-medium);
     border: none;
-    border-radius: var(--radii-full);
-    padding: 0.21875rem 0.625rem;
     cursor: pointer;
-    transition: all 200ms ease;
-
-    &:hover {
-      background: var(--semantic-surface-alt-high);
-    }
 
     &[aria-pressed="true"] {
       background: var(--semantic-primary);
@@ -100,13 +86,14 @@
     }
 
     :global(svg) {
-      width: 0.875rem;
-      height: 0.875rem;
+      width: 1rem;
+      height: 1rem;
     }
 
     :global(span) {
       font-size: inherit;
       font-family: inherit;
+      font-weight: inherit;
     }
   }
 

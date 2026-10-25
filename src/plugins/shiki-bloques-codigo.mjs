@@ -110,15 +110,28 @@ export function shikiBloquesCodigo() {
       const barra = el("div", { class: "code-head" }, [
         el("div", { class: "code-meta" }, info),
         el("div", { class: "code-actions" }, [
+          // Mismas clases que Button.astro (type="White", size="SM", iconOnly)
           el(
             "button",
-            { class: "code-btn", type: "button", "data-wrap": "", ariaPressed: "false" },
-            [iconoAjustar, el("span", {}, [texto("Ajustar")])]
+            {
+              class: "flex-row button white sm icon-only animation-false code-btn",
+              type: "button",
+              "data-wrap": "",
+              ariaPressed: "false",
+              ariaLabel: "Ajustar líneas largas",
+              title: "Ajustar líneas largas",
+            },
+            [iconoAjustar]
           ),
-          el("button", { class: "code-btn", type: "button", "data-copy": "" }, [
-            iconoCopiar,
-            el("span", {}, [texto("Copiar")]),
-          ]),
+          el(
+            "button",
+            {
+              class: "flex-row button white sm animation-false code-btn",
+              type: "button",
+              "data-copy": "",
+            },
+            [iconoCopiar, el("span", {}, [texto("Copiar")])]
+          ),
         ]),
       ]);
 

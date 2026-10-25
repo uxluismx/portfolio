@@ -1,3 +1,5 @@
+import Button from "../../components/Button.astro";
+
 ## Encabezado H2
 
 Párrafo normal con **texto en negritas**, *texto en cursiva* y un [enlace a mi sitio](https://uxluismx.com). También lleva `código en línea` dentro del texto, como `--radii-large` o `getToken()`.
@@ -21,6 +23,27 @@ Lista ordenada:
 > Una cita destacada para revisar el diseño del blockquote.
 
 ---
+
+## Botones
+
+Variantes de `Button.astro` (MD y SM):
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-end: 1rem;">
+  <Button href="#" text="CTA" type="CTA" animation={false} />
+  <Button href="#" text="Light" type="Light" animation={false} />
+  <Button href="#" text="Ghost" type="Ghost" animation={false} />
+  <Button href="#" text="Link" type="Link" animation={false} />
+</div>
+
+`White` e `iconOnly` sobre fondo gris (como dentro de un bloque de código):
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 1rem; margin-block-end: 1rem; border-radius: var(--radii-medium); background: var(--semantic-surface-alt-low);">
+  <Button href="#" text="White" type="White" animation={false} />
+  <Button href="#" text="White con ícono" type="White" nameIcon="share" animation={false} />
+  <Button href="#" text="Compartir" type="White" nameIcon="share" iconOnly animation={false} />
+  <Button href="#" text="White SM" type="White" size="SM" animation={false} />
+  <Button href="#" text="Compartir" type="White" size="SM" nameIcon="share" iconOnly animation={false} />
+</div>
 
 ## Imagen de Cloudinary
 

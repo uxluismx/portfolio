@@ -4,16 +4,20 @@ import IconWrapper from './IconWrapper.astro';
 interface Props {
   href: string;
   text: string;
-  type?: "CTA" | "Light" | "Ghost" | "Link";
+  type?: "CTA" | "Light" | "Ghost" | "Link" | "White";
   size?: "MD" | "SM";
   nameIcon?: string;
   animation?: string | boolean;
   newPage?: boolean; /* Hacer que el enlace se abra en una nueva pestaña por default */
+  iconOnly?: boolean; /* Solo el ícono (requiere nameIcon); `text` pasa a ser el aria-label */
 }
-const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = Astro.props;
+const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage, iconOnly } =
+  Astro.props;
 ---
 
-<style>
+<!-- Global para que los botones que genera el plugin de Shiki (bloques de código) usen
+     las mismas clases: button + tipo + tamaño (+ icon-only) -->
+<style is:global>
   .button {
     align-items: center;
     justify-content: center;
@@ -55,6 +59,15 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = 
       }
     }
 
+    &.white {
+      background: var(--bw-white);
+      color: var(--semantic-primary);
+
+      &:hover {
+        background: var(--semantic-surface-alt-low);
+      }
+    }
+
     &.link {
       background: transparent;
       color: var(--semantic-secondary);
@@ -85,6 +98,22 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = 
       line-height: 150%;
     }
 
+    /* Solo ícono: botón cuadrado del alto del tamaño */
+    &.icon-only {
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    &.icon-only.md {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    &.icon-only.sm {
+      width: 2rem;
+      height: 2rem;
+    }
+
     /* Animations */
     &.animation-false {
       &:hover {
@@ -94,9 +123,19 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = 
   }
 </style>
 
-<a class="flex-row button" href={href} class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]} target={newPage === true ? "_blank" : "_self"} rel={newPage === true ? "noopener noreferrer" : undefined}>
-  {nameIcon && (
-    <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />
-  )}
-  {text}
+<a
+  class:list={[
+    "flex-row button",
+    type?.toLowerCase(),
+    size?.toLowerCase(),
+    `animation-${animation}`,
+    { "icon-only": iconOnly },
+  ]}
+  href={href}
+  aria-label={iconOnly ? text : undefined}
+  target={newPage === true ? "_blank" : "_self"}
+  rel={newPage === true ? "noopener noreferrer" : undefined}
+>
+  {nameIcon && <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />}
+  {!iconOnly && text}
 </a>
