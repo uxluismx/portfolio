@@ -96,23 +96,6 @@
     }
   }
 
-  /* En pantallas táctiles el :hover se queda "pegado" después de tocar y se mezcla con los estados
-     activo y copiado: ahí los botones conservan su fondo base (solo "copiado" cambia de color). Se usa también pointer: coarse
-     porque algunos navegadores móviles (Android) reportan hover: hover */
-  @media (hover: none), (pointer: coarse) {
-    :global(.code-btn.light) {
-      -webkit-tap-highlight-color: transparent;
-      transition: none;
-    }
-
-    /* Sin hover ni estado activo de "Ajustar": se ve igual que en reposo (el código ya muestra el cambio) */
-    :global(.code-btn.light:not(.copiado)),
-    :global(.code-btn.light:not(.copiado):hover) {
-      background: var(--semantic-surface-alt-low);
-      color: var(--semantic-primary);
-    }
-  }
-
   /* Un <code> con grid ignora los saltos de línea entre `.line`: no se duplica el interlineado */
   :global(.code-block code[class]) {
     display: grid;
