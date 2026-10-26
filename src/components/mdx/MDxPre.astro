@@ -96,6 +96,14 @@
     }
   }
 
+  /* En pantallas táctiles el :hover se queda "pegado" después de tocar y se mezcla con los estados
+     activo y copiado: ahí los botones conservan su fondo base */
+  @media (hover: none) {
+    :global(.code-btn.light:hover:not([aria-pressed="true"]):not(.copiado)) {
+      background: var(--semantic-surface-alt-low);
+    }
+  }
+
   /* Un <code> con grid ignora los saltos de línea entre `.line`: no se duplica el interlineado */
   :global(.code-block code[class]) {
     display: grid;
