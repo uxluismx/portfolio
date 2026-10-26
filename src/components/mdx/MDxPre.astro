@@ -22,9 +22,9 @@
     gap: 0.75rem;
     width: 100%;
     padding: 1rem;
-    border: var(--stroke-small) solid var(--semantic-border-medium);
+    border: var(--stroke-small) solid var(--semantic-border-low);
     border-radius: var(--radii-medium);
-    background: var(--semantic-surface-alt-low);
+    background: var(--bw-white);
   }
 
   :global(.code-head) {
@@ -56,9 +56,8 @@
     font-weight: var(--weight-medium);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--semantic-tertiary);
-    background: var(--semantic-surface);
-    border: var(--stroke-small) solid var(--semantic-border-medium);
+    color: var(--semantic-quaternary);
+    background: var(--semantic-surface-alt-low);
     border-radius: var(--radii-full);
     padding: 0.125rem 0.5rem;
   }
@@ -70,13 +69,13 @@
     flex-shrink: 0;
   }
 
-  /* La base viene de Button.astro (clases button white sm); aquí solo lo propio del bloque */
+  /* La base viene de Button.astro (clases button light sm); aquí solo lo propio del bloque */
   :global(.code-btn) {
     border: none;
     cursor: pointer;
 
     &[aria-pressed="true"] {
-      background: var(--semantic-primary);
+      background: var(--semantic-secondary);
       color: var(--bw-white);
     }
 
@@ -130,7 +129,7 @@
         width: 1.5rem;
         margin-right: 1rem;
         text-align: right;
-        color: var(--semantic-quaternary);
+        color: var(--gray-surface-900);
         user-select: none;
       }
 
@@ -145,11 +144,11 @@
         --astro-code-token-string-expression: var(--blue-200);
         --astro-code-token-constant: var(--blue-200);
         --astro-code-token-punctuation: var(--gray-surface-900);
-        --astro-code-token-comment: var(--gray-on-surface-50);
-        background: var(--semantic-primary);
+        --astro-code-token-comment: var(--gray-surface-900);
+        background: var(--semantic-secondary);
 
         &::before {
-          color: var(--gray-on-surface-50);
+          color: var(--gray-surface-900);
         }
       }
 

@@ -273,14 +273,14 @@ button {
        Paleta sobria: grises para la estructura y un solo acento (azul) para valores */
     --astro-code-foreground: var(--semantic-secondary);
     --astro-code-background: transparent;
-    --astro-code-token-keyword: var(--semantic-zero);
-    --astro-code-token-function: var(--semantic-zero);
+    --astro-code-token-keyword: var(--semantic-primary);
+    --astro-code-token-function: var(--semantic-primary);
     --astro-code-token-parameter: var(--semantic-secondary);
-    --astro-code-token-string: var(--blue-500);
-    --astro-code-token-string-expression: var(--blue-500);
-    --astro-code-token-constant: var(--blue-500);
-    --astro-code-token-punctuation: var(--semantic-quaternary);
-    --astro-code-token-comment: var(--gray-on-surface-50);
+    --astro-code-token-string: var(--blue-400);
+    --astro-code-token-string-expression: var(--blue-400);
+    --astro-code-token-constant: var(--blue-400);
+    --astro-code-token-punctuation: var(--gray-on-surface-50);
+    --astro-code-token-comment: var(--gray-surface-900);
     --astro-code-token-link: var(--blue-500);
 }
 

@@ -110,11 +110,11 @@ export function shikiBloquesCodigo() {
       const barra = el("div", { class: "code-head" }, [
         el("div", { class: "code-meta" }, info),
         el("div", { class: "code-actions" }, [
-          // Mismas clases que Button.astro (type="White", size="SM", iconOnly)
+          // Mismas clases que Button.astro (type="Light", size="SM", iconOnly)
           el(
             "button",
             {
-              class: "flex-row button white sm icon-only animation-false code-btn",
+              class: "flex-row button light sm icon-only animation-false code-btn",
               type: "button",
               "data-wrap": "",
               ariaPressed: "false",
@@ -126,7 +126,7 @@ export function shikiBloquesCodigo() {
           el(
             "button",
             {
-              class: "flex-row button white sm animation-false code-btn",
+              class: "flex-row button light sm animation-false code-btn",
               type: "button",
               "data-copy": "",
             },
