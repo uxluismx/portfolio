@@ -97,7 +97,7 @@
   }
 
   /* En pantallas táctiles el :hover se queda "pegado" después de tocar y se mezcla con los estados
-     activo y copiado: ahí los botones conservan su fondo base. Se usa también pointer: coarse
+     activo y copiado: ahí los botones conservan su fondo base (solo "copiado" cambia de color). Se usa también pointer: coarse
      porque algunos navegadores móviles (Android) reportan hover: hover */
   @media (hover: none), (pointer: coarse) {
     :global(.code-btn.light) {
@@ -105,8 +105,11 @@
       transition: none;
     }
 
-    :global(.code-btn.light:hover:not([aria-pressed="true"]):not(.copiado)) {
+    /* Sin hover ni estado activo de "Ajustar": se ve igual que en reposo (el código ya muestra el cambio) */
+    :global(.code-btn.light:not(.copiado)),
+    :global(.code-btn.light:not(.copiado):hover) {
       background: var(--semantic-surface-alt-low);
+      color: var(--semantic-primary);
     }
   }
 
