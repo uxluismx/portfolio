@@ -97,8 +97,14 @@
   }
 
   /* En pantallas táctiles el :hover se queda "pegado" después de tocar y se mezcla con los estados
-     activo y copiado: ahí los botones conservan su fondo base */
-  @media (hover: none) {
+     activo y copiado: ahí los botones conservan su fondo base. Se usa también pointer: coarse
+     porque algunos navegadores móviles (Android) reportan hover: hover */
+  @media (hover: none), (pointer: coarse) {
+    :global(.code-btn.light) {
+      -webkit-tap-highlight-color: transparent;
+      transition: none;
+    }
+
     :global(.code-btn.light:hover:not([aria-pressed="true"]):not(.copiado)) {
       background: var(--semantic-surface-alt-low);
     }
