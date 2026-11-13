@@ -72,12 +72,19 @@ const redesHeader = redes.filter((red) => red.header);
       class="flex-row header-profile stroke-medium shadow-medium"
       aria-label="Ir al inicio"
     >
-      <img src="/images/imageProfile.webp" alt="Foto de perfil de Luis Erick" width="40" height="40" />
+      <img
+        src="/images/imageProfile.webp"
+        alt="Foto de perfil de Luis Erick"
+        width="40"
+        height="40"
+      />
     </a>
     <span class="accent-smallest name">Luis Erick M.</span>
   </div>
   <nav class="flex-row header-nav" aria-label="Navegación principal: Redes sociales y CV">
-    {redesHeader.map((red) => <HeaderLink href={`${red.url}?${utm}`} text={red.name} />)}
+    {redesHeader.map((red) => (
+      <HeaderLink href={`${red.url}?${utm}`} text={red.name} />
+    ))}
     <HeaderLink href={CV_URL} text="CV" />
   </nav>
 </header>

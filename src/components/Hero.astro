@@ -44,28 +44,27 @@ const heroTransition = fadeUp(HERO_DELAY);
   }
 </style>
 
-<section class="flex-column hero-section" transition:name="page-hero" transition:animate={heroTransition}>
-  {
-    beforeContent && (
-      <div class="flex-row slot-before-content">
-        <slot name="beforeContent" />
-      </div>
-    )
-  }
+<section
+  class="flex-column hero-section"
+  transition:name="page-hero"
+  transition:animate={heroTransition}
+>
+  {beforeContent && (
+    <div class="flex-row slot-before-content">
+      <slot name="beforeContent" />
+    </div>
+  )}
   <div class="flex-column text-group">
     <h1 class="display-large">
-      <span class="accent-large">{accentTitle}</span><br />
+      <span class="accent-large">{accentTitle}</span>
+      <br />
       {title}
     </h1>
-    <p class="body-large">
-      {description}
-    </p>
+    <p class="body-large">{description}</p>
   </div>
-  {
-    afterContent && (
-      <div class="flex-column slot-after-content">
-        <slot name="afterContent" />
-      </div>
-    )
-  }
+  {afterContent && (
+    <div class="flex-column slot-after-content">
+      <slot name="afterContent" />
+    </div>
+  )}
 </section>

@@ -46,36 +46,34 @@ const { platform, mockupFile, businessName } = Astro.props;
 
 <div class="mockup-player flex-row stroke-xsmall">
   <div class="mockups-container">
-    {
-      platform === "Desktop" ? (
+    {platform === "Desktop" ? (
+      <img
+        class="mockup-ui desktop stroke-xsmall"
+        src={`/images/projects/${mockupFile}.webp`}
+        alt={`Mockup de escritorio del proyecto ${businessName}`}
+        loading="lazy"
+      />
+    ) : (
+      <>
         <img
-          class="mockup-ui desktop stroke-xsmall"
-          src={`/images/projects/${mockupFile}.webp`}
-          alt={`Mockup de escritorio del proyecto ${businessName}`}
+          class="mockup-ui mobile stroke-xsmall"
+          src={`/images/projects/${mockupFile}-01.webp`}
+          alt={`Mockup de la interfaz del proyecto ${businessName}`}
           loading="lazy"
         />
-      ) : (
-        <>
-          <img
-            class="mockup-ui mobile stroke-xsmall"
-            src={`/images/projects/${mockupFile}-01.webp`}
-            alt={`Mockup de la interfaz del proyecto ${businessName}`}
-            loading="lazy"
-          />
-          <img
-            class="mockup-ui mobile stroke-xsmall"
-            src={`/images/projects/${mockupFile}-02.webp`}
-            alt={`Mockup de la interfaz del proyecto ${businessName}`}
-            loading="lazy"
-          />
-          <img
-            class="mockup-ui mobile stroke-xsmall"
-            src={`/images/projects/${mockupFile}-03.webp`}
-            alt={`Mockup de la interfaz del proyecto ${businessName}`}
-            loading="lazy"
-          />
-        </>
-      )
-    }
+        <img
+          class="mockup-ui mobile stroke-xsmall"
+          src={`/images/projects/${mockupFile}-02.webp`}
+          alt={`Mockup de la interfaz del proyecto ${businessName}`}
+          loading="lazy"
+        />
+        <img
+          class="mockup-ui mobile stroke-xsmall"
+          src={`/images/projects/${mockupFile}-03.webp`}
+          alt={`Mockup de la interfaz del proyecto ${businessName}`}
+          loading="lazy"
+        />
+      </>
+    )}
   </div>
 </div>

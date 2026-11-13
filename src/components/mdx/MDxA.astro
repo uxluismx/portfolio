@@ -28,4 +28,6 @@ const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } 
   }
 </style>
 
-<a href={href} class="body-large bold" {...linkProps}><slot /></a>
+<a href={href} class="body-large bold" {...linkProps}>
+  <slot />
+</a>

@@ -35,7 +35,9 @@ const destacados = (await getProyectos()).filter((proyecto) => proyecto.starred)
   <!-- Sección de proyectos destacados -->
   <!-- Proyectos con `starred: true` en src/content/proyectos/ -->
   <div class="projects-group flex-column">
-    {destacados.map((proyecto) => <NewProjectCard {...proyecto} />)}
+    {destacados.map((proyecto) => (
+      <NewProjectCard {...proyecto} />
+    ))}
   </div>
 
   <!-- Sección de mi profesión -->
@@ -45,8 +47,10 @@ const destacados = (await getProyectos()).filter((proyecto) => proyecto.starred)
       cursos de UX Research y UI.
     </p>
     <p class="display-smallest color-quaternary">
-      <span class="accent-smallest color-primary">2020, 2021, 2022, 2023... ⏳</span><br />
-      Actualizándome y laborando en proyectos reales. SaaS, E-learning, Fintech, Social, y otros giros.
+      <span class="accent-smallest color-primary">2020, 2021, 2022, 2023... ⏳</span>
+      <br />
+      Actualizándome y laborando en proyectos reales. SaaS, E-learning, Fintech, Social, y otros
+      giros.
     </p>
     <p class="display-smallest color-quaternary">
       😉 Siempre he trabajado
@@ -60,11 +64,12 @@ const destacados = (await getProyectos()).filter((proyecto) => proyecto.starred)
     <BoxImageCombo />
     <p class="display-smallest color-quaternary">
       <span class="accent-smallest color-primary">Tengo 23 años, </span>
-      soy introvertido (INFJ) y disfruto mucho mi tiempo a solas. Crear proyectos es mi hobbie favorito.
-      💪🏼
+      soy introvertido (INFJ) y disfruto mucho mi tiempo a solas. Crear proyectos es mi hobbie
+      favorito. 💪🏼
     </p>
     <p class="display-smallest color-quaternary">
-      Me gusta ir de aventura y convivir en familia, mi viaje favorito es ir a la playita.<br />
+      Me gusta ir de aventura y convivir en familia, mi viaje favorito es ir a la playita.
+      <br />
       <span class="accent-smallest color-primary">En compañía es mejor 🏝️</span>
     </p>
     <p class="display-smallest color-quaternary">
@@ -80,7 +85,8 @@ const destacados = (await getProyectos()).filter((proyecto) => proyecto.starred)
         style="text-decoration: underline;"
         target="_blank"
         rel="noopener noreferrer"
-        >disponible en Spotify.
+      >
+        disponible en Spotify.
       </a>
     </p>
   </GridSection>

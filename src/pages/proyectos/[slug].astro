@@ -170,18 +170,16 @@ const schema = [
       />
     </div>
     <div slot="afterContent" class="flex-row" style="gap: 1rem;">
-      {
-        linkProps && (
-          <Button
-            href={data.externalLink!}
-            type="CTA"
-            size="MD"
-            text={linkProps.text}
-            nameIcon={linkProps.nameIcon}
-            newPage={true}
-          />
-        )
-      }
+      {linkProps && (
+        <Button
+          href={data.externalLink!}
+          type="CTA"
+          size="MD"
+          text={linkProps.text}
+          nameIcon={linkProps.nameIcon}
+          newPage={true}
+        />
+      )}
       <Button href="#blog-content" type="Light" size="MD" text="Seguir leyendo" />
     </div>
     <div class="flex-column" slot="afterContent">
@@ -192,9 +190,7 @@ const schema = [
       />
     </div>
     <div class="flex-column" slot="afterContent">
-      <hr
-        style="width: 100%; height: 0.25rem; background-color: var(--semantic-border-low); border: none; margin-block-start: 1.5rem; margin-block-end: 1rem;"
-      />
+      <hr style="width: 100%; height: 0.25rem; background-color: var(--semantic-border-low); border: none; margin-block-start: 1.5rem; margin-block-end: 1rem;" />
     </div>
   </Hero>
 

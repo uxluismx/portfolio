@@ -36,6 +36,8 @@ const schema = [
   />
   <!-- Un archivo por proyecto en src/content/proyectos/ (ordenados por `date`) -->
   <div class="projects-group flex-column">
-    {proyectos.map((proyecto) => <NewProjectCard {...proyecto} />)}
+    {proyectos.map((proyecto) => (
+      <NewProjectCard {...proyecto} />
+    ))}
   </div>
 </Layout>

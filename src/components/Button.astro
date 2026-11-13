@@ -1,5 +1,5 @@
 ---
-import IconWrapper from './IconWrapper.astro';
+import IconWrapper from "./IconWrapper.astro";
 
 interface Props {
   href: string;
@@ -24,8 +24,8 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = 
     transition: all 200ms ease-in-out;
 
     &:hover {
-        transform: translateY(-2px);
-      }
+      transform: translateY(-2px);
+    }
 
     /* Variants */
     &.cta {
@@ -94,9 +94,13 @@ const { type = "CTA", size = "MD", href, text, nameIcon, animation, newPage } = 
   }
 </style>
 
-<a class="flex-row button" href={href} class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]} target={newPage === true ? "_blank" : "_self"} rel={newPage === true ? "noopener noreferrer" : undefined}>
-  {nameIcon && (
-    <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />
-  )}
+<a
+  class="flex-row button"
+  href={href}
+  class:list={[type?.toLowerCase(), size?.toLowerCase(), `animation-${animation}`]}
+  target={newPage === true ? "_blank" : "_self"}
+  rel={newPage === true ? "noopener noreferrer" : undefined}
+>
+  {nameIcon && <IconWrapper name={nameIcon} size={size === "MD" ? "20" : "16"} />}
   {text}
 </a>
