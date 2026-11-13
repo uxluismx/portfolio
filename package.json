@@ -16,12 +16,12 @@
     "@astrojs/mdx": "^8.1.6",
     "@astrojs/sitemap": "^3.7.5",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
+    "@vercel/speed-insights": "^2.1.0",
     "astro": "^7.4.12",
     "astro-cloudinary": "^1.4.0"
   },
   "devDependencies": {
-    "prettier": "^3.9.10",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier": "^3.10.1",
+    "prettier-plugin-astro": "^1.1.2"
   }
 }
