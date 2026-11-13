@@ -1,7 +1,7 @@
 # Portafolio de Luis Erick
 
 Portafolio personal (diseñador UX/UI) con una sección de casos de estudio escritos en MDX.
-Astro 6 con salida estática, MDX (`@astrojs/mdx`), imágenes en Cloudinary (`astro-cloudinary`),
+Astro 7 con salida estática, MDX (`@astrojs/mdx`), imágenes en Cloudinary (`astro-cloudinary`),
 Vercel Analytics y Speed Insights. El deploy a Vercel es automático al hacer push a `master`.
 El contenido y los comentarios del código están en español.
 
@@ -77,7 +77,9 @@ El contenido y los comentarios del código están en español.
 - `src/components/mdx/MDx*.astro`: sustituyen los elementos HTML del MDX para aplicarles las
   clases de `global.css`. Se conectan en el prop `components` de `<Content />` en `[slug].astro`.
 - `src/plugins/remark-cloudinary-images.mjs`: convierte `![alt](publicId)` en `<img>` JSX. Se registra en
-  `mdx({ remarkPlugins })` de `astro.config.mjs` (no en `markdown.remarkPlugins`, que está deprecado).
+  `mdx({ processor: unified({ remarkPlugins }) })` de `astro.config.mjs` (`unified` viene de `@astrojs/markdown-remark`).
+  Desde Astro 7 el procesador por defecto (Sätteri) ignora los plugins remark: sin `unified()` el build falla
+  porque el `publicId` se interpreta como un import.
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
   una página nueva, agregarla ahí) y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.
@@ -168,7 +170,8 @@ Detectados en la revisión del 2026-10-21. Quitar de la lista lo que se resuelva
   es una imagen diseñada de 1200×630 px y pasar a `largeImage` por defecto.
 - Bloques de código del MDX (`MDxPre`, `MDxCode`) sin diseño final.
 - Modo oscuro comentado en `global.css`.
-- Dependencias: Astro 7 y `@astrojs/mdx` 8 son versiones mayores pendientes. Deben ir en su propia rama.
+- `astro-cloudinary` 1.4 declara soporte solo hasta Astro 5 (peer dependency). Funciona gracias a `legacy-peer-deps`;
+  revisar si sale una versión compatible.
 
 ## Mantenimiento de este archivo
 
