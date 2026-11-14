@@ -50,7 +50,6 @@ const id = `max-img-${Math.random().toString(36).slice(2, 11)}`;
     transition: var(--transition-custom);
 
     &:hover {
-      filter: brightness(1.1);
       transform: scale(1.01);
     }
   }
@@ -64,20 +63,32 @@ const id = `max-img-${Math.random().toString(36).slice(2, 11)}`;
     transition: var(--transition-custom);
   }
 
-  /* display: none mientras está cerrado para que la imagen grande (lazy) no se descargue */
+  /*
+   * <dialog> abierto con showModal(): se dibuja en el top layer, por encima del header
+   * y fuera del contexto de apilamiento del <article> (que crea su view-transition-name).
+   * Cerrado, el navegador le aplica display: none, así la imagen grande (lazy) no se descarga.
+   */
   .max-overlay {
     position: fixed;
     inset: 0;
-    display: none;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: none;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.88);
-    z-index: 9999;
     padding: 1rem;
     backdrop-filter: blur(2px);
     cursor: zoom-out;
 
-    &.open {
+    &::backdrop {
+      background: transparent;
+    }
+
+    &[open] {
       display: flex;
       animation: fadeInOverlay 200ms ease forwards;
 
@@ -144,20 +155,14 @@ const id = `max-img-${Math.random().toString(36).slice(2, 11)}`;
     <CldImage src={src} alt={alt} width={thumbWidth} loading="lazy" class="thumb" />
   </button>
 
-  <div
-    class="max-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-label={alt || "Imagen maximizada"}
-    aria-hidden="true"
-  >
+  <dialog class="max-overlay" aria-label={alt || "Imagen maximizada"}>
     <button class="close-button" type="button" aria-label="Cerrar imagen">
       <IconWrapper name="cross" size={24} />
     </button>
     <div class="overlay-container">
       <CldImage src={src} alt={alt} width={width} loading="lazy" class="full-image" />
     </div>
-  </div>
+  </dialog>
 </div>
 
 <script define:vars={{ id }}>
@@ -170,31 +175,21 @@ const id = `max-img-${Math.random().toString(36).slice(2, 11)}`;
     const close = container.querySelector(".close-button");
     if (!btn || !overlay || !close) return;
 
-    function onKeydown(e) {
-      if (e.key === "Escape") closeFn();
-    }
-
-    function open() {
-      overlay.setAttribute("aria-hidden", "false");
-      overlay.classList.add("open");
+    // showModal() maneja Escape, el foco dentro del diálogo y devolverlo al botón al cerrar
+    btn.addEventListener("click", () => {
+      overlay.showModal();
       document.body.style.overflow = "hidden";
-      document.addEventListener("keydown", onKeydown);
       close.focus();
-    }
+    });
 
-    function closeFn() {
-      overlay.setAttribute("aria-hidden", "true");
-      overlay.classList.remove("open");
+    // Se dispara al cerrar por cualquier vía (click o Escape)
+    overlay.addEventListener("close", () => {
       document.body.style.overflow = "";
-      document.removeEventListener("keydown", onKeydown);
-      btn.focus();
-    }
-
-    btn.addEventListener("click", open);
+    });
 
     // Cerrar al hacer click fuera de la imagen (incluye el botón de cerrar)
     overlay.addEventListener("click", (e) => {
-      if (e.target.tagName !== "IMG") closeFn();
+      if (e.target.tagName !== "IMG") overlay.close();
     });
   }
 
