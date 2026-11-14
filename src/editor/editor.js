@@ -12,6 +12,7 @@ const API = "/__editor/api";
 const ESPERA_GUARDADO = 700; // ms sin escribir antes de guardar
 const CLAVE_PROYECTO = "editor-local:proyecto";
 const CLAVE_ANCHO = "editor-local:ancho";
+const CLAVE_AUTOGUARDADO = "editor-local:autoguardado";
 
 const $ = (id) => document.getElementById(id);
 const ui = {
@@ -19,6 +20,7 @@ const ui = {
   archivo: $("archivo"),
   estado: $("estado"),
   guardar: $("guardar"),
+  autoguardado: $("autoguardado"),
   abrir: $("abrir"),
   conflicto: $("conflicto"),
   recargar: $("recargar"),
@@ -118,8 +120,12 @@ function reemplazarDocumento(texto) {
 
 function programarGuardado() {
   if (estado.conflicto) return;
-  mostrarEstado("Sin guardar", "pendiente");
   clearTimeout(estado.temporizador);
+  if (!ui.autoguardado.checked) {
+    mostrarEstado("Sin guardar · ⌘S para guardar", "pendiente");
+    return;
+  }
+  mostrarEstado("Sin guardar", "pendiente");
   estado.temporizador = setTimeout(guardar, ESPERA_GUARDADO);
 }
 
@@ -288,6 +294,13 @@ ui.preview.addEventListener("load", () => {
 
 ui.proyecto.addEventListener("change", () => cargarProyecto(ui.proyecto.value));
 ui.guardar.addEventListener("click", () => guardar());
+
+// Autoguardado: la preferencia se recuerda; al encenderlo se guarda lo que esté pendiente
+ui.autoguardado.checked = leerLocal(CLAVE_AUTOGUARDADO) !== "0";
+ui.autoguardado.addEventListener("change", () => {
+  escribirLocal(CLAVE_AUTOGUARDADO, ui.autoguardado.checked ? "1" : "0");
+  if (hayCambios()) programarGuardado();
+});
 
 ui.recargar.addEventListener("click", () => {
   estado.conflicto = false;

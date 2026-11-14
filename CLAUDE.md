@@ -83,7 +83,8 @@ El contenido y los comentarios del código están en español.
   porque el `publicId` se interpreta como un import.
 - **Editor local** (`src/editor/`): CodeMirror con el `.md`/`.mdx` de un proyecto a la izquierda y su página
   a la derecha (`?slug=` elige el proyecto). Guarda solo en el archivo tras una pausa al escribir (o con ⌘S)
-  y Astro recarga el preview, que conserva el scroll.
+  y Astro recarga el preview, que conserva el scroll. El toggle "Autoguardado" de la barra lo apaga (se recuerda
+  en `localStorage`); apagado, solo guarda con ⌘S o el botón Guardar.
   - Es un plugin de Vite (`vite-plugin-editor.mjs`, registrado en `vite.plugins` de `astro.config.mjs`) con
     `apply: "serve"`: solo existe con `npm run dev` y no llega al build. CodeMirror está en `devDependencies`.
   - La API (`/__editor/api/...`) exige el header `X-Editor-Local: 1` para que otra página no pueda escribir archivos.

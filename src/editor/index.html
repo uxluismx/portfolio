@@ -18,6 +18,14 @@
         <span id="archivo" class="archivo"></span>
       </div>
       <div class="barra-grupo">
+        <label
+          class="interruptor"
+          title="Guarda solo tras una pausa al escribir. Apagado, guarda con ⌘S o el botón Guardar."
+        >
+          <input id="autoguardado" type="checkbox" role="switch" checked />
+          <span class="interruptor-pista" aria-hidden="true"></span>
+          <span>Autoguardado</span>
+        </label>
         <span id="estado" class="estado" role="status" aria-live="polite"> Cargando… </span>
         <button id="guardar" type="button" class="boton" title="Guardar (⌘S)">Guardar</button>
         <a id="abrir" class="boton" target="_blank" rel="noopener"> Abrir página ↗ </a>
