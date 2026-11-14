@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Editor local</title>
+    <link rel="stylesheet" href="/src/editor/editor.css" />
+  </head>
+  <body>
+    <header class="barra">
+      <div class="barra-grupo">
+        <strong class="marca">Editor local</strong>
+        <label class="selector">
+          <span class="visualmente-oculto">Proyecto</span>
+          <select id="proyecto" aria-label="Proyecto"></select>
+        </label>
+        <span id="archivo" class="archivo"></span>
+      </div>
+      <div class="barra-grupo">
+        <span id="estado" class="estado" role="status" aria-live="polite"> Cargando… </span>
+        <button id="guardar" type="button" class="boton" title="Guardar (⌘S)">Guardar</button>
+        <a id="abrir" class="boton" target="_blank" rel="noopener"> Abrir página ↗ </a>
+      </div>
+    </header>
+
+    <div id="conflicto" class="aviso" hidden>
+      <span>El archivo cambió fuera del editor (por ejemplo, en VS Code).</span>
+      <button id="recargar" type="button" class="boton">Cargar la versión del disco</button>
+      <button id="sobrescribir" type="button" class="boton boton-peligro">
+        Sobrescribir con lo de aquí
+      </button>
+    </div>
+
+    <main id="paneles" class="paneles">
+      <section class="panel" aria-label="Contenido MDX">
+        <div id="editor" class="editor"></div>
+      </section>
+      <div
+        id="divisor"
+        class="divisor"
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Cambiar el ancho de los paneles"
+        tabindex="0"
+      ></div>
+      <section class="panel" aria-label="Vista previa">
+        <iframe id="preview" class="preview" title="Vista previa del proyecto"></iframe>
+      </section>
+    </main>
+
+    <script type="module" src="/src/editor/editor.js"></script>
+  </body>
+</html>

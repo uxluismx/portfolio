@@ -5,6 +5,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { remarkCloudinaryImages } from './src/plugins/remark-cloudinary-images.mjs';
+import { editorLocal } from './src/editor/vite-plugin-editor.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,4 +18,8 @@ export default defineConfig({
     mdx({ processor: unified({ remarkPlugins: [remarkCloudinaryImages] }) }),
     sitemap(),
   ],
+  vite: {
+    // Editor local en /__editor/ (solo con `npm run dev`, ver src/editor/)
+    plugins: [editorLocal()],
+  },
 });

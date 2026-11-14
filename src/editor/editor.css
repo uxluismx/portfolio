@@ -1,0 +1,195 @@
+/* Estilos del editor local (solo en desarrollo, no usa global.css del sitio) */
+
+:root {
+  --fondo: #f4f4f2;
+  --superficie: #ffffff;
+  --borde: #e2e2de;
+  --texto: #1d1d1b;
+  --texto-suave: #6b6b66;
+  --acento: #2f5bea;
+  --ok: #1f8a4c;
+  --alerta: #b5560f;
+  --peligro: #c2352b;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--fondo);
+  color: var(--texto);
+  font:
+    14px/1.4 system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+}
+
+.barra-grupo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.marca {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.archivo {
+  color: var(--texto-suave);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+select,
+.boton {
+  font: inherit;
+  color: inherit;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0.3rem 0.65rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--texto-suave);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 1px;
+  }
+}
+
+.boton-peligro {
+  color: var(--peligro);
+}
+
+.estado {
+  color: var(--texto-suave);
+  white-space: nowrap;
+
+  &[data-tipo="ok"] {
+    color: var(--ok);
+  }
+
+  &[data-tipo="pendiente"] {
+    color: var(--alerta);
+  }
+
+  &[data-tipo="error"] {
+    color: var(--peligro);
+  }
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #fff4e5;
+  border-bottom: 1px solid #f0d2a8;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.paneles {
+  --ancho-editor: 50%;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: var(--ancho-editor) 6px 1fr;
+}
+
+.panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
+.editor {
+  flex: 1;
+  min-width: 0;
+  background: var(--superficie);
+
+  .cm-editor {
+    height: 100%;
+    font-size: 14px;
+  }
+
+  .cm-scroller {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    line-height: 1.6;
+  }
+
+  .cm-content {
+    padding-block: 1rem;
+    max-width: 80ch;
+  }
+
+  .cm-editor.cm-focused {
+    outline: none;
+  }
+}
+
+.divisor {
+  background: var(--borde);
+  cursor: col-resize;
+  touch-action: none;
+
+  &:hover,
+  &:focus-visible,
+  &.arrastrando {
+    background: var(--acento);
+    outline: none;
+  }
+}
+
+.preview {
+  flex: 1;
+  border: 0;
+  background: var(--superficie);
+}
+
+/* Mientras se arrastra el divisor, el iframe no debe capturar el mouse */
+.paneles.arrastrando .preview {
+  pointer-events: none;
+}

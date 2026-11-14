@@ -53,6 +53,7 @@ El contenido y los comentarios del código están en español.
 ## Comandos
 
 - `npm run dev`: servidor local en http://localhost:4321
+  - Editor local de proyectos en http://localhost:4321/__editor/ (ver "Editor local" en el mapa).
 - `npm run build`: build estático a `dist/`. Es la forma rápida de validar un cambio.
   Localmente también genera las páginas de los borradores ignorados (por ejemplo `/proyectos/eleventa-6-app`);
   en Vercel no existen porque el archivo no está en el repo.
@@ -80,6 +81,15 @@ El contenido y los comentarios del código están en español.
   `mdx({ processor: unified({ remarkPlugins }) })` de `astro.config.mjs` (`unified` viene de `@astrojs/markdown-remark`).
   Desde Astro 7 el procesador por defecto (Sätteri) ignora los plugins remark: sin `unified()` el build falla
   porque el `publicId` se interpreta como un import.
+- **Editor local** (`src/editor/`): CodeMirror con el `.md`/`.mdx` de un proyecto a la izquierda y su página
+  a la derecha (`?slug=` elige el proyecto). Guarda solo en el archivo tras una pausa al escribir (o con ⌘S)
+  y Astro recarga el preview, que conserva el scroll.
+  - Es un plugin de Vite (`vite-plugin-editor.mjs`, registrado en `vite.plugins` de `astro.config.mjs`) con
+    `apply: "serve"`: solo existe con `npm run dev` y no llega al build. CodeMirror está en `devDependencies`.
+  - La API (`/__editor/api/...`) exige el header `X-Editor-Local: 1` para que otra página no pueda escribir archivos.
+  - Si el archivo cambia fuera del editor (VS Code), lo recarga solo; si además hay texto sin guardar, muestra
+    un aviso de conflicto en lugar de sobrescribir.
+  - La página del editor se sirve sin el cliente de HMR a propósito: si lo tuviera, se recargaría sola al guardar.
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
   una página nueva, agregarla ahí) y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.
