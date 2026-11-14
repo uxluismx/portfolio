@@ -2,7 +2,7 @@
 
 Portafolio personal (diseñador UX/UI) con una sección de casos de estudio escritos en MDX.
 Astro 7 con salida estática, MDX (`@astrojs/mdx`), imágenes en Cloudinary (`astro-cloudinary`),
-Vercel Analytics y Speed Insights. El deploy a Vercel es automático al hacer push a `master`.
+Vercel Analytics y Speed Insights. El deploy a Vercel es automático al hacer push a `main`.
 El contenido y los comentarios del código están en español.
 
 ## Reglas de colaboración (Erick)
@@ -12,7 +12,7 @@ El contenido y los comentarios del código están en español.
 - Erick lleva la batuta. Ante dudas puntuales o decisiones importantes, preguntarle (responde rápido).
 - **Funcionalidades y mejoras, aunque sean pequeñas o medianas: proponer siempre una rama nueva**
   (`feat/...`, `fix/...`, `refactor/...`, `docs/...`, `chore/...`) antes de empezar. Nada llega a
-  `master` a medias: cada cambio debe estar completo y validado (build + preview de Vercel) antes de producción.
+  `main` a medias: cada cambio debe estar completo y validado (build + preview de Vercel) antes de producción.
 - **Mejoras proactivas**: si algo es claramente mejorable y no rompe nada importante, aplicarlo sin
   pedir permiso (dentro de la rama de trabajo) y mencionarlo en el resumen.
 - Comunicación, commits y comentarios del código en español.
@@ -28,17 +28,17 @@ El contenido y los comentarios del código están en español.
 
 - Cuando el usuario diga **"sube los cambios"**, significa: agrupar los cambios en commits
   organizados por tema (formato `tipo: descripción` en español, por ejemplo `fix:`, `feat:`, `docs:`)
-  y hacer push a `origin/master`. El push publica en producción (Vercel). Si se está trabajando en
-  una rama, "sube los cambios" significa push de esa rama (preview), no de `master`.
+  y hacer push a `origin/main`. El push publica en producción (Vercel). Si se está trabajando en
+  una rama, "sube los cambios" significa push de esa rama (preview), no de `main`.
 - **Ramas de prueba**: para cambios que el usuario quiera validar antes de producción, crear una
-  rama desde `master` (`feat/...`, `fix/...`) y hacer push de la rama. Vercel genera un preview.
+  rama desde `main` (`feat/...`, `fix/...`) y hacer push de la rama. Vercel genera un preview.
   La URL se obtiene con `gh api repos/uxluismx/portfolio/deployments` y luego `.../deployments/{id}/statuses`.
 - **Al hacer merge de una rama**, completar todo el ciclo sin que el usuario lo pida por partes:
   1. Confirmar que la rama no tiene cambios pendientes y que `npm run build` pasa.
-  2. `git fetch --prune`, cambiar a `master` y ejecutar `git pull --ff-only`.
+  2. `git fetch --prune`, cambiar a `main` y ejecutar `git pull --ff-only`.
   3. `git merge --ff-only <rama>`. Si no se puede por fast-forward, usar `git merge --no-ff`
-     (nunca rebase ni force-push sobre `master`).
-  4. Hacer push de `master`, lo que publica en producción.
+     (nunca rebase ni force-push sobre `main`).
+  4. Hacer push de `main`, lo que publica en producción.
   5. Borrar la rama local (`git branch -d`) y la remota (`git push origin --delete <rama>`), y
      luego `git fetch --prune`.
   6. Verificar que el deploy de producción en Vercel terminó bien (`gh api .../commits/<sha>/statuses`)
