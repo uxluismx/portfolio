@@ -57,6 +57,7 @@ export function editorLocal() {
         optimizeDeps: {
           include: [
             "codemirror",
+            "@codemirror/autocomplete",
             "@codemirror/lang-markdown",
             "@codemirror/lang-yaml",
             "@codemirror/state",

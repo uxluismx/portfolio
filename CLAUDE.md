@@ -90,6 +90,9 @@ El contenido y los comentarios del código están en español.
   - Si el archivo cambia fuera del editor (VS Code), lo recarga solo; si además hay texto sin guardar, muestra
     un aviso de conflicto en lugar de sobrescribir.
   - La página del editor se sirve sin el cliente de HMR a propósito: si lo tuviera, se recargaría sola al guardar.
+  - Al escribir `/` (al inicio de línea o tras un espacio) aparece un menú de comandos tipo Notion que inserta
+    la sintaxis MDX del sitio. Los comandos, sus plantillas (snippets de CodeMirror, Tab salta entre campos)
+    y el estilo del menú están en `src/editor/comandos.js`.
 - `src/layout/Layout.astro`: layout único. Props: `title`, `isActive` (tipo `PaginaActiva` en `src/types.ts`; al crear
   una página nueva, agregarla ahí) y `navbar` (con `false` se oculta el navbar).
   Incluye `<ClientRouter />`, que activa las view transitions.

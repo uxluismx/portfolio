@@ -6,6 +6,7 @@ import { EditorView, basicSetup } from "codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import { yamlFrontmatter } from "@codemirror/lang-yaml";
 import { Annotation } from "@codemirror/state";
+import { comandos } from "./comandos.js";
 
 const API = "/__editor/api";
 const ESPERA_GUARDADO = 700; // ms sin escribir antes de guardar
@@ -88,6 +89,8 @@ const vista = new EditorView({
     // El frontmatter (entre ---) se resalta como YAML y el resto como Markdown
     yamlFrontmatter({ content: markdown() }),
     EditorView.lineWrapping,
+    // Menú de comandos al escribir "/"
+    comandos,
     EditorView.updateListener.of((update) => {
       if (update.docChanged && !update.transactions.some((t) => t.annotation(cargaDesdeDisco))) {
         programarGuardado();
