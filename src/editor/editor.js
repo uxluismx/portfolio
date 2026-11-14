@@ -10,6 +10,7 @@ import { comandos } from "./comandos.js";
 
 const API = "/__editor/api";
 const ESPERA_GUARDADO = 700; // ms sin escribir antes de guardar
+const ESPERA_BORRADOR = 400; // ms sin escribir antes de actualizar la vista previa sin guardar
 const CLAVE_PROYECTO = "editor-local:proyecto";
 const CLAVE_ANCHO = "editor-local:ancho";
 const CLAVE_AUTOGUARDADO = "editor-local:autoguardado";
@@ -39,6 +40,8 @@ const estado = {
   guardando: null, // promesa del guardado en curso
   conflicto: false,
   scrollPreview: 0,
+  borrador: false, // el servidor tiene texto sin guardar de este proyecto para la vista previa
+  temporizadorBorrador: 0,
 };
 
 // ---------- Utilidades ----------
@@ -96,6 +99,7 @@ const vista = new EditorView({
     EditorView.updateListener.of((update) => {
       if (update.docChanged && !update.transactions.some((t) => t.annotation(cargaDesdeDisco))) {
         programarGuardado();
+        programarBorrador();
       }
     }),
   ],
@@ -148,6 +152,7 @@ async function guardar({ forzar = false } = {}) {
       estado.mtime = datos.mtime;
       estado.guardado = contenido;
       estado.conflicto = false;
+      estado.borrador = false; // el servidor descarta el borrador al guardar
       ui.conflicto.hidden = true;
       // Si se siguió escribiendo mientras se guardaba, queda pendiente otro guardado
       if (hayCambios()) programarGuardado();
@@ -168,12 +173,44 @@ async function guardar({ forzar = false } = {}) {
   }
 }
 
+// ---------- Vista previa sin guardar ----------
+// Con el autoguardado apagado, el texto se manda al servidor (sin escribir el archivo) para que el
+// preview muestre los cambios. Con el autoguardado encendido no hace falta: se guarda enseguida.
+
+function programarBorrador() {
+  clearTimeout(estado.temporizadorBorrador);
+  if (ui.autoguardado.checked || estado.conflicto) return;
+  estado.temporizadorBorrador = setTimeout(enviarBorrador, ESPERA_BORRADOR);
+}
+
+async function enviarBorrador() {
+  if (!estado.slug || ui.autoguardado.checked) return;
+  // Si se deshicieron los cambios, el preview vuelve a la versión del disco
+  if (!hayCambios()) return descartarBorrador();
+  const { status } = await api(`/borrador?slug=${encodeURIComponent(estado.slug)}`, {
+    method: "POST",
+    body: JSON.stringify({ contenido: contenidoActual() }),
+  });
+  if (status === 200) estado.borrador = true;
+}
+
+async function descartarBorrador({ slug = estado.slug, alSalir = false } = {}) {
+  clearTimeout(estado.temporizadorBorrador);
+  if (!slug) return;
+  estado.borrador = false;
+  // keepalive: la petición sigue aunque la página se esté cerrando
+  await api(`/borrador?slug=${encodeURIComponent(slug)}`, { method: "DELETE", keepalive: alSalir });
+}
+
 // ---------- Carga de proyectos ----------
 
 async function cargarProyecto(slug) {
   if (estado.slug && hayCambios()) await guardar();
+  if (estado.borrador) await descartarBorrador();
 
   mostrarEstado("Cargando…");
+  // Por si quedó un borrador de una sesión anterior del editor: el preview debe mostrar el disco
+  await descartarBorrador({ slug });
   const { status, datos } = await api(`/file?slug=${encodeURIComponent(slug)}`);
   if (status !== 200) {
     mostrarEstado(`No se pudo abrir: ${datos.error ?? status}`, "error");
@@ -317,6 +354,11 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
     guardar();
   }
+});
+
+// Al cerrar el editor, el preview del sitio vuelve a mostrar lo que hay en disco
+window.addEventListener("pagehide", () => {
+  if (estado.borrador) descartarBorrador({ alSalir: true });
 });
 
 window.addEventListener("beforeunload", (e) => {

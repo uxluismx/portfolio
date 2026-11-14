@@ -6,6 +6,12 @@
 //   GET  /__editor/api/files       → lista de proyectos editables
 //   GET  /__editor/api/file?slug=x → contenido y fecha de modificación del archivo
 //   PUT  /__editor/api/file?slug=x → guarda el contenido (409 si cambió por fuera)
+//   POST   /__editor/api/borrador?slug=x → vista previa con texto sin guardar
+//   DELETE /__editor/api/borrador?slug=x → descarta esa vista previa
+//
+// Borradores: el texto sin guardar se queda en memoria y el hook `load` se lo entrega a Astro en
+// lugar del archivo, así el preview muestra los cambios sin escribir en disco. Solo aplica al
+// cuerpo: el frontmatter (título, descripción…) Astro lo lee del disco y se ve al guardar.
 
 import { readFile, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -16,6 +22,18 @@ const SLUG_VALIDO = /^[a-z0-9][a-z0-9-]*$/;
 export function editorLocal() {
   let dirProyectos = "";
   let dirEditor = "";
+  let servidor = null;
+  /** Texto sin guardar por ruta de archivo. */
+  const borradores = new Map();
+
+  /** Hace que Astro vuelva a cargar el archivo y recargue las páginas abiertas. */
+  function avisarCambio(ruta) {
+    servidor?.watcher.emit("change", ruta);
+  }
+
+  function descartarBorrador(ruta) {
+    if (borradores.delete(ruta)) avisarCambio(ruta);
+  }
 
   /** Ruta del archivo del proyecto (.mdx o .md), o null si no existe o el slug no es válido. */
   async function rutaProyecto(slug) {
@@ -49,6 +67,13 @@ export function editorLocal() {
   return {
     name: "editor-local",
     apply: "serve",
+    // Antes que los demás plugins, para que `load` entregue el borrador en lugar del archivo
+    enforce: "pre",
+
+    load(id) {
+      const ruta = id.split("?")[0];
+      if (borradores.has(ruta)) return borradores.get(ruta);
+    },
 
     // Pre-empaquetar CodeMirror al arrancar evita que Vite lo descubra al abrir el editor
     // y recargue la página a mitad de la carga.
@@ -72,6 +97,7 @@ export function editorLocal() {
     },
 
     configureServer(server) {
+      servidor = server;
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url ?? "/", "http://localhost");
         if (url.pathname !== RAIZ && !url.pathname.startsWith(RAIZ + "/")) return next();
@@ -125,9 +151,31 @@ export function editorLocal() {
               if (typeof mtime === "number" && Math.abs(actual.mtimeMs - mtime) > 1) {
                 return enviarJson(res, 409, { error: "El archivo cambió fuera del editor" });
               }
+              // Al guardar, el borrador sobra: el cambio del archivo recarga el preview por sí solo
+              borradores.delete(ruta);
               await writeFile(ruta, contenido, "utf8");
               const nuevo = await stat(ruta);
               return enviarJson(res, 200, { mtime: nuevo.mtimeMs });
+            }
+          }
+
+          if (url.pathname === RAIZ + "/api/borrador") {
+            const ruta = await rutaProyecto(url.searchParams.get("slug"));
+            if (!ruta) return enviarJson(res, 404, { error: "No existe ese proyecto" });
+
+            if (req.method === "POST") {
+              const { contenido } = JSON.parse(await leerCuerpo(req));
+              if (typeof contenido !== "string") {
+                return enviarJson(res, 400, { error: "Falta el contenido" });
+              }
+              borradores.set(ruta, contenido);
+              avisarCambio(ruta);
+              return enviarJson(res, 200, { ok: true });
+            }
+
+            if (req.method === "DELETE") {
+              descartarBorrador(ruta);
+              return enviarJson(res, 200, { ok: true });
             }
           }
 

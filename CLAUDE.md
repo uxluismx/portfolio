@@ -85,6 +85,12 @@ El contenido y los comentarios del código están en español.
   a la derecha (`?slug=` elige el proyecto). Guarda solo en el archivo tras una pausa al escribir (o con ⌘S)
   y Astro recarga el preview, que conserva el scroll. El toggle "Autoguardado" de la barra lo apaga (se recuerda
   en `localStorage`); apagado, solo guarda con ⌘S o el botón Guardar.
+  - Vista previa sin guardar: con el autoguardado apagado, el editor manda el texto a `/__editor/api/borrador` y
+    el plugin lo guarda en memoria. Su hook `load` (por eso el plugin lleva `enforce: "pre"`) se lo entrega a Astro
+    en lugar del archivo, y `watcher.emit("change")` recarga el preview. Solo aplica al cuerpo: el frontmatter
+    Astro lo lee del disco, así que sus cambios se ven al guardar. El borrador se descarta al guardar, al deshacer
+    todos los cambios, al abrir el proyecto y al cerrar el editor.
+  - Cambios en `vite-plugin-editor.mjs` no siempre reinician el servidor: reiniciar `npm run dev` a mano.
   - Es un plugin de Vite (`vite-plugin-editor.mjs`, registrado en `vite.plugins` de `astro.config.mjs`) con
     `apply: "serve"`: solo existe con `npm run dev` y no llega al build. CodeMirror está en `devDependencies`.
   - La API (`/__editor/api/...`) exige el header `X-Editor-Local: 1` para que otra página no pueda escribir archivos.
